@@ -12,3 +12,12 @@ Use vectors of handwritten drawings to create interactive data visualisations - 
 
 A place to publish lessons learned.
 
+## Roadmap
+
+[] - Add prettier, [eslint](https://ota-meshi.github.io/eslint-plugin-astro/user-guide/), husky etc
+[] - Add CSS Reset using `<style is:global>`
+[] - Start to make components (using [sass modules](https://docs.astro.build/en/guides/styling/#-react--preact))
+[] - Darkmode toggle switch
+[] - Deploy to Netlify
+[] - Import fonts using [FontSource](https://fontsource.org/docs/variable-fonts)
+[] - Define Modular Scale

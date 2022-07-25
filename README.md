@@ -16,8 +16,9 @@ A place to publish lessons learned.
 
 [x] - Add prettier, [eslint](https://ota-meshi.github.io/eslint-plugin-astro/user-guide/), husky etc
 [x] - Add CSS Reset using `<style is:global>`
-[ ] - Start to make components (using [sass modules](https://docs.astro.build/en/guides/styling/#-react--preact))
+[x] - Define Modular Scale
+[x] - Start to make components
 [ ] - Create a blog post on Islands Architecture
 [ ] - Import fonts using [FontSource](https://fontsource.org/docs/variable-fonts)
-[ ] - Define Modular Scale
 [ ] - Deploy to Netlify
+[ ] - Control Icon size with font-size: [Andy Bell](https://archive.hankchizljaw.com/links/121/)

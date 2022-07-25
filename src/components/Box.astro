@@ -1,0 +1,16 @@
+---
+export interface Props {
+  padding?: string;
+}
+
+const { padding = "var(--s1)" } = Astro.props as Props;
+---
+
+<style define:vars={{ padding }}>
+  .box {
+    display: block;
+    padding: var(--padding);
+  }
+</style>
+
+<div class="box"><slot /></div>

@@ -16,11 +16,26 @@ const { title } = Astro.props as Props;
   </head>
   <body>
     <slot />
-    <style>
+    <style is:global>
       :root {
+        /* colour palette */
         --color-foreground: #2c363f;
         --color-background: #fef9ef;
         --color-highlight: #ffad33;
+        --color-error: #c1292e;
+        --color-incidental: #0496ff;
+
+        /* typography */
+        --measure: 60ch;
+
+        /* modular scale */
+        --ratio: 1.5;
+        --s0: 1rem;
+        --s1: calc(var(--s0) * var(--ratio));
+        --s2: calc(var(--s1) * var(--ratio));
+        --s3: calc(var(--s2) * var(--ratio));
+        --s4: calc(var(--s3) * var(--ratio));
+        --s5: calc(var(--s4) * var(--ratio));
       }
 
       html {
@@ -36,15 +51,29 @@ const { title } = Astro.props as Props;
 
       * {
         margin: 0;
+        max-inline-size: var(--measure);
       }
+
+      html,
+      body,
+      div,
+      header,
+      nav,
+      main,
+      footer {
+        max-inline-size: none;
+      }
+
       html,
       body {
         height: 100%;
       }
+
       body {
         line-height: 1.5;
         -webkit-font-smoothing: antialiased;
       }
+
       img,
       picture,
       video,

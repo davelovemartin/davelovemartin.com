@@ -1,0 +1,26 @@
+<style is:global>
+  .cover {
+    display: flex;
+    flex-direction: column;
+    min-block-size: 100vh;
+    padding: 1rem;
+  }
+
+  .cover > * {
+    margin-block: 1rem;
+  }
+
+  .cover > header {
+    margin-block-start: 0;
+  }
+
+  .cover > footer {
+    margin-block-end: 0;
+  }
+
+  .cover > main {
+    margin-block: auto;
+  }
+</style>
+
+<div class="cover"><slot /></div>

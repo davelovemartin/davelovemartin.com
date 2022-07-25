@@ -23,12 +23,9 @@ const { title } = Astro.props as Props;
         --color-background: #fef9ef;
         --color-highlight: #ffad33;
         --color-error: #c1292e;
-        --color-incidental: #0496ff;
-
-        /* typography */
-        --measure: 60ch;
-
-        /* modular scale */
+        --color-incidental: #0496ff; /* typography */
+        --measure: 60ch; /*
+      modular scale */
         --ratio: 1.5;
         --s0: 1rem;
         --s1: calc(var(--s0) * var(--ratio));
@@ -37,23 +34,19 @@ const { title } = Astro.props as Props;
         --s4: calc(var(--s3) * var(--ratio));
         --s5: calc(var(--s4) * var(--ratio));
       }
-
       html {
         color: var(--color-foreground);
         background-color: var(--color-background);
       }
-
       *,
       *::before,
       *::after {
         box-sizing: border-box;
       }
-
       * {
         margin: 0;
         max-inline-size: var(--measure);
       }
-
       html,
       body,
       div,
@@ -63,17 +56,14 @@ const { title } = Astro.props as Props;
       footer {
         max-inline-size: none;
       }
-
       html,
       body {
         height: 100%;
       }
-
       body {
         line-height: 1.5;
         -webkit-font-smoothing: antialiased;
       }
-
       img,
       picture,
       video,
@@ -96,6 +86,11 @@ const { title } = Astro.props as Props;
       h5,
       h6 {
         overflow-wrap: break-word;
+      }
+      p,
+      li,
+      dl {
+        max-width: var(--measure);
       }
     </style>
   </body>

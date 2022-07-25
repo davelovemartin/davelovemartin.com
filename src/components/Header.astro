@@ -1,0 +1,43 @@
+<style>
+  header {
+    display: flex;
+    justify-content: space-between;
+  }
+  .navigation ul {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.3rem 0.8rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .navigation a {
+    text-decoration: none;
+    color: currentColor;
+  }
+
+  .navigation a:hover {
+    color: var(--color-incidental);
+  }
+</style>
+
+<header>
+  <div class="logo">davelovemartin</div>
+  <nav class="navigation" aria-label="primary">
+    <ul>
+      <li>
+        <a href="/about">about</a>
+      </li>
+      <li>
+        <a href="/journal">journal</a>
+      </li>
+      <li>
+        <a href="/playground">playground</a>
+      </li>
+      <li>
+        <a href="/contact">contact</a>
+      </li>
+    </ul>
+  </nav>
+</header>

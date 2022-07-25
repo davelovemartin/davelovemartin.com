@@ -14,5 +14,4 @@
     // Add type definitions for our Astro runtime.
     "types": ["astro/client"]
   },
-  "exclude": ["node_modules"]
 }

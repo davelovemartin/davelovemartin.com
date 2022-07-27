@@ -1,4 +1,11 @@
 ---
+import Cover from "../components/Cover.astro";
+import Footer from "../components/Footer.astro";
+import Header from "components/Header.astro";
+
+import "@fontsource/open-sans/variable-full.css";
+import "@fontsource/open-sans/variable-full-italic.css";
+
 export interface Props {
   title: string;
 }
@@ -12,27 +19,34 @@ const { title } = Astro.props as Props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <!-- <link rel="stylesheet" href="//basehold.it/24" /> -->
     <title>{title}</title>
   </head>
   <body>
-    <slot />
+    <Cover>
+      <Header />
+      <main>
+        <slot />
+      </main>
+      <Footer />
+    </Cover>
     <style is:global>
       :root {
         /* colour palette */
         --color-foreground: #2c363f;
         --color-background: #fef9ef;
         --color-highlight: #ffad33;
+        --color-highlighter: rgba(255, 173, 51, 0.666);
         --color-error: #c1292e;
         --color-incidental: #0496ff; /* typography */
         --measure: 60ch; /*
       modular scale */
         --ratio: 1.5;
         --s0: 1rem;
+        --s-1: calc(var(--s0) / var(--ratio));
         --s1: calc(var(--s0) * var(--ratio));
         --s2: calc(var(--s1) * var(--ratio));
         --s3: calc(var(--s2) * var(--ratio));
-        --s4: calc(var(--s3) * var(--ratio));
-        --s5: calc(var(--s4) * var(--ratio));
       }
       html {
         color: var(--color-foreground);
@@ -62,6 +76,7 @@ const { title } = Astro.props as Props;
       }
       body {
         line-height: 1.5;
+        font-family: "Open SansVariable", sans-serif;
         -webkit-font-smoothing: antialiased;
       }
       img,
@@ -91,6 +106,144 @@ const { title } = Astro.props as Props;
       li,
       dl {
         max-width: var(--measure);
+      }
+
+      details,
+      dd,
+      dl,
+      dt,
+      fieldset,
+      figcaption,
+      figure,
+      form,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      hgroup,
+      hr,
+      p,
+      pre,
+      table {
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      blockquote {
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+      }
+
+      /* typography ("wdth" 75.0-100.0, "wght"	300-800) */
+
+      h1,
+      .font-xxl {
+        line-height: 1.3333;
+        font-variation-settings: "wdth" 100, "wght" 500;
+        font-size: var(--s3);
+        word-spacing: 0.2em;
+      }
+
+      h1 + p,
+      .font-xxl + p {
+        margin-top: -1.5rem;
+      }
+
+      h2,
+      .font-xl {
+        font-variation-settings: "wdth" 90, "wght" 400;
+        font-size: var(--s2);
+        word-spacing: 0.1em;
+      }
+
+      h2 + p,
+      .font-xl + p {
+        margin-top: -1.5rem;
+      }
+
+      h3,
+      .font-l {
+        font-variation-settings: "wdth" 82.5, "wght" 300;
+        font-style: italic;
+        font-size: var(--s2);
+      }
+
+      h3 + p,
+      .font-l + p {
+        margin-top: -1.5rem;
+      }
+
+      h4,
+      .font-m {
+        font-variation-settings: "wdth" 90, "wght" 500;
+        font-style: italic;
+        font-size: var(--s1);
+        word-spacing: 0.1em;
+      }
+
+      h4 + p,
+      .font-m + p {
+        margin-top: -1.5rem;
+      }
+
+      h5,
+      .font-s {
+        font-variation-settings: "wdth" 82.5, "wght" 550;
+        text-transform: uppercase;
+        letter-spacing: 0.25ch;
+        font-size: var(--s0);
+        word-spacing: 0.2em;
+      }
+
+      h5 + p,
+      .font-s + p {
+        margin-top: -1.5rem;
+      }
+
+      h6,
+      .font-xs {
+        font-variation-settings: "wdth" 75, "wght" 450;
+        text-transform: uppercase;
+        letter-spacing: 0.25ch;
+        font-size: var(--s0);
+        word-spacing: 0.1em;
+      }
+
+      h6 + p,
+      .font-xs + p {
+        margin-top: -1.5rem;
+      }
+
+      p,
+      a,
+      li {
+        line-height: 1.5;
+        font-variation-settings: "wdth" 100, "wght" 360;
+        font-style: normal;
+        font-size: var(--s0);
+        margin-top: 1.5em;
+        margin-bottom: 1.5em;
+      }
+
+      small {
+        line-height: 2.25;
+        font-variation-settings: "wdth" 99, "wght" 400;
+        font-style: normal;
+        font-size: var(--s-1);
+      }
+
+      a,
+      a:link,
+      a:visited,
+      a:active {
+        color: var(--color-foreground);
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0) 50%,
+          var(--color-highlighter) 50%
+        ) !important;
       }
     </style>
   </body>

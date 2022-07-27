@@ -21,5 +21,8 @@
     "husky": "^8.0.0",
     "prettier": "^2.7.1",
     "prettier-plugin-astro": "^0.1.2"
+  },
+  "dependencies": {
+    "@fontsource/open-sans": "^4.5.10"
   }
 }

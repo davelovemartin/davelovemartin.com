@@ -1,26 +1,14 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Title from "../components/Title.astro";
-import Cover from "../components/Cover.astro";
-import Footer from "../components/Footer.astro";
-import Centre from "components/Centre.astro";
 import Box from "components/Box.astro";
-import Header from "components/Header.astro";
+import Centre from "components/Centre.astro";
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Welcome to my site.">
-  <Cover>
-    <Header />
-    <main>
-      <Centre>
-        <Box>
-          <p>Hi, I’m Dave&hellip;</p>
-          <p>
-            I'm a creative technologist and I make interactive visualisations.
-          </p>
-        </Box>
-      </Centre>
-    </main>
-    <Footer />
-  </Cover>
+  <Centre>
+    <Box>
+      <p>Hi, I’m Dave&hellip;</p>
+      <p>I'm a creative technologist and I make interactive visualisations.</p>
+    </Box>
+  </Centre>
 </Layout>

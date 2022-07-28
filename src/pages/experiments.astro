@@ -1,0 +1,42 @@
+---
+import Box from "components/Box.astro";
+import Centre from "components/Centre.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<style>
+  @keyframes bounce {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(120px);
+    }
+  }
+  .ball {
+    animation-name: bounce;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-fill-mode: forwards;
+    fill: var(--color-highlight);
+  }
+  .graphic-container {
+    border-bottom: solid 1px var(--color-foreground);
+  }
+</style>
+
+<Layout title="Playground">
+  <Centre>
+    <Box>
+      <div class="graphic-container">
+        <svg width="100px" height="100px" viewBox="0 0 200 200">
+          <circle class="ball" cx="50" cy="50" r="25"></circle>
+        </svg>
+      </div>
+      <p>Animating a SVG circle with CSS keyframes</p>
+    </Box>
+  </Centre>
+</Layout>

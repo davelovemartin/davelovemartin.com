@@ -1,3 +1,11 @@
+---
+import About from "./About.astro";
+import Contact from "./Contact.astro";
+import Journal from "./Journal.astro";
+import Experiments from "./Experiments.astro";
+import Title from "./Title.astro";
+---
+
 <style>
   header {
     display: flex;
@@ -23,20 +31,30 @@
 </style>
 
 <header>
-  <div class="logo">davelovemartin</div>
+  <div class="logo">
+    <Title />
+  </div>
   <nav class="navigation" aria-label="primary">
     <ul>
       <li>
-        <a href="/about">about</a>
+        <a href="/about">
+          <About />
+        </a>
       </li>
       <li>
-        <a href="/journal">journal</a>
+        <a href="/journal">
+          <Journal />
+        </a>
       </li>
       <li>
-        <a href="/playground">playground</a>
+        <a href="/experiments">
+          <Experiments />
+        </a>
       </li>
       <li>
-        <a href="/contact">contact</a>
+        <a href="/contact">
+          <Contact />
+        </a>
       </li>
     </ul>
   </nav>

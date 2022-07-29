@@ -6,7 +6,7 @@ import Experiments from "./Experiments.astro";
 import Title from "./Title.astro";
 ---
 
-<style>
+<style is:global>
   header {
     display: flex;
     justify-content: space-between;
@@ -25,8 +25,8 @@ import Title from "./Title.astro";
     color: currentColor;
   }
 
-  .navigation a:hover {
-    color: var(--color-incidental);
+  .navigation a:hover svg path {
+    fill: var(--color-incidental);
   }
 </style>
 

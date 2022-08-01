@@ -10,13 +10,13 @@ import Layout from "../layouts/Layout.astro";
       transform: translateY(0);
     }
     to {
-      transform: translateY(120px);
+      transform: translateY(160px);
     }
   }
   .ball {
     animation-name: bounce;
     animation-duration: 1s;
-    animation-timing-function: linear;
+    animation-timing-function: ease-in-out;
     animation-delay: 0s;
     animation-iteration-count: infinite;
     animation-direction: alternate;
@@ -24,7 +24,14 @@ import Layout from "../layouts/Layout.astro";
     fill: var(--color-highlight);
   }
   .graphic-container {
-    border-bottom: solid 1px var(--color-foreground);
+    background-image: radial-gradient(
+      var(--color-incidental) 0.0625rem,
+      transparent 0
+    );
+    background-size: 10px 10px;
+    width: 200px;
+    border: solid 1px var(--color-foreground);
+    box-shadow: 1px 1px 2px var(--color-foreground);
   }
 </style>
 
@@ -32,8 +39,8 @@ import Layout from "../layouts/Layout.astro";
   <Centre>
     <Box>
       <div class="graphic-container">
-        <svg width="100px" height="100px" viewBox="0 0 200 200">
-          <circle class="ball" cx="50" cy="50" r="25"></circle>
+        <svg width="200px" height="200px" viewBox="0 0 200 200">
+          <circle class="ball" cx="40" cy="20" r="20"></circle>
         </svg>
       </div>
       <p>Animating a SVG circle with CSS keyframes</p>

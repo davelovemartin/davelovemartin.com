@@ -10,6 +10,12 @@ const { padding = "var(--s1)" } = Astro.props as Props;
   .box {
     display: block;
     padding: var(--padding);
+    outline: var(--border-thin) solid transparent;
+    outline-offset: calc(var(--border-thin) * -1);
+  }
+
+  .box * {
+    color: inherit;
   }
 </style>
 

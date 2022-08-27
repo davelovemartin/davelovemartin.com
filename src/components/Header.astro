@@ -2,6 +2,7 @@
 import Thoughts from "./Thoughts.astro";
 import Experiments from "./Experiments.astro";
 import Title from "./Title.astro";
+import NavItem from "./NavItem.astro";
 ---
 
 <style is:global>
@@ -21,17 +22,6 @@ import Title from "./Title.astro";
   .navigation ul li {
     margin: 0;
   }
-
-  .navigation a {
-    text-decoration: none;
-    color: currentColor;
-    display: inline-block;
-  }
-
-  .navigation a:hover svg path {
-    fill: var(--color-incidental);
-    transition: all 0.2s linear;
-  }
 </style>
 
 <header>
@@ -41,14 +31,14 @@ import Title from "./Title.astro";
   <nav class="navigation" aria-label="primary">
     <ul>
       <li>
-        <a href="/thoughts">
+        <NavItem href="/thoughts" currentPath={Astro.url.pathname}>
           <Thoughts />
-        </a>
+        </NavItem>
       </li>
       <li>
-        <a href="/experiments">
-          <Experiments />
-        </a>
+        <NavItem href="/experiments" currentPath={Astro.url.pathname}
+          ><Experiments />
+        </NavItem>
       </li>
     </ul>
   </nav>

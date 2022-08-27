@@ -39,6 +39,7 @@ const { title } = Astro.props as Props;
         --color-highlighter: rgba(255, 173, 51, 0.666);
         --color-error: #c1292e;
         --color-incidental: #0496ff; /* typography */
+        --color-links: #044170;
         --measure: 60ch; /*
       modular scale */
         --ratio: 1.5;
@@ -47,6 +48,8 @@ const { title } = Astro.props as Props;
         --s1: calc(var(--s0) * var(--ratio));
         --s2: calc(var(--s1) * var(--ratio));
         --s3: calc(var(--s2) * var(--ratio));
+        /* timing */
+        --t1: 0.2s;
       }
       html {
         color: var(--color-foreground);
@@ -234,22 +237,35 @@ const { title } = Astro.props as Props;
         font-size: var(--s-1);
       }
 
+      @property --p {
+        syntax: "<percentage>";
+        inherits: false;
+        initial-value: 88%;
+      }
+
       a,
       a:link,
       a:visited,
       a:active {
-        color: var(--color-foreground);
+        --q: calc(100% - var(--p));
+        color: var(--color-links);
         background: linear-gradient(
           to bottom,
-          rgba(0, 0, 0, 0) 50%,
-          var(--color-highlighter) 50%
-        ) !important;
+          rgba(0, 0, 0, 0) var(--p),
+          var(--color-highlighter) var(--q)
+        );
         text-decoration: none;
+        transition: --p var(--t1) ease, color var(--t1) ease;
+        font-variation-settings: "wght" 400;
       }
 
       a:hover {
-        color: var(--color-incidental);
-        transition: all 0.2s linear;
+        --p: 0%;
+        color: var(--color-foreground);
+      }
+
+      svg path {
+        fill: var(--color-foreground);
       }
     </style>
   </body>

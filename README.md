@@ -18,8 +18,10 @@ See [Digital Gardening](https://maggieappleton.com/garden-history)
 
 ## Roadmap
 
-- Add active page state for nav
-- Add cards for thoughts... content management
+- fix layout issues:
+  - h1 in title and on page
+  - centered paragraph text shorter than the measure
+  - spacing between paragraphs
 - Add social to footer (including Twitter, LinkedIn and Github icons)
 - Redo vectors (try with pen - dlm, thoughts, experiments, hello, icons)
 - Write first notes and a blog post

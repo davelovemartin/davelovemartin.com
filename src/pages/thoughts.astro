@@ -1,37 +1,41 @@
 ---
 import Box from "../components/Box.astro";
-import Centre from "../components/Centre.astro";
 import Grid from "../components/Grid.astro";
+import Stack from "../components/Stack.astro";
 import Layout from "../layouts/Layout.astro";
+
+const posts = await Astro.glob("./thoughts/*.mdx");
 ---
 
 <Layout title="Thoughts">
-  <Centre>
-    <p>
-      This digital garden is where I share reflections, sowing seeds of thought
-      that can be cultivated and nutured into fruitful structured writing.
-    </p><p>
-      Inspired by <a href="https://nesslabs.com/digital-garden-set-up"
-        >Anne-Laure Le Cunff
-      </a>, <a href="https://maggieappleton.com/garden-history"
-        >Maggie Appleton
-      </a> and <a
-        href="https://twitter.com/Mappletons/status/1250532315459194880"
-        >others
-      </a>, this is not a chronological blog but an evergreen place where ideas
-      can be edited and refined.
-    </p><p>
-      It is better to work in the open and be comfortable with iterative
-      progress, than wait for the big reveal...
-    </p>
+  <p>
+    This digital garden is where I share reflections, sowing seeds of thought
+    that can be cultivated and nutured into fruitful structured writing.
+  </p><p>
+    Inspired by <a href="https://nesslabs.com/digital-garden-set-up"
+      >Anne-Laure Le Cunff
+    </a>, <a href="https://maggieappleton.com/garden-history"
+      >Maggie Appleton
+    </a> and <a href="https://twitter.com/Mappletons/status/1250532315459194880"
+      >others
+    </a>, this is not a chronological blog but an evergreen place where ideas
+    can be edited and refined.
+  </p><p>
+    It is better to work in the open and be comfortable with iterative progress,
+    than wait for the big reveal...
+  </p>
 
-    <Grid>
-      <Box />
-      <Box />
-      <Box />
-      <Box />
-      <Box />
-      <Box />
-    </Grid>
-  </Centre>
+  <Grid>
+    {posts.map((post) => (
+      <a href={post.url}>
+        <Box>
+          <Stack>
+            <h2>{post.frontmatter.title}</h2>
+            <p>{post.frontmatter.description}</p>
+            <p>Last tended: {post.frontmatter.lastEdited}</p>
+          </Stack>
+        </Box>
+      </a>
+    ))}
+  </Grid>
 </Layout>

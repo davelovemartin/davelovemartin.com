@@ -156,14 +156,14 @@ const { title } = Astro.props.frontmatter || (Astro.props as Props);
         line-height: 1.3333;
         font-variation-settings: "wdth" 100, "wght" 500;
         font-size: var(--s2);
-        word-spacing: 0.2em;
+        letter-spacing: -0.025em;
       }
 
       h2,
       .font-xl {
         font-variation-settings: "wdth" 90, "wght" 600;
         font-size: var(--s1);
-        word-spacing: 0.1em;
+        letter-spacing: -0.025em;
       }
 
       h3,
@@ -172,6 +172,7 @@ const { title } = Astro.props.frontmatter || (Astro.props as Props);
         font-size: var(--s0);
         font-style: italic;
         text-transform: uppercase;
+        letter-spacing: -0.025em;
       }
 
       h1 + p,

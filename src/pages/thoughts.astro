@@ -1,5 +1,5 @@
 ---
-import Box from "../components/Box.astro";
+import Card from "../components/Card.astro";
 import Grid from "../components/Grid.astro";
 import Stack from "../components/Stack.astro";
 import Layout from "../layouts/Layout.astro";
@@ -7,7 +7,7 @@ import Layout from "../layouts/Layout.astro";
 const posts = await Astro.glob("./thoughts/*.mdx");
 ---
 
-<Layout title="Thoughts">
+<Layout title="Digital garden">
   <p>
     This digital garden is where I share reflections, sowing seeds of thought
     that can be cultivated and nutured into fruitful structured writing.
@@ -28,13 +28,19 @@ const posts = await Astro.glob("./thoughts/*.mdx");
   <Grid>
     {posts.map((post) => (
       <a href={post.url}>
-        <Box>
+        <Card>
           <Stack>
-            <h2>{post.frontmatter.title}</h2>
+            <header>
+              <h2>{post.frontmatter.title}</h2>
+            </header>
             <p>{post.frontmatter.description}</p>
-            <p>Last tended: {post.frontmatter.lastEdited}</p>
+            <footer>
+              <p>
+                <small>Last tended: {post.frontmatter.lastEdited}</small>
+              </p>
+            </footer>
           </Stack>
-        </Box>
+        </Card>
       </a>
     ))}
   </Grid>

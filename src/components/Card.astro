@@ -1,14 +1,26 @@
-<style>
+---
+export interface Props {
+  href: string;
+}
+
+const { href } = Astro.props as Props;
+---
+
+<style is:global>
   .card {
-    box-sizing: content-box;
-    margin-inline: auto;
-    max-inline-size: var(--measure);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    border: 1px solid var(--color-foreground);
+    background: none !important;
+    padding: calc(var(--s1) / 2);
+    box-shadow: var(--shadow1);
+    transition: all var(--t2) ease-out;
+  }
+  .card:hover {
+    background: none;
+    box-shadow: var(--shadow2);
+    transform: scale(1.01236);
   }
 </style>
 
-<div class="card">
+<a class="card" href={href}>
   <slot />
-</div>
+</a>

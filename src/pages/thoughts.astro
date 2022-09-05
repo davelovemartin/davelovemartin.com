@@ -25,23 +25,17 @@ const posts = await Astro.glob("./thoughts/*.mdx");
     than wait for the big reveal...
   </p>
 
-  <Grid>
+  <Grid slot="card-grid">
     {posts.map((post) => (
-      <a href={post.url}>
-        <Card>
-          <Stack>
-            <header>
-              <h2>{post.frontmatter.title}</h2>
-            </header>
-            <p>{post.frontmatter.description}</p>
-            <footer>
-              <p>
-                <small>Last tended: {post.frontmatter.lastEdited}</small>
-              </p>
-            </footer>
-          </Stack>
-        </Card>
-      </a>
+      <Card href={post.url}>
+        <Stack>
+          <h2>{post.frontmatter.title}</h2>
+          <p>{post.frontmatter.description}</p>
+          <footer>
+            <small>Last tended: {post.frontmatter.lastEdited}</small>
+          </footer>
+        </Stack>
+      </Card>
     ))}
   </Grid>
 </Layout>

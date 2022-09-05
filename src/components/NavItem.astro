@@ -11,20 +11,11 @@ const { currentPath, href } = Astro.props as Props;
   .nav-item a {
     color: currentColor;
     display: inline-block;
-    background: none;
-  }
-
-  .nav-item a svg path {
-    fill: var(--color-foreground);
-    transition: fill var(--t1) linear;
   }
 
   .nav-item a.active {
     cursor: default;
-  }
-
-  .nav-item a:not(.active):hover svg path {
-    fill: var(--color-incidental);
+    background: none;
   }
 </style>
 

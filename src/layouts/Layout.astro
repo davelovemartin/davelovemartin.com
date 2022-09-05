@@ -1,11 +1,11 @@
 ---
+import Centre from "../components/Centre.astro";
 import Cover from "../components/Cover.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 
 import "@fontsource/open-sans/variable-full.css";
 import "@fontsource/open-sans/variable-full-italic.css";
-import Centre from "../components/Centre.astro";
 
 export interface Props {
   title: string;
@@ -33,20 +33,20 @@ const { title } = Astro.props.frontmatter || (Astro.props as Props);
           </h1>
           <slot />
         </Centre>
+        <slot name="card-grid" />
       </main>
-
       <Footer />
     </Cover>
     <style is:global>
       :root {
         /* colour palette */
         --color-foreground: #2c363f;
+        --color-foreground-lite: #1e374d;
         --color-background: #fef9ef;
         --color-highlight: #ffad33;
         --color-highlighter: rgba(255, 173, 51, 0.666);
         --color-error: #c1292e;
         --color-incidental: #0496ff; /* typography */
-        --color-links: #044170;
         --measure: 60ch; /*
       modular scale */
         --ratio: 1.5;
@@ -57,6 +57,10 @@ const { title } = Astro.props.frontmatter || (Astro.props as Props);
         --s3: calc(var(--s2) * var(--ratio));
         /* timing */
         --t1: 0.2s;
+        --t2: 0.4s;
+        /* shadows */
+        --shadow1: 0 0 0.5rem 0 rgba(30, 55, 77, 0.2);
+        --shadow2: 0 0 1rem 0.5rem rgba(30, 55, 77, 0.2);
       }
       html {
         color: var(--color-foreground);
@@ -139,13 +143,13 @@ const { title } = Astro.props.frontmatter || (Astro.props as Props);
       ul,
       pre,
       table {
-        margin-top: var(--s1);
-        margin-bottom: var(--s1);
+        margin-block-start: var(--s1);
+        margin-block-end: var(--s1);
       }
 
       blockquote {
-        margin-top: 3rem;
-        margin-bottom: 3rem;
+        margin-block-start: 3rem;
+        margin-block-end: 3rem;
         padding-left: var(--s0);
         font-variation-settings: "wdth" 100, "wght" 420;
         word-spacing: 0.2em;
@@ -155,29 +159,34 @@ const { title } = Astro.props.frontmatter || (Astro.props as Props);
       /* typography ("wdth" 75.0-100.0, "wght"	300-800) */
 
       h1,
+      h2,
+      h3 {
+        color: var(--color-foreground-lite);
+      }
+
+      h1,
       .font-xxl {
         line-height: 1.3333;
-        font-variation-settings: "wdth" 100, "wght" 600;
+        font-variation-settings: "wdth" 100, "wght" 800;
         font-size: var(--s2);
         letter-spacing: -0.025em;
       }
 
       h2,
       .font-xl {
-        font-variation-settings: "wdth" 100, "wght" 600;
-        font-size: var(--s0);
+        font-variation-settings: "wdth" 100, "wght" 800;
+        font-size: var(--s1);
         letter-spacing: -0.025em;
       }
 
       h3,
       .font-l {
-        font-variation-settings: "wdth" 100, "wght" 500;
+        font-variation-settings: "wdth" 100, "wght" 800;
         font-size: var(--s0);
         font-style: italic;
         letter-spacing: -0.025em;
       }
 
-      h1 + p,
       .font-xxl + p,
       h2 + p,
       .font-xl + p,
@@ -189,10 +198,12 @@ const { title } = Astro.props.frontmatter || (Astro.props as Props);
       .font-xl + ul,
       h3 + ul,
       .font-l + ul {
-        margin-top: calc(var(--s1) * -1);
+        margin-block-start: calc(var(--s1) * -1);
       }
 
-      p + p {
+      h1 + p,
+      p + p,
+      p + ul {
         margin-block-start: 0;
       }
 
@@ -208,7 +219,7 @@ const { title } = Astro.props.frontmatter || (Astro.props as Props);
       a,
       li {
         line-height: 1.5;
-        font-variation-settings: "wdth" 100, "wght" 360;
+        font-variation-settings: "wdth" 100, "wght" 400;
         font-style: normal;
         font-size: var(--s0);
       }
@@ -227,7 +238,7 @@ const { title } = Astro.props.frontmatter || (Astro.props as Props);
       @property --p {
         syntax: "<percentage>";
         inherits: false;
-        initial-value: 88%;
+        initial-value: 62%;
       }
 
       a,
@@ -235,7 +246,7 @@ const { title } = Astro.props.frontmatter || (Astro.props as Props);
       a:visited,
       a:active {
         --q: calc(100% - var(--p));
-        color: var(--color-links);
+        color: var(--color-foreground-lite);
         background: linear-gradient(
           to bottom,
           rgba(0, 0, 0, 0) var(--p),
@@ -243,12 +254,11 @@ const { title } = Astro.props.frontmatter || (Astro.props as Props);
         );
         text-decoration: none;
         transition: --p var(--t1) ease, color var(--t1) ease;
-        font-variation-settings: "wght" 400;
+        font-variation-settings: "wght" 680;
       }
 
       a:hover {
-        --p: 0%;
-        color: var(--color-foreground);
+        --p: 88%;
       }
 
       svg path {

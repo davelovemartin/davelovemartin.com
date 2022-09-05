@@ -18,11 +18,6 @@ See [Digital Gardening](https://maggieappleton.com/garden-history)
 
 ## Roadmap
 
-- fix layout issues:
-  - centered paragraph text shorter than the measure
-  - spacing between paragraphs
-- links are ugly
-- cards
 - Add social to footer (including Twitter, LinkedIn and Github icons)
 - Redo vectors (try with pen - dlm, thoughts, experiments, hello, icons)
 - Write first notes and a blog post

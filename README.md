@@ -18,8 +18,6 @@ See [Digital Gardening](https://maggieappleton.com/garden-history)
 
 ## Roadmap
 
-- Add social to footer (including Twitter, LinkedIn and Github icons)
 - Redo vectors (try with pen - dlm, thoughts, experiments, hello, icons)
-- Write first notes and a blog post
 - Deploy to Netlify
 - Control Icon size with font-size: [Andy Bell](https://archive.hankchizljaw.com/links/121/)

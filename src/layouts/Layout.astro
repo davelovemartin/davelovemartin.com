@@ -47,8 +47,10 @@ const { title } = Astro.props.frontmatter || (Astro.props as Props);
         --color-highlighter: rgba(255, 173, 51, 0.666);
         --color-error: #c1292e;
         --color-incidental: #0496ff; /* typography */
-        --measure: 60ch; /*
-      modular scale */
+        --measure: 60ch;
+        --outline-offset: 0.125rem;
+        --border-radius: 0.125rem;
+        /* modular scale */
         --ratio: 1.5;
         --s0: 1rem;
         --s-1: calc(var(--s0) / var(--ratio));
@@ -252,13 +254,20 @@ const { title } = Astro.props.frontmatter || (Astro.props as Props);
           rgba(0, 0, 0, 0) var(--p),
           var(--color-highlighter) var(--q)
         );
+        outline: var(--outline-offset) solid transparent;
+        outline-offset: calc(var(--outline-offset) * -1);
         text-decoration: none;
         transition: --p var(--t1) ease, color var(--t1) ease;
         font-variation-settings: "wght" 680;
+        border-radius: var(--border-radius);
       }
 
       a:hover {
         --p: 88%;
+      }
+
+      a:focus {
+        outline: var(--outline-offset) solid var(--color-incidental);
       }
 
       svg path {

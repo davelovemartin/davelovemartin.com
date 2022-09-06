@@ -20,4 +20,3 @@ See [Digital Gardening](https://maggieappleton.com/garden-history)
 
 - Redo vectors (try with pen - dlm, thoughts, experiments, hello, icons)
 - Deploy to Netlify
-- Control Icon size with font-size: [Andy Bell](https://archive.hankchizljaw.com/links/121/)

@@ -1,0 +1,14 @@
+<style>
+  .graphic {
+    background-image: radial-gradient(
+      var(--color-incidental) 0.0625rem,
+      transparent 0
+    );
+    background-size: 10px 10px;
+    width: 200px;
+    border: solid 1px var(--color-foreground);
+    box-shadow: var(--shadow1);
+  }
+</style>
+
+<div class="graphic"><slot /></div>

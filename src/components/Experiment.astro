@@ -1,0 +1,19 @@
+---
+import Box from "../components/Box.astro";
+import Graphic from "../components/Graphic.astro";
+
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props as Props;
+---
+
+<Box>
+  <h2>{title}</h2>
+  <Graphic>
+    <slot />
+  </Graphic>
+  <p>{description}</p>
+</Box>

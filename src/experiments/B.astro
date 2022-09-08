@@ -1,0 +1,15 @@
+---
+import Experiment from "../components/Experiment.astro";
+import B from "./B.jsx";
+---
+
+<style>
+
+</style>
+
+<Experiment
+  title="Animating another circle, this time with GSAP"
+  description="I'm scaling the circle's X and Y dimensions to simulate how balls deform when colliding with the floor."
+>
+  <B client:visible />
+</Experiment>

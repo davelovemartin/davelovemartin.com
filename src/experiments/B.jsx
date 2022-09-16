@@ -5,21 +5,34 @@ import { gsap } from "gsap";
 export default function B() {
   const circleRef = useRef();
   useEffect(() => {
+    const tl = gsap.timeline();
     gsap.set(circleRef.current, { transformOrigin: "50% 50%" });
-    gsap.to(circleRef.current, {
+    tl.to(circleRef.current, {
       y: 160,
       duration: 1,
       repeat: -1,
       yoyo: true,
-      ease: "power1.out",
+      ease: "sine.in",
     });
-    gsap.to(circleRef.current, {
-      scaleX: 1.1,
-      scaleY: 0.9,
-      duration: 1,
+    tl.to(
+      circleRef.current,
+      {
+        scaleX: 1.2,
+        scaleY: 0.8,
+        duration: 0.1,
+        repeat: -1,
+        repeatDelay: 1.9,
+        ease: "sine.in",
+      },
+      "-=0.1"
+    );
+    tl.to(circleRef.current, {
+      scaleX: 1,
+      scaleY: 1,
+      duration: 0.1,
       repeat: -1,
-      yoyo: true,
-      ease: "power4.in",
+      repeatDelay: 1.9,
+      ease: "sine.in",
     });
   }, []);
   return (

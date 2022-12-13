@@ -4,8 +4,7 @@ import Cover from "../components/Cover.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 
-import "@fontsource/open-sans/variable-full.css";
-import "@fontsource/open-sans/variable-full-italic.css";
+import "@fontsource/comic-mono";
 
 export interface Props {
   title: string;
@@ -45,6 +44,8 @@ const { title } = Astro.props.frontmatter || (Astro.props as Props);
         --color-background: #fef9ef;
         --color-highlight: #ffad33;
         --color-highlighter: rgba(255, 173, 51, 0.666);
+        --color-highlighter-p3: color(display-p3 0.935 0.62 0.023 / 0.8);
+        --color-highlight-shadow: #e68a00;
         --color-error: #c1292e;
         --color-incidental: #0496ff; /* typography */
         --measure: 60ch;
@@ -64,9 +65,17 @@ const { title } = Astro.props.frontmatter || (Astro.props as Props);
         --shadow1: 0 0 0.5rem 0 rgba(30, 55, 77, 0.2);
         --shadow2: 0 0 1rem 0.5rem rgba(30, 55, 77, 0.2);
       }
+      /* Display-P3 color, when supported. */
+      @supports (color: color(display-p3 1 1 1)) {
+        :root {
+          --color-highlighter: var(--color-highlighter-p3);
+        }
+      }
       html {
         color: var(--color-foreground);
         background-color: var(--color-background);
+        font-size: 20px;
+        scroll-behavior: smooth;
       }
       *,
       *::before,
@@ -92,8 +101,14 @@ const { title } = Astro.props.frontmatter || (Astro.props as Props);
       }
       body {
         line-height: 1.5;
-        font-family: "Open SansVariable", sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "avenir next", avenir,
+          "helvetica neue", helvetica, ubuntu, roboto, noto, "segoe ui", arial,
+          sans-serif;
         -webkit-font-smoothing: antialiased;
+      }
+      pre,
+      code {
+        font-family: "Comic Mono", monospace;
       }
       img,
       picture,
@@ -177,19 +192,21 @@ const { title } = Astro.props.frontmatter || (Astro.props as Props);
       h2,
       .font-xl {
         line-height: 1;
-        font-variation-settings: "wdth" 100, "wght" 800;
+        font-variation-settings: "wdth" 100, "wght" 600;
         font-size: var(--s1);
         letter-spacing: -0.025em;
       }
 
       h3,
       .font-l {
-        font-variation-settings: "wdth" 100, "wght" 800;
+        font-variation-settings: "wdth" 100, "wght" 500;
         font-size: var(--s0);
-        font-style: italic;
         letter-spacing: -0.025em;
       }
 
+      h1 + p,
+      p + p,
+      p + ul,
       .font-xxl + p,
       h2 + p,
       .font-xl + p,
@@ -201,12 +218,6 @@ const { title } = Astro.props.frontmatter || (Astro.props as Props);
       .font-xl + ul,
       h3 + ul,
       .font-l + ul {
-        margin-block-start: calc(var(--s1) * -1);
-      }
-
-      h1 + p,
-      p + p,
-      p + ul {
         margin-block-start: 0;
       }
 
@@ -257,14 +268,15 @@ const { title } = Astro.props.frontmatter || (Astro.props as Props);
         );
         outline: var(--outline-offset) solid transparent;
         outline-offset: calc(var(--outline-offset) * -1);
-        text-decoration: none;
+        text-decoration: underline;
         transition: --p var(--t1) ease, color var(--t1) ease;
         font-variation-settings: "wght" 680;
         border-radius: var(--border-radius);
       }
 
       a:hover {
-        --p: 88%;
+        --p: 62%;
+        text-decoration: none;
       }
 
       a:focus {

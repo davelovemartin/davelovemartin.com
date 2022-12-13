@@ -10,15 +10,22 @@ const { href } = Astro.props as Props;
   .card {
     border: 1px solid var(--color-foreground);
     background: none !important;
-    padding: calc(var(--s1) / 2);
+    padding-left: calc(var(--s1) / 2);
+    padding-right: calc(var(--s1) / 2);
+    padding-top: calc((var(--s1) / 2) - 0.125rem);
+    padding-bottom: calc((var(--s1) / 2) + 0.125rem);
     box-shadow: var(--shadow1);
     transition: all var(--t2) ease-out;
     border-radius: var(--border-radius);
+    text-decoration: none !important;
   }
   .card:hover {
     background: none;
     box-shadow: var(--shadow2);
     transform: scale(1.01236);
+  }
+  .card div h2 {
+    min-height: calc(3 * var(--s1));
   }
 </style>
 

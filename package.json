@@ -27,7 +27,7 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
-    "@fontsource/open-sans": "^4.5.10",
+    "@fontsource/comic-mono": "^4.5.3",
     "gsap": "^3.11.1"
   }
 }

@@ -1,9 +1,9 @@
-import React from "react";
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 
-export default function B() {
+const BouncingBallTwo = () => {
   const circleRef = useRef();
+
   useEffect(() => {
     const tl = gsap.timeline();
     gsap.set(circleRef.current, { transformOrigin: "50% 50%" });
@@ -46,4 +46,6 @@ export default function B() {
       />
     </svg>
   );
-}
+};
+
+export default BouncingBallTwo;

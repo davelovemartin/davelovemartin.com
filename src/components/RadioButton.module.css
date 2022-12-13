@@ -1,0 +1,8 @@
+.radioButton {
+  height: 1.5rem;
+}
+
+.radioButton input {
+  accent-color: var(--color-foreground-lite);
+  margin-right: 1rem;
+}

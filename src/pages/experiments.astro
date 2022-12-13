@@ -1,10 +1,14 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import A from "../experiments/A.astro";
-import B from "../experiments/B.astro";
+import BouncingBallExperiment from "../experiments/BouncingBallExperiment.astro";
 ---
 
-<Layout title="Playground">
-  <A />
-  <B />
+<Layout title="Experiments">
+  <p>There's not much here at the moment other than this bouncing ball!</p>
+  <ul>
+    <li>
+      <a href="#ball">Bouncing ball</a>
+    </li>
+  </ul>
+  <BouncingBallExperiment />
 </Layout>

@@ -1,0 +1,19 @@
+---
+export interface Props {
+  href: string;
+}
+
+const { href } = Astro.props as Props;
+---
+
+<style is:global>
+  .card-footer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+</style>
+
+<footer class="card-footer">
+  <slot />
+</footer>

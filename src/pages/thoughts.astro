@@ -1,7 +1,11 @@
 ---
 import Card from "../components/Card.astro";
+import CardFooter from "../components/CardFooter.astro";
 import Grid from "../components/Grid.astro";
 import Stack from "../components/Stack.astro";
+import Acorn from "../components/Acorn.astro";
+import Sapling from "../components/Sapling.astro";
+import Tree from "../components/Tree.astro";
 import Layout from "../layouts/Layout.astro";
 
 const posts = await Astro.glob("./thoughts/*.mdx");
@@ -32,9 +36,13 @@ const nonDraftPosts = posts.filter((post) => !post.frontmatter.draft);
         <Stack>
           <h2>{post.frontmatter.title}</h2>
           <p>{post.frontmatter.description}</p>
-          <footer>
+          <CardFooter>
             <small>Last tended: {post.frontmatter.lastEdited}</small>
-          </footer>
+            {!post.frontmatter.stage ||
+              (post.frontmatter.stage === "note" && <Acorn />)}
+            {post.frontmatter.stage === "essay" && <Sapling />}
+            {post.frontmatter.stage === "reflection" && <Tree />}
+          </CardFooter>
         </Stack>
       </Card>
     ))}

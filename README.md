@@ -18,5 +18,4 @@ See [Digital Gardening](https://maggieappleton.com/garden-history)
 
 ## Roadmap
 
-- Redo vectors (try with pen - dlm, thoughts, experiments, hello, icons)
 - Deploy to Netlify

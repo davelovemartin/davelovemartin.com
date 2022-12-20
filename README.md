@@ -15,7 +15,3 @@ Use vectors of handwritten drawings to create interactive data visualisations - 
 A place to publish lessons learned.
 
 See [Digital Gardening](https://maggieappleton.com/garden-history)
-
-## Roadmap
-
-- Deploy to Netlify

@@ -1,10 +1,5 @@
 ---
-export interface Props {
-  currentPath: string;
-  href: string;
-}
-
-const { currentPath, href } = Astro.props as Props;
+const { currentPath, href } = Astro.props;
 ---
 
 <style is:global>

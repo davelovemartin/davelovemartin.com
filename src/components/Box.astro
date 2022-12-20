@@ -1,9 +1,5 @@
 ---
-export interface Props {
-  padding?: string;
-}
-
-const { padding = "var(--s1)" } = Astro.props as Props;
+const { padding = "var(--s1)" } = Astro.props;
 ---
 
 <style define:vars={{ padding }}>

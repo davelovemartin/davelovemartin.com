@@ -60,7 +60,7 @@ const BouncingBallThree = () => {
       <circle
         ref={shadowRef}
         cx="40"
-        cy="760"
+        cy="780"
         r="10"
         fill="url(#shadow)"
         transform="scale(1, 0.25)"

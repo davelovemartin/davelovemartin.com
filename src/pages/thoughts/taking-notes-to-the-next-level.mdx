@@ -4,12 +4,14 @@ title: Taking notes to the next level
 description: Using a digital garden for cultivating wisdom
 stage: reflection
 lastEdited: 08.09.2022
-tags: ["writing"]
+theme: "self-improvement"
 ---
 
 import Acorn from "../../components/Acorn.astro";
 import Sapling from "../../components/Sapling.astro";
 import Tree from "../../components/Tree.astro";
+
+import ReadMore from "../../components/ReadMore.astro";
 
 I love the internet. Each time I unearth a nugget of information, my brain lights up.
 
@@ -64,3 +66,5 @@ Publishing essays and asking for feedback cross-pollinates ideas. Articles can b
 <Tree />
 
 Because ideas are reflected and iterated on, information is not only retained but new mental models are created and can be applied to future decisions. This wisdom is the bounty I hope to harvest.
+
+<ReadMore theme={frontmatter.theme} title={frontmatter.title} />

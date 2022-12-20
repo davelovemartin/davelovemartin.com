@@ -4,8 +4,10 @@ title: How to write articles
 description: A process for writing more structured content
 stage: essay
 lastEdited: 8.09.2022
-tags: ["writing"]
+theme: "self-promotion"
 ---
+
+import ReadMore from "../../components/ReadMore.astro";
 
 ## Step 1
 
@@ -34,3 +36,5 @@ String those 2–3 main points together with:
 - There should be a final part… explaining how the hero lived happily ever after - the moral of the story
 - Write your key points in a conclusion
 - Whip up a few title options (which include your target keyword!)
+
+<ReadMore theme={frontmatter.theme} title={frontmatter.title} />

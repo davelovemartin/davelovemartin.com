@@ -1,0 +1,22 @@
+---
+const { theme, title } = Astro.props;
+
+const posts = await Astro.glob("../pages/thoughts/*.mdx");
+const filteredPosts = posts.filter(
+  (post) =>
+    !post.frontmatter.draft &&
+    post.frontmatter.theme === theme &&
+    post.frontmatter.title !== title
+);
+---
+
+<hr />
+<h2>Read more&hellip;</h2>
+<ul>
+  {filteredPosts.map((post) => (
+    <li>
+      <a href={post.url}>{post.frontmatter.title}</a>{" "}
+      <span>({post.frontmatter.description})</span>
+    </li>
+  ))}
+</ul>

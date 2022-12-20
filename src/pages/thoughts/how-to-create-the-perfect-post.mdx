@@ -4,8 +4,10 @@ title: How to create the perfect post
 description: How to turn insight into a social media post
 stage: note
 lastEdited: 1.09.2022
-tags: ["writing"]
+theme: "self-promotion"
 ---
+
+import ReadMore from "../../components/ReadMore.astro";
 
 Some notes on creating social media posts.
 
@@ -25,3 +27,5 @@ Stories resonate far more than information.
 - don't use links in your post (first comment?)
 - optimise for comments - end with a question
 - use three hashtags
+
+<ReadMore theme={frontmatter.theme} title={frontmatter.title} />

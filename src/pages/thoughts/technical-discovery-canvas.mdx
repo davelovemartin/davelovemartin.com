@@ -1,14 +1,23 @@
 ---
 layout: ../../layouts/Layout.astro
 title: Technical Discovery Canvas
-description: Notes on high-performing teams
+description: A visual guide to a process for derisking investment in technology.
 stage: note
-lastEdited: 04.01.2023
+lastEdited: 07.01.2023
 theme: "innovation"
-draft: true
 ---
 
-I created a canvas to help teams chose what technology is right for their projects. I came across this process working with Andy Brace, a technical architect, on GDS projects and have adapted some of the ideas...
+import Activities from "../../components/Activities.astro"
+import Benefits from "../../components/Benefits.astro"
+import BusinessOutcomes from "../../components/BusinessOutcomes.astro"
+import ChecklistIcon from "../../components/ChecklistIcon.astro"
+import Cog from "../../components/Cog.astro"
+import ExperimentIcon from "../../components/ExperimentIcon.astro"
+import Exploration from "../../components/Exploration.astro"
+import ProblemDefinition from "../../components/ProblemDefinition.astro"
+import Resources from "../../components/Resources.astro"
+import TechnicalDiscoveryCanvas from "../../components/TechnicalDiscoveryCanvas.astro"
+import User from "../../components/User.astro"
 
 When I was assigned my first Technical Lead role working on a project helping Women's Aid create an Instant Messaging service that allowed them to discretely and securely support survivors of domestic abuse whilst capturing data for their funders, I acutely knew the importance of choosing the right technology.
 
@@ -16,25 +25,25 @@ So, I reached for this tool - a Technical Discovery - which I'd learned from wor
 
 **A Technical Discovery is a process that can de-risk investment in technology.**
 
-We create value for customers by solving their problems. If we create products to serve user needs, then people will use them.
+We create value for customers by solving their problems. If we create products to serve user needs, then people will use and value them.
 
-Alongside *understanding* the needs of the customer, we need to *uncover* how technology can *underpin* and meet those needs.
+Alongside *understanding* the needs of the customer, we need to *uncover* how technology can meet and *underpin* those needs.
 
-We explore the problem space to make sure
-we know what the right thing is to build
-before we build the thing right**.
-
-In preparation for this talk, I've created a Technical Discovery Canvas or Blueprint.
+I've created a Technical Discovery Canvas.
 
 It's formed of ten basic building blocks in a pre-structured canvas
 that helps teams draw out, discuss, and discover technology choices
 with user needs and desired business outcomes at their core.
 
-I'm going to go through each of them.
+<TechnicalDiscoveryCanvas />
+
+I'll going to go through each of them.
 
 You start with...
 
-### 1. Problem definition.
+### 1. Problem definition
+
+<ProblemDefinition />
 
 When you start a project, reframe it as a problem to be solved. 
 
@@ -64,7 +73,9 @@ Also, ask your stakeholders what success looks like for them.
 
 Measure what's happening now so you begin to understand how much the problem is currently costing.
 
-### 3. Users and their needs
+### 3. User needs
+
+<User />
 
 This is where good collaboration with user experience research and designers comes in. Team work really does makes the dream work. 
 
@@ -73,38 +84,59 @@ Check out Dovetail for the rich insight from our user research and cusomer feedb
 By understanding what types of users and customers we should focus on, we ensure we are focussed on creating experiences they will value.
 
 ### 4. User outcomes and benefits
+
+<Benefits />
+
 As a team, ask what the user is trying to accomplish. How will they think and feel during and after this process? What behaviours will they change as a result?
 
 We need to know how our users are motivated otherwise we don't know how we can help them create the impact they desire.
 
-### 5. User activities (journey)
+### 5. Activities
+
+<Activities />
+
 What are the activities that the user will do to complete their goal?
 
-As a team, map out those activities in a journey. For an ecommerce scenario (like buying Bluetooth speakers), the stages can be discover, compare, buy, use, seek support.
+As a team, map out those activities. For an ecommerce scenario (like buying Bluetooth speakers), the stages can be discover, compare, buy, use, seek support.
 
 This may help identify opportunities for improvement and highlight where user painpoints are. 
 
 ### 6. Capabilities, resources and data
+
+<Resources />
+
 Then we look at what capabilities, resources and data we need to provide to support the user to carry out those activities.
 
 In our ecommerce example, we'll need to think about listing products and making them discoverable, taking product photos, employing copywriters, and support staff, handling card tokens and analytics.
 
-### 7. The types of technology that could support the user journey
+### 7. Technology
+
+<Cog />
+
 Without solutionising, we think about what types of technology, systems and tools are required to support those user activities.
 
 Breaking this down in this way helps us compile a shopping list of tech that we know will support the user journey.
 
 ### 8. Selection criteria
+
+<ChecklistIcon />
+
 As a team, define some criteria from the user needs, and business requirements that will help you evaluate the technology.
 
 Examples of criteria are afforability, maintainability, interoperability, scalability and so on.
 
-### 9. Technical exploration and assessment
+### 9. Exploration and assessment
+
+<Exploration />
+
 With your shopping list of technology types, start exploring potential services and tools that will provide the capabilities needed to serve your users journey.
 
 Create a matrix and score each option against each of your criteria. You may want to give a weighting to the principles that are a priority to your project.
 
 ### 10. Candidate solution
+
+<ExperimentIcon />
+
 Create a candidate solution, a technical architecture, from your highest scoring technologies. This will form a hypothesis about the technologies you believe can work together to help solve the identified problem.
 
 Write it out as a statement:

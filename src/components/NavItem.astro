@@ -1,21 +1,27 @@
 ---
-const { currentPath, href } = Astro.props;
+const { currentPath, href, title } = Astro.props;
 ---
 
 <style is:global>
   .nav-item a {
+    display: inline-flex;
+    justify-content: space-between;
+  }
+  .nav-item a {
     color: currentColor;
-    display: inline-block;
   }
 
   .nav-item a.active {
     cursor: default;
     background: none;
   }
+  .nav-item svg {
+    margin-top: -0.4rem;
+  }
 </style>
 
 <div class="nav-item">
-  <a href={href} class={currentPath === href ? "active" : ""}>
+  <a href={href} class={currentPath === href ? "active" : ""}>{title}
     <slot />
   </a>
 </div>

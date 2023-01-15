@@ -3,7 +3,6 @@ import Thoughts from "./Thoughts.astro";
 import Experiments from "./Experiments.astro";
 import Title from "./Title.astro";
 import NavItem from "./NavItem.astro";
-import Box from "./Box.astro";
 ---
 
 <style is:global>
@@ -30,13 +29,13 @@ import Box from "./Box.astro";
   <nav class="navigation" aria-label="primary">
     <ul>
       <li>
-        <NavItem href="/thoughts" currentPath={Astro.url.pathname}>
+        <NavItem href="/thoughts" currentPath={Astro.url.pathname} title="Thoughts">
           <Thoughts />
         </NavItem>
       </li>
       <li>
-        <NavItem href="/experiments" currentPath={Astro.url.pathname}
-          ><Experiments />
+        <NavItem href="/experiments" currentPath={Astro.url.pathname} title="Experiments"> 
+          <Experiments />
         </NavItem>
       </li>
     </ul>

@@ -29,12 +29,20 @@ import NavItem from "./NavItem.astro";
   <nav class="navigation" aria-label="primary">
     <ul>
       <li>
-        <NavItem href="/thoughts" currentPath={Astro.url.pathname} title="Thoughts">
+        <NavItem
+          href="/thoughts"
+          currentPath={Astro.url.pathname}
+          title="Thoughts"
+        >
           <Thoughts />
         </NavItem>
       </li>
       <li>
-        <NavItem href="/experiments" currentPath={Astro.url.pathname} title="Experiments"> 
+        <NavItem
+          href="/experiments"
+          currentPath={Astro.url.pathname}
+          title="Experiments"
+        >
           <Experiments />
         </NavItem>
       </li>

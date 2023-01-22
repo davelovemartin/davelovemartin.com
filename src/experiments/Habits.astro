@@ -1,0 +1,22 @@
+---
+
+const response = await fetch("https://api.notion.com/v1/databases/fb1a03ca48e0424dbbd095de015e446a/query", {
+    method: 'POST',
+    headers: {
+        'Content-Type':'application/json',
+        "Authorization": "Bearer secret_hGF2WmCmyN7HD1MO8M9rP3Ab3VsWzTtqgctjylHi2Rp",
+	    "Notion-Version": "2022-06-28"
+    },
+    body: JSON.stringify({page_size: 100})
+});
+
+const data = await response.json();
+const date = data.results[0].properties.Date.date.start
+const activity = data.results[0].properties.Activity.title[0].text.content
+
+---
+
+<h2 id="habits">Habits</h2>
+<p>Date: {date}</p>
+<p>Activity: {activity}</p>
+

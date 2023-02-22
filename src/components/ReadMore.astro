@@ -1,12 +1,16 @@
 ---
+import { getCollection } from "astro:content";
+interface Props {
+  theme: string;
+  title: string;
+}
+
 const { theme, title } = Astro.props;
 
-const posts = await Astro.glob("../pages/thoughts/*.mdx");
+const posts = await getCollection("thoughts");
 const filteredPosts = posts.filter(
   (post) =>
-    !post.frontmatter.draft &&
-    post.frontmatter.theme === theme &&
-    post.frontmatter.title !== title
+    !post.data.draft && post.data.theme === theme && post.data.title !== title
 );
 ---
 
@@ -15,8 +19,8 @@ const filteredPosts = posts.filter(
 <ul>
   {filteredPosts.map((post) => (
     <li>
-      <a href={post.url}>{post.frontmatter.title}</a>{" "}
-      <span>({post.frontmatter.description})</span>
+      <a href={post.slug}>{post.data.title}</a>{" "}
+      <span>({post.data.description})</span>
     </li>
   ))}
 </ul>

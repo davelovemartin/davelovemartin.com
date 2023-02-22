@@ -1,6 +1,6 @@
 ---
-import Thoughts from "./Thoughts.astro";
-import Experiments from "./Experiments.astro";
+import Thoughts from "@drawings/Thoughts.astro";
+import Experiments from "@drawings/Experiments.astro";
 import Title from "./Title.astro";
 import NavItem from "./NavItem.astro";
 ---
@@ -30,7 +30,7 @@ import NavItem from "./NavItem.astro";
     <ul>
       <li>
         <NavItem
-          href="/thoughts"
+          href="/digital-garden"
           currentPath={Astro.url.pathname}
           title="Thoughts"
         >

@@ -1,0 +1,27 @@
+---
+import Acorn from "@drawings/Acorn.astro";
+import Sapling from "@drawings/Sapling.astro";
+import Tree from "@drawings/Tree.astro";
+
+interface Props {
+  lastEdited: string;
+  stage: "note" | "essay" | "reflection";
+}
+
+const { lastEdited, stage } = Astro.props;
+---
+
+<style is:global>
+  .page-meta {
+    height: var(--s2);
+    width: 100%;
+    margin-bottom: var(--s1);
+  }
+</style>
+
+<div class="page-meta">
+  {stage === "note" && <Acorn />}
+  {stage === "essay" && <Sapling />}
+  {stage === "reflection" && <Tree />}
+  <small>last tended: {lastEdited}</small>
+</div>

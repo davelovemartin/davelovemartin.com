@@ -1,0 +1,52 @@
+---
+import { getCollection } from "astro:content";
+import Card from "@components/Card.astro";
+import CardFooter from "@components/CardFooter.astro";
+import Grid from "@components/Grid.astro";
+import Stack from "@components/Stack.astro";
+import Acorn from "@drawings/Acorn.astro";
+import Sapling from "@drawings/Sapling.astro";
+import Tree from "@drawings/Tree.astro";
+import Layout from "@layouts/Layout.astro";
+
+const posts = await getCollection("thoughts");
+const nonDraftPosts = posts.filter((post) => !post.data.draft);
+---
+
+<Layout title="Digital garden">
+  <p>
+    This digital garden is where I share reflections, sowing seeds of thought
+    that can be cultivated and nutured into fruitful structured writing.
+  </p>
+  <p>
+    Inspired by <a href="https://nesslabs.com/digital-garden-set-up"
+      >Anne-Laure Le Cunff
+    </a>, <a href="https://maggieappleton.com/garden-history"
+      >Maggie Appleton
+    </a> and <a href="https://twitter.com/Mappletons/status/1250532315459194880"
+      >others
+    </a>, this is not a chronological blog but an evergreen place where ideas
+    can be edited and refined.
+  </p>
+  <p>
+    It is better to work in the open and be comfortable with iterative progress,
+    than wait for the big reveal...
+  </p>
+
+  <Grid slot="card-grid">
+    {nonDraftPosts.map((post) => (
+      <Card href={`/thoughts/${post.slug}.html`}>
+        <Stack>
+          <h2>{post.data.title}</h2>
+          <p>{post.data.description}</p>
+          <CardFooter>
+            <small>Last tended: {post.data.lastEdited}</small>
+            {!post.data.stage || (post.data.stage === "note" && <Acorn />)}
+            {post.data.stage === "essay" && <Sapling />}
+            {post.data.stage === "reflection" && <Tree />}
+          </CardFooter>
+        </Stack>
+      </Card>
+    ))}
+  </Grid>
+</Layout>

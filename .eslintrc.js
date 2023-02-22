@@ -3,15 +3,22 @@ module.exports = {
   overrides: [
     {
       files: ["*.astro"],
-      parser: "astro-eslint-parser",
+      parser: "@typescript-eslint/parser",
       parserOptions: {
-        ecmaVersion: "latest",
-        sourceType: "module",
+        project: "./tsconfig.json",
+        extraFileExtensions: [".astro"], // This is a required setting in `@typescript-eslint/parser` v5.
       },
-      rules: {
-        // override/add rules settings here, such as:
-        // "astro/no-set-html-directive": "error"
-      },
+      overrides: [
+        {
+          files: ["*.astro"],
+          parser: "astro-eslint-parser",
+          parserOptions: {
+            parser: "@typescript-eslint/parser",
+            ecmaVersion: "latest",
+            sourceType: "module",      
+          },
+        },
+      ],
     },
   ],
 };

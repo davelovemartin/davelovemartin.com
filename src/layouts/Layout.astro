@@ -1,13 +1,21 @@
 ---
-import Centre from "../components/Centre.astro";
-import Cover from "../components/Cover.astro";
-import Footer from "../components/Footer.astro";
-import Header from "../components/Header.astro";
+import Centre from "@components/Centre.astro";
+import Cover from "@components/Cover.astro";
+import Footer from "@components/Footer.astro";
+import Header from "@components/Header.astro";
+import PageMeta from "@components/PageMeta.astro";
 
 import "@fontsource/comic-mono";
 
-const { title, description, lastEdited } =
-  Astro.props.frontmatter || Astro.props;
+interface Props {
+  title?: string;
+  description?: string;
+  lastEdited?: string;
+  stage?: "note" | "essay" | "reflection";
+}
+
+const { title, description, lastEdited, stage } =
+  Astro.props.data || Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -46,7 +54,7 @@ const { title, description, lastEdited } =
           <h1 class={title === "davelovemartin" ? "visually-hidden" : ""}>
             {title}
           </h1>
-          {lastEdited && <p>last edited: {lastEdited}</p>}
+          {lastEdited && <PageMeta lastEdited={lastEdited} stage={stage} />}
           <slot />
         </Centre>
         <slot name="card-grid" />

@@ -13,9 +13,11 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@astrojs/mdx": "^0.10.2",
-    "@astrojs/react": "^0.4.2",
-    "astro": "^1.0.0-beta.73",
+    "@astrojs/mdx": "^0.16.0",
+    "@astrojs/react": "^2.0.2",
+    "@typescript-eslint/eslint-plugin": "^5.53.0",
+    "@typescript-eslint/parser": "^5.53.0",
+    "astro": "^2.0.14",
     "eslint": "^8.20.0",
     "eslint-plugin-astro": "^0.15.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
@@ -26,7 +28,7 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
-    "@astrojs/netlify": "^1.3.0",
+    "@astrojs/netlify": "^2.1.2",
     "@fontsource/comic-mono": "^4.5.3",
     "gsap": "^3.11.1"
   }

@@ -16,10 +16,14 @@ const { currentPath, href, title } = Astro.props;
   .nav-item a {
     color: currentColor;
   }
-
+  .nav-item a:hover {
+    color: var(--color-incidental);
+  }
   .nav-item a.active {
     cursor: default;
-    background: none;
+  }
+  .nav-item a.active:hover {
+    color: var(--color-foreground);
   }
   .nav-item svg {
     margin-top: -0.4rem;

@@ -36,7 +36,7 @@ const { title, description, lastEdited, stage } =
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#1e374d" />
     <meta name="msapplication-TileColor" content="#fef9ef" />
     <meta name="theme-color" content="#fef9ef" />
-    <meta name="theme-color" content="#0496ff" />
+    <meta name="theme-color" content="#0075c9" />
     <meta name="twitter:title" content={title || "davelovemartin"} />
     <meta
       name="twitter:description"
@@ -72,7 +72,7 @@ const { title, description, lastEdited, stage } =
         --color-highlighter-p3: color(display-p3 0.935 0.62 0.023 / 0.8);
         --color-highlight-shadow: #e68a00;
         --color-error: #c1292e;
-        --color-incidental: #0496ff; /* typography */
+        --color-incidental: #0075c9; /* typography */
         --measure: 60ch;
         --outline-offset: 0.125rem;
         --border-radius: 0.125rem;
@@ -278,34 +278,21 @@ const { title, description, lastEdited, stage } =
         font-size: var(--s-1);
       }
 
-      @property --p {
-        syntax: "<percentage>";
-        inherits: false;
-        initial-value: 100%;
-      }
-
       a,
       a:link,
       a:visited,
       a:active {
-        --q: calc(100% - var(--p));
         color: var(--color-foreground-lite);
-        background: linear-gradient(
-          to bottom,
-          rgba(0, 0, 0, 0) var(--p),
-          var(--color-highlighter) var(--q)
-        );
         outline: var(--outline-offset) solid transparent;
         outline-offset: calc(var(--outline-offset) * -1);
         text-decoration: underline;
-        transition: --p var(--t1) ease, color var(--t1) ease;
         font-variation-settings: "wght" 680;
+        transition: text-decoration-color var(--t1) ease, color var(--t1) ease;
         border-radius: var(--border-radius);
       }
 
       a:hover {
-        --p: 68%;
-        text-decoration: none;
+        color: var(--color-incidental);
       }
 
       a:focus {

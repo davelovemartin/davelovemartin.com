@@ -15,6 +15,7 @@ const { currentPath, href, title } = Astro.props;
   }
   .nav-item a {
     color: currentColor;
+    text-decoration: none;
   }
   .nav-item a:hover {
     color: var(--color-incidental);
@@ -27,6 +28,11 @@ const { currentPath, href, title } = Astro.props;
   }
   .nav-item svg {
     margin-top: -0.4rem;
+  }
+  @media (max-width: 500px) {
+    .nav-item svg {
+      display: none;
+    }
   }
 </style>
 

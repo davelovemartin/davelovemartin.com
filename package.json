@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@astrojs/netlify": "^2.1.2",
+    "@astrojs/prism": "^2.1.2",
     "@fontsource/comic-mono": "^4.5.3",
     "gsap": "^3.11.1"
   }

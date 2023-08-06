@@ -1,0 +1,64 @@
+---
+title: Animating SVGs
+description: How SVGs work and how to animate them
+lastEdited: 06.08.2023
+type: code
+---
+
+import { Prism } from "@astrojs/prism";
+import BouncingBallOne from "@experiments/BouncingBallOne.jsx";
+import BouncingBallTwo from "@experiments/BouncingBallTwo.jsx";
+import BouncingBallThree from "@experiments/BouncingBallThree.jsx";
+import Graphic from "@components/Graphic.astro";
+
+I like the idea of creating code walkthroughs of how to do stuff in code as I learn.
+
+This is very much incomplete at the moment but I'd like to come back to this soon.
+
+---
+
+## Using CSS only
+
+This example uses CSS Keyframes to animate a ball:
+
+<Graphic>
+  <BouncingBallOne />
+</Graphic>
+
+here's the css I used:
+
+<Prism
+  lang="css"
+  code={`@keyframes bounce {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(160px);
+  }
+}
+.ball {
+  animation-name: bounce;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 0s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-fill-mode: forwards;
+  fill: var(--color-highlight);
+}`}
+/>
+
+## Animating with a javascript library
+
+Here, I'm using <a href="https://greensock.com/gsap/">GSAP</a> to scale the circle's X and Y dimensions to simulate how balls deform when colliding with the floor:
+
+<Graphic>
+  <BouncingBallTwo client:visible />
+</Graphic>
+
+With a shadow and shading:
+
+<Graphic>
+  <BouncingBallThree client:visible />
+</Graphic>

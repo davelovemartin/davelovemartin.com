@@ -1,17 +1,36 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import BouncingBallExperiment from "../experiments/BouncingBallExperiment.astro";
+import { getCollection } from "astro:content";
+import Card from "@components/Card.astro";
+import CardFooter from "@components/CardFooter.astro";
+import Grid from "@components/Grid.astro";
+import Stack from "@components/Stack.astro";
+import Layout from "@layouts/Layout.astro";
+import Thoughts from "@drawings/Thoughts.astro";
+import Cog from "@drawings/Cog.astro";
+
+const posts = await getCollection("experiments");
+const nonDraftPosts = posts.filter((post) => !post.data.draft);
 ---
 
 <Layout title="Experiments">
   <p>
-    Okay. So I confess, there's not much here at the moment other than this
-    bouncing ball!
+    This is where I put my <a href="/digital-garden">Thoughts</a> to the test.
   </p>
-  <ul>
-    <li>
-      <a href="#ball">Bouncing ball</a>
-    </li>
-  </ul>
-  <BouncingBallExperiment />
+  <p>And where I build to learn in code.</p>
+
+  <Grid slot="card-grid">
+    {nonDraftPosts.map((post) => (
+      <Card href={`/experiments/${post.slug}.html`}>
+        <Stack>
+          <h2>{post.data.title}</h2>
+          <p>{post.data.description}</p>
+          <CardFooter>
+            <small>Last tended: {post.data.lastEdited}</small>
+            {post.data.type === "thought" && <Thoughts />}
+            {post.data.type === "code" && <Cog />}
+          </CardFooter>
+        </Stack>
+      </Card>
+    ))}
+  </Grid>
 </Layout>

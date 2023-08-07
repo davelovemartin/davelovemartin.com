@@ -75,23 +75,19 @@ const { title, description, lastEdited, stage } =
         --color-incidental: #0075c9; /* typography */
         --measure: 60ch;
         --outline-offset: 0.125rem;
-        --border-radius: 0.125rem;
-        /* modular scale */
+        --border-radius: 0.125rem; /* modular scale */
         --ratio: 1.5;
         --s0: 1rem;
         --s-1: calc(var(--s0) / var(--ratio));
         --s1: calc(var(--s0) * var(--ratio));
         --s2: calc(var(--s1) * var(--ratio));
         --s3: calc(var(--s2) * var(--ratio));
-        --s4: calc(var(--s3) * var(--ratio));
-        /* timing */
+        --s4: calc(var(--s3) * var(--ratio)); /* timing */
         --t1: 0.2s;
-        --t2: 0.4s;
-        /* shadows */
+        --t2: 0.4s; /* shadows */
         --shadow1: 0 0 0.5rem 0 rgba(30, 55, 77, 0.2);
         --shadow2: 0 0 1rem 0.5rem rgba(30, 55, 77, 0.2);
-      }
-      /* Display-P3 color, when supported. */
+      } /* Display-P3 color, when supported. */
       @supports (color: color(display-p3 1 1 1)) {
         :root {
           --color-highlighter: var(--color-highlighter-p3);
@@ -132,10 +128,11 @@ const { title, description, lastEdited, stage } =
           sans-serif;
         -webkit-font-smoothing: antialiased;
       }
-      pre,
+      /* pre,
       code {
-        font-family: "Comic Mono", monospace;
-      }
+        font-family: "Comic
+      Mono", monospace;
+      } */
       img,
       picture,
       video,
@@ -164,7 +161,6 @@ const { title, description, lastEdited, stage } =
       dl {
         max-width: var(--measure);
       }
-
       details,
       dd,
       dl,
@@ -191,23 +187,11 @@ const { title, description, lastEdited, stage } =
         margin-block-end: var(--s1);
       }
 
-      blockquote {
-        margin-block-start: 3rem;
-        margin-block-end: 3rem;
-        padding-left: var(--s0);
-        font-variation-settings: "wdth" 100, "wght" 420;
-        word-spacing: 0.2em;
-        font-style: italic;
-      }
-
-      /* typography ("wdth" 75.0-100.0, "wght"	300-800) */
-
       h1,
       h2,
       h3 {
         color: var(--color-foreground-lite);
       }
-
       h1,
       .font-xxl {
         line-height: 1.333334;
@@ -215,7 +199,6 @@ const { title, description, lastEdited, stage } =
         font-size: var(--s2);
         letter-spacing: -0.025em;
       }
-
       h2,
       .font-xl {
         line-height: 1;
@@ -223,14 +206,12 @@ const { title, description, lastEdited, stage } =
         font-size: var(--s1);
         letter-spacing: -0.025em;
       }
-
       h3,
       .font-l {
         font-variation-settings: "wdth" 100, "wght" 500;
         font-size: var(--s0);
         letter-spacing: -0.025em;
       }
-
       h1 + p,
       p + p,
       p + ul,
@@ -249,10 +230,10 @@ const { title, description, lastEdited, stage } =
       h2 + ul,
       .font-xl + ul,
       h3 + ul,
-      .font-l + ul {
+      .font-l + ul,
+      blockquote {
         margin-block-start: 0;
       }
-
       h1,
       h2,
       h3,
@@ -261,7 +242,6 @@ const { title, description, lastEdited, stage } =
       ol {
         width: 100%;
       }
-
       p,
       a,
       li {
@@ -270,18 +250,17 @@ const { title, description, lastEdited, stage } =
         font-style: normal;
         font-size: var(--s0);
       }
-
-      li {
+      li,
+      ul li ul,
+      ol li ol {
         margin-block: 0;
       }
-
       small {
         line-height: 2.25;
         font-variation-settings: "wdth" 99, "wght" 400;
         font-style: normal;
         font-size: var(--s-1);
       }
-
       a,
       a:link,
       a:visited,
@@ -294,15 +273,25 @@ const { title, description, lastEdited, stage } =
         transition: text-decoration-color var(--t1) ease, color var(--t1) ease;
         border-radius: var(--border-radius);
       }
-
       a:hover {
         color: var(--color-incidental);
       }
-
       a:focus {
         outline: var(--outline-offset) solid var(--color-incidental);
       }
-
+      blockquote {
+        border-left: solid 0.25rem var(--color-highlight);
+        padding-left: var(--s3);
+      }
+      blockquote p {
+        font-variation-settings: "wdth" 112, "wght" 600;
+        margin-block: 0;
+      }
+      blockquote:before {
+        content: "\201C";
+        font-size: 4.235rem;
+        line-height: 3rem;
+      }
       .visually-hidden {
         clip: rect(0 0 0 0);
         clip-path: inset(50%);

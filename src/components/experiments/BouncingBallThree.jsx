@@ -49,12 +49,12 @@ const BouncingBallThree = () => {
     <svg width="200px" height="200px" viewBox="0 0 200 200">
       <defs>
         <radialGradient id="gradient" cx="0.5" cy="0.5" fx="0.25" fy="0.25">
-          <stop offset="0%" stop-color="var(--color-highlight)" />
-          <stop offset="100%" stop-color="var(--color-highlight-shadow)" />
+          <stop offset="0%" stopColor="var(--color-highlight)" />
+          <stop offset="100%" stopColor="var(--color-highlight-shadow)" />
         </radialGradient>
         <radialGradient id="shadow">
-          <stop offset="0%" stop-color="#888888DD" />
-          <stop offset="100%" stop-color="white" />
+          <stop offset="0%" stopColor="#888888DD" />
+          <stop offset="100%" stopColor="white" />
         </radialGradient>
       </defs>
       <circle

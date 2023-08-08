@@ -4,8 +4,6 @@
     transparent 0
   );
   background-size: 10px 10px;
-  width: 200px;
-  height: 200px;
   border: solid 1px var(--color-foreground);
   box-shadow: var(--shadow1);
 }

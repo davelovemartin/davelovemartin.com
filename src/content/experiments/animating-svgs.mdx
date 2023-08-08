@@ -6,14 +6,35 @@ type: code
 ---
 
 import { Prism } from "@astrojs/prism";
+import SvgExample from "@experiments/SvgExample.astro";
 import BouncingBallOne from "@experiments/BouncingBallOne.jsx";
 import BouncingBallTwo from "@experiments/BouncingBallTwo.jsx";
 import BouncingBallThree from "@experiments/BouncingBallThree.jsx";
 import Graphic from "@components/Graphic.astro";
 
-I like the idea of creating code walkthroughs of how to do stuff in code as I learn.
+When I started to learn to code websites, there were a few different options for creating icons. You could use a sprite sheet, or use a special icon font...
 
-This is very much incomplete at the moment but I'd like to come back to this soon.
+...but I always liked the idea of SVGs.
+
+After all they are scalable, so they can be created with a small footprint but can be blown up to fill any large screen without loss of definition. And as a subset of XML, they can be written inline in HTML and targetted with CSS.
+
+You can also import SVGs as JSX, in React (although [you may not want to do that](https://kurtextrem.de/posts/svg-in-js)).
+
+You can create SVGs in your favourite Vector Graphic editing software, and export the code created and plonk it into your code. You can use the excellent [SVGOMG](https://jakearchibald.github.io/svgomg/) tool, to optimise the code as your favourite Vector Graphic software may add some extra bloat.
+
+However, I thought it would be great to get under the hood and explore how to create SVGs from scratch.
+
+## The SVG element
+
+In HTML, there is a SVG element which you can use to render a SVG document fragment. The viewBox attribute defines the coordinates of your viewport. The window into your SVG world.
+
+The first two numbers in the viewBox denote the top left co-ordinates of the viewport and the last two numbers represent the bottom right co-ordinates.
+
+<Prism lang="svg" code={`<svg viewBox="0 0 48 48" />`} />
+
+<Graphic>
+  <SvgExample />
+</Graphic>
 
 ---
 

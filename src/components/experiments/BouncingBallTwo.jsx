@@ -36,7 +36,7 @@ const BouncingBallTwo = () => {
     });
   }, []);
   return (
-    <svg width="200px" height="200px" viewBox="0 0 200 200">
+    <svg width="192px" height="192px" viewBox="0 0 200 200">
       <circle
         ref={circleRef}
         cx="40"

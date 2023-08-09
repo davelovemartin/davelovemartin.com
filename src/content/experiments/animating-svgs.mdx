@@ -7,9 +7,9 @@ type: code
 
 import { Prism } from "@astrojs/prism";
 import SvgExample from "@experiments/SvgExample.astro";
-import BouncingBallOne from "@experiments/BouncingBallOne.jsx";
-import BouncingBallTwo from "@experiments/BouncingBallTwo.jsx";
-import BouncingBallThree from "@experiments/BouncingBallThree.jsx";
+import SvgPathExample from "@experiments/SvgPathExample.astro";
+import BouncingBallCSSKeyframes from "@experiments/BouncingBallCSSKeyframes.jsx";
+import BouncingBallGsap from "@experiments/BouncingBallGsap.jsx";
 import Graphic from "@components/Graphic.astro";
 
 When I started to learn to code websites, there were a few different options for creating icons. You could use a sprite sheet, or use a special icon font...
@@ -36,14 +36,40 @@ The first two numbers in the viewBox denote the top left co-ordinates of the vie
   <SvgExample />
 </Graphic>
 
----
+You can add shape elements as children of an SVG. They are ‘circle’, ‘ellipse’, ‘line’, ‘polygon’, ‘polyline’, ‘rect’ and ‘path’.
 
-## Using CSS only
+You can probably take a reasonable guess at what these shapes are. The most flexible one is the path element.
+
+The path element is defined along with a path data property, **d**. The path data is a series of commands that tell the browser how the path should be drawn — in a similar way to how you might program a robot turtle.
+
+Here, I use the move command (**M**), along with the line command (**L**) and the closepath command (**Z**) to draw a polygon.
+
+<Prism
+  lang="svg"
+  code={`<svg viewBox="0 0 48 48">
+  <path d="M 2 24 L 32 46 L 46 32 L 24 2 Z" fill="none" stroke="#2c363f"></path>
+</svg>`}
+/>
+
+<Graphic>
+  <SvgPathExample />
+</Graphic>
+
+The command code can either be uppercase or lowercase:
+
+- uppercase commands are absolute — their parameters are relative to the origin point,
+- lowercase commands are relative to the previous command's endpoint.
+
+**This is a work in progress — more to come soon**
+
+## Animation methods
+
+### Animating with CSS only
 
 This example uses CSS Keyframes to animate a ball:
 
 <Graphic>
-  <BouncingBallOne />
+  <BouncingBallCSSKeyframes />
 </Graphic>
 
 here's the css I used:
@@ -70,16 +96,10 @@ here's the css I used:
 }`}
 />
 
-## Animating with a javascript library
+### Animating with a javascript library
 
 Here, I'm using <a href="https://greensock.com/gsap/">GSAP</a> to scale the circle's X and Y dimensions to simulate how balls deform when colliding with the floor:
 
 <Graphic>
-  <BouncingBallTwo client:visible />
-</Graphic>
-
-With a shadow and shading:
-
-<Graphic>
-  <BouncingBallThree client:visible />
+  <BouncingBallGsap client:visible />
 </Graphic>

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 
-const BouncingBallThree = () => {
+const BouncingBallGsap = () => {
   const circleRef = useRef();
   const shadowRef = useRef();
 
@@ -46,7 +46,7 @@ const BouncingBallThree = () => {
     });
   }, []);
   return (
-    <svg width="200px" height="200px" viewBox="0 0 200 200">
+    <svg width="192px" height="192px" viewBox="0 0 200 200">
       <defs>
         <radialGradient id="gradient" cx="0.5" cy="0.5" fx="0.25" fy="0.25">
           <stop offset="0%" stopColor="var(--color-highlight)" />
@@ -70,4 +70,4 @@ const BouncingBallThree = () => {
   );
 };
 
-export default BouncingBallThree;
+export default BouncingBallGsap;

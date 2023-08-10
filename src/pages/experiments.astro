@@ -6,7 +6,7 @@ import Grid from "@components/Grid.astro";
 import Stack from "@components/Stack.astro";
 import Layout from "@layouts/Layout.astro";
 import Thoughts from "@drawings/Thoughts.astro";
-import Cog from "@drawings/Cog.astro";
+import Code from "@drawings/Code.astro";
 
 const posts = await getCollection("experiments");
 const nonDraftPosts = posts.filter((post) => !post.data.draft);
@@ -27,7 +27,7 @@ const nonDraftPosts = posts.filter((post) => !post.data.draft);
           <CardFooter>
             <small>Last tended: {post.data.lastEdited}</small>
             {post.data.type === "thought" && <Thoughts />}
-            {post.data.type === "code" && <Cog />}
+            {post.data.type === "code" && <Code />}
           </CardFooter>
         </Stack>
       </Card>

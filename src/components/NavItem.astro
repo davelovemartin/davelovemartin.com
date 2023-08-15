@@ -9,6 +9,9 @@ const { currentPath, href, title } = Astro.props;
 ---
 
 <style is:global>
+  .nav-item {
+    padding-top: var(--s0);
+  }
   .nav-item a {
     display: inline-flex;
     justify-content: space-between;
@@ -28,18 +31,13 @@ const { currentPath, href, title } = Astro.props;
   }
   .nav-item svg {
     margin-top: -0.5rem;
-    margin-left: 0.5rem;
-  }
-  @media (max-width: 500px) {
-    .nav-item svg {
-      display: none;
-    }
+    min-width: var(--s2);
   }
 </style>
 
 <div class="nav-item">
   <a href={href} class={currentPath === href ? "active" : ""}>
-    {title}
     <slot />
+    {title}
   </a>
 </div>

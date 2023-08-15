@@ -3,8 +3,7 @@
     width: calc(var(--s1) * 3);
   }
   .social a {
-    color: var(--color-foreground);
-    display: block;
+    color: var(--color-incidental);
     padding: var(--s1);
     outline: var(--outline-offset) solid transparent;
     outline-offset: calc(var(--outline-offset) * -1);
@@ -12,19 +11,16 @@
     background: none;
   }
   .social a:focus {
-    color: var(--color-foreground);
+    color: var(--color-incidental);
     outline: var(--outline-offset) solid var(--color-incidental);
     border-radius: var(--border-radius);
   }
   .social a svg {
     width: 1.5rem;
-    fill: var(--color-foreground);
-  }
-  .social a:hover {
-    --p: 88%;
+    fill: var(--color-incidental);
   }
   .social a:hover svg {
-    fill: var(--color-incidental);
+    fill: var(--color-foreground);
   }
 </style>
 

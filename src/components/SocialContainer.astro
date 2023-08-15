@@ -1,9 +1,22 @@
-<style>
+<style is:global>
   .social-container {
-    width: calc(var(--measure) / 2.5);
-    margin-inline: auto;
-    display: flex;
-    justify-content: space-between;
+    display: block;
+  }
+
+  .social-container a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-block: 0;
+  }
+  .social-container a svg {
+    width: 1rem;
+    height: 1rem;
+    display: inline;
+    fill: var(--color-incidental);
+  }
+  .social-container a:hover svg {
+    fill: var(--color-foreground);
   }
 </style>
 

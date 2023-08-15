@@ -47,20 +47,18 @@ const { title, description, lastEdited, stage } =
     <meta name="twitter:creator" content="@davelovemartin" />
   </head>
   <body>
-    <Cover>
-      <Header />
-      <main>
-        <Centre>
-          <h1 class={title === "davelovemartin" ? "visually-hidden" : ""}>
-            {title}
-          </h1>
-          {lastEdited && <PageMeta lastEdited={lastEdited} stage={stage} />}
-          <slot />
-        </Centre>
-        <slot name="card-grid" />
-      </main>
-      <Footer />
-    </Cover>
+    <Header />
+    <main>
+      <Centre>
+        <h1 class={title === "davelovemartin" ? "visually-hidden" : ""}>
+          {title}
+        </h1>
+        {lastEdited && <PageMeta lastEdited={lastEdited} stage={stage} />}
+        <slot />
+      </Centre>
+      <slot name="card-grid" />
+    </main>
+    <Footer />
     <style is:global>
       :root {
         /* colour palette */
@@ -96,7 +94,7 @@ const { title, description, lastEdited, stage } =
       html {
         color: var(--color-foreground);
         background-color: var(--color-background);
-        font-size: 20px;
+        font-size: 28px;
         scroll-behavior: smooth;
       }
       *,
@@ -257,6 +255,10 @@ const { title, description, lastEdited, stage } =
       ol li ol {
         margin-block: 0;
       }
+      ul,
+      ol {
+        padding-left: 3rem;
+      }
       small {
         line-height: 2.25;
         font-variation-settings: "wdth" 99, "wght" 400;
@@ -267,16 +269,19 @@ const { title, description, lastEdited, stage } =
       a:link,
       a:visited,
       a:active {
-        color: var(--color-foreground-lite);
+        color: var(--color-incidental);
         outline: var(--outline-offset) solid transparent;
         outline-offset: calc(var(--outline-offset) * -1);
         text-decoration: underline;
         font-variation-settings: "wght" 680;
         transition: text-decoration-color var(--t1) ease, color var(--t1) ease;
         border-radius: var(--border-radius);
+        padding: 0.125rem 0.2rem;
+        margin: 0 -0.2rem;
       }
       a:hover {
-        color: var(--color-incidental);
+        color: var(--color-foreground);
+        background-color: var(--color-highlighter);
       }
       a:focus {
         outline: var(--outline-offset) solid var(--color-incidental);
@@ -302,6 +307,41 @@ const { title, description, lastEdited, stage } =
         position: absolute;
         white-space: nowrap;
         width: 1px;
+      }
+      main,
+      footer,
+      header {
+        padding: 1.5rem;
+      }
+      main,
+      footer {
+        display: flex;
+        flex-direction: column;
+        min-block-size: 100vh;
+      }
+
+      main,
+      header,
+      footer {
+        margin-block: 1.5rem;
+      }
+
+      main,
+      header,
+      footer {
+        margin-block-start: 0;
+      }
+
+      main,
+      header,
+      footer {
+        margin-block-end: 0;
+      }
+
+      main,
+      header,
+      footer {
+        margin-block: auto;
       }
     </style>
   </body>

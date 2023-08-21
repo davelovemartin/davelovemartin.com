@@ -36,7 +36,11 @@ const { currentPath, href, title } = Astro.props;
 </style>
 
 <div class="nav-item">
-  <a href={href} class={currentPath === href ? "active" : ""}>
+  <a
+    href={href}
+    class={currentPath === href ? "active" : ""}
+    aria-current={currentPath === href ? "page" : ""}
+  >
     <slot />
     {title}
   </a>

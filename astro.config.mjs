@@ -10,6 +10,7 @@ export default defineConfig({
     }),
   ],
   build: {
-    format: 'file'
-  }
+    format: "file",
+  },
+  server: { port: 8080, host: true },
 });

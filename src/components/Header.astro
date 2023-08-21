@@ -25,10 +25,11 @@ import NavItem from "./NavItem.astro";
   }
 </style>
 
-<header>
+<header role="banner">
   <Title />
   <nav class="navigation" aria-label="primary">
-    <ul>
+    {/* eslint-disable-next-line jsx-a11y/no-redundant-roles */}
+    <ul role="list">
       <li>
         <NavItem
           href="/digital-garden"

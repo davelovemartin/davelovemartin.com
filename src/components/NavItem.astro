@@ -20,12 +20,12 @@ const { currentPath, href, title } = Astro.props;
   .nav-item a:hover {
     color: var(--color-foreground);
   }
-  .nav-item a.active {
+  .nav-item a[aria-current="page"] {
     color: var(--color-foreground);
     cursor: default;
     text-decoration: none;
   }
-  .nav-item a.active:hover {
+  .nav-item a[aria-current="page"]:hover {
     color: var(--color-foreground);
     background-color: var(--color-background);
   }
@@ -36,11 +36,7 @@ const { currentPath, href, title } = Astro.props;
 </style>
 
 <div class="nav-item">
-  <a
-    href={href}
-    class={currentPath === href ? "active" : ""}
-    aria-current={currentPath === href ? "page" : ""}
-  >
+  <a href={href} aria-current={currentPath === href ? "page" : ""}>
     <slot />
     {title}
   </a>

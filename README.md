@@ -10,7 +10,7 @@ Using [Astro](https://docs.astro.build/en/getting-started/) and [React](https://
 
 ## Goal
 
-Use vectors of handwritten drawings to create interactive data visualisations - have fun and experiment.
+Use vectors of handwritten drawings to create interactive visualisations - have fun and experiment.
 
 A place to publish lessons learned.
 

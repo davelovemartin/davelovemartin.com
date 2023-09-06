@@ -13,11 +13,11 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@astrojs/mdx": "^0.16.0",
-    "@astrojs/react": "^2.0.2",
+    "@astrojs/mdx": "^1.0.0",
+    "@astrojs/react": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^5.53.0",
     "@typescript-eslint/parser": "^5.53.0",
-    "astro": "^2.6.4",
+    "astro": "^3.0.8",
     "eslint": "^8.20.0",
     "eslint-plugin-astro": "^0.15.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
@@ -25,11 +25,12 @@
     "prettier": "^2.7.1",
     "prettier-plugin-astro": "^0.1.2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@astrojs/netlify": "^2.1.2",
-    "@astrojs/prism": "^2.1.2",
+    "@astrojs/netlify": "^3.0.1",
+    "@astrojs/prism": "^3.0.0",
     "@fontsource/comic-mono": "^4.5.3",
     "gsap": "^3.11.1"
   }

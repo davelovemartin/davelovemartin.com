@@ -17,6 +17,9 @@ module.exports = {
             ecmaVersion: "latest",
             sourceType: "module",      
           },
+          rules: {
+            "jsx-a11y/no-redundant-roles": "warn"
+          }
         },
       ],
     },

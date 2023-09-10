@@ -2,26 +2,38 @@
 import Acorn from "@drawings/Acorn.astro";
 import Sapling from "@drawings/Sapling.astro";
 import Tree from "@drawings/Tree.astro";
+import Experiments from "@drawings/Experiments.astro";
 
 interface Props {
   lastEdited: string;
-  stage: "note" | "essay" | "reflection";
+  drawing: "note" | "essay" | "reflection" | "experiment" | undefined;
 }
 
-const { lastEdited, stage } = Astro.props;
+const { lastEdited, drawing } = Astro.props;
 ---
 
 <style is:global>
-  .page-meta {
+  .page-meta svg {
     height: var(--s2);
-    width: 100%;
-    margin-bottom: var(--s1);
+    width: var(--s2);
+  }
+  .page-meta {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
   }
 </style>
 
-<div class="page-meta">
-  {stage === "note" && <Acorn />}
-  {stage === "essay" && <Sapling />}
-  {stage === "reflection" && <Tree />}
-  <small>last tended: {lastEdited}</small>
+<div
+  class="page-meta"
+  transition:name={`page-meta-${drawing}-${lastEdited}`}
+  transition:animate="initial"
+>
+  {drawing === "note" && <Acorn />}
+  {drawing === "essay" && <Sapling />}
+  {drawing === "reflection" && <Tree />}
+  {drawing === "experiment" && <Experiments />}
+  <small>
+    {`last ${drawing === "experiment" ? "updated" : "tended"}: ${lastEdited}`}
+  </small>
 </div>

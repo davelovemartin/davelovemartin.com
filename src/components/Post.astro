@@ -1,0 +1,37 @@
+---
+import PageMeta from "@components/PageMeta.astro";
+import slugify from "slugify";
+
+interface Props {
+  slug: string;
+  title: string;
+  description: string;
+  lastEdited: string;
+  drawing: "note" | "essay" | "reflection" | "experiment";
+}
+
+const { slug, title, description, lastEdited, drawing } = Astro.props;
+---
+
+<style is:global>
+  .post p {
+    margin-block: 0;
+  }
+</style>
+
+<li class="post">
+  <p>
+    <a
+      class="font-l"
+      href={slug}
+      transition:name={slugify(title)}
+      transition:animate="initial"
+    >
+      {title}
+    </a>
+  </p>
+  <p transition:name={slugify(description)} transition:animate="initial">
+    {description}
+  </p>
+  <PageMeta lastEdited={lastEdited} drawing={drawing} />
+</li>

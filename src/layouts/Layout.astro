@@ -1,22 +1,23 @@
 ---
-import Centre from "@components/Centre.astro";
 import Cover from "@components/Cover.astro";
 import Footer from "@components/Footer.astro";
 import Header from "@components/Header.astro";
 import PageMeta from "@components/PageMeta.astro";
 
+import { ViewTransitions } from "astro:transitions";
+import slugify from "slugify";
+
 import "@fontsource/comic-mono";
-import { ViewTransitions } from 'astro:transitions';
 
 interface Props {
   title?: string;
   description?: string;
   lastEdited?: string;
   stage?: "note" | "essay" | "reflection";
+  type?: "experiment";
 }
 
-const { title, description, lastEdited, stage } =
-  Astro.props.data || Astro.props;
+const { title, description, lastEdited, stage, type } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -52,14 +53,25 @@ const { title, description, lastEdited, stage } =
     <Cover>
       <Header />
       <main>
-        <Centre>
-          <h1 class={title === "davelovemartin" ? "visually-hidden" : ""}>
-            {title}
-          </h1>
-          {lastEdited && <PageMeta lastEdited={lastEdited} stage={stage} />}
-          <slot />
-        </Centre>
-        <slot name="card-grid" />
+        <h1
+          class={title === "davelovemartin" ? "visually-hidden" : ""}
+          transition:name={title && slugify(title)}
+          transition:animate="initial"
+        >
+          {title}
+        </h1>
+        {description && (
+          <p
+            transition:name={slugify(description)}
+            transition:animate="initial"
+          >
+            {description}
+          </p>
+        )}
+        {lastEdited && (
+          <PageMeta lastEdited={lastEdited} drawing={stage ?? type} />
+        )}
+        <slot />
       </main>
       <Footer />
     </Cover>
@@ -175,7 +187,6 @@ const { title, description, lastEdited, stage } =
       figcaption,
       figure,
       form,
-      h1,
       h2,
       h3,
       h4,
@@ -243,6 +254,15 @@ const { title, description, lastEdited, stage } =
       blockquote {
         margin-block-start: 0;
       }
+
+      h1 {
+        margin-block: var(--s0);
+      }
+      h1 + p,
+      h1 + div {
+        margin-block: 0;
+      }
+
       h1,
       h2,
       h3,
@@ -251,6 +271,26 @@ const { title, description, lastEdited, stage } =
       ol {
         width: 100%;
       }
+
+      .stack {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+      }
+
+      .stack > * {
+        margin-block: 0;
+      }
+
+      .stack > * + * {
+        margin-block-start: var(--s1);
+      }
+
+      .stack > :nth-child(2) {
+        margin-block-end: auto;
+      }
+
       p,
       a,
       li {

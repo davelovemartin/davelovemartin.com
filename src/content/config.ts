@@ -1,6 +1,7 @@
 import { z, defineCollection } from "astro:content";
 
 const thoughtsCollection = defineCollection({
+  type: 'content',
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -12,11 +13,12 @@ const thoughtsCollection = defineCollection({
 });
 
 const experimentsCollection = defineCollection({
+  type: 'content',
   schema: z.object({
     title: z.string(),
     description: z.string(),
     lastEdited: z.string(),
-    type: z.enum(["thought", "code"]),
+    type: z.enum(["experiment"]),
     draft: z.boolean().optional(),
   }),
 });

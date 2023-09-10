@@ -1,36 +1,27 @@
 ---
 import { getCollection } from "astro:content";
-import Card from "@components/Card.astro";
-import CardFooter from "@components/CardFooter.astro";
-import Grid from "@components/Grid.astro";
-import Stack from "@components/Stack.astro";
 import Layout from "@layouts/Layout.astro";
-import Thoughts from "@drawings/Thoughts.astro";
-import Code from "@drawings/Code.astro";
+import Post from "@components/Post.astro";
+import Posts from "@components/Posts.astro";
+
+import { sortPosts } from "@utilities/sortPosts";
 
 const posts = await getCollection("experiments");
-const nonDraftPosts = posts.filter((post) => !post.data.draft);
+const nonDraftPosts = sortPosts(posts).filter((post) => !post.data.draft);
 ---
 
 <Layout title="Experiments">
-  <p>
-    This is where I put my <a href="/digital-garden">Thoughts</a> to the test.
-  </p>
-  <p>And where I build to learn in code.</p>
+  <p>Explorations in code and web technology. Learning by doing.</p>
 
-  <Grid slot="card-grid">
+  <Posts>
     {nonDraftPosts.map((post) => (
-      <Card href={`/experiments/${post.slug}.html`}>
-        <Stack>
-          <h2>{post.data.title}</h2>
-          <p>{post.data.description}</p>
-          <CardFooter>
-            <small>Last tended: {post.data.lastEdited}</small>
-            {post.data.type === "thought" && <Thoughts />}
-            {post.data.type === "code" && <Code />}
-          </CardFooter>
-        </Stack>
-      </Card>
+      <Post
+        slug={`/experiments/${post.slug}.html`}
+        title={post.data.title}
+        description={post.data.description}
+        lastEdited={post.data.lastEdited}
+        drawing="experiment"
+      />
     ))}
-  </Grid>
+  </Posts>
 </Layout>

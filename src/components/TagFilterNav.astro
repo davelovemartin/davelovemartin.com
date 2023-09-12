@@ -18,7 +18,11 @@ const { current } = Astro.props;
     cursor: pointer;
   }
 </style>
-<div class="tag-filter-nav" transition:name="tag-filter-name" transition:persist>
+<div
+  class="tag-filter-nav"
+  transition:name="tag-filter-name"
+  transition:persist
+>
   <span>filter by:</span>
   <nav>
     {/* eslint-disable-next-line jsx-a11y/no-redundant-roles */}

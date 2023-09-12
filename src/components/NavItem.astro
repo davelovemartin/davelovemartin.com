@@ -8,11 +8,11 @@ interface Props {
 const { currentPath, href, title } = Astro.props;
 
 const checkIsCurrent = (currentPath, href) => {
-  if(currentPath.includes('digital-garden')) {
-    return currentPath.includes(href) ? "page" : "false"
+  if (currentPath.includes("digital-garden")) {
+    return currentPath.includes(href) ? "page" : "false";
   }
-  return currentPath === href ? "page" : "false"
-}
+  return currentPath === href ? "page" : "false";
+};
 ---
 
 <style is:global>

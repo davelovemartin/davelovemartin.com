@@ -24,12 +24,12 @@ const { tag, slug, title, description, lastEdited, drawing } = Astro.props;
     </a>
     {tag && <Tag>{tag}</Tag>}
   </p>
-  <p
-  transition:name={slugify(description)}
-  transition:animate="initial"
-  >
+  <p transition:name={slugify(description)} transition:animate="initial">
     {description}
   </p>
-  <PageMeta name={title && slugify(title)}
-  lastEdited={lastEdited} drawing={drawing} />
+  <PageMeta
+    name={title && slugify(title)}
+    lastEdited={lastEdited}
+    drawing={drawing}
+  />
 </li>

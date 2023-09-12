@@ -6,6 +6,13 @@ interface Props {
 }
 
 const { currentPath, href, title } = Astro.props;
+
+const checkIsCurrent = (currentPath, href) => {
+  if(currentPath.includes('digital-garden')) {
+    return currentPath.includes(href) ? "page" : "false"
+  }
+  return currentPath === href ? "page" : "false"
+}
 ---
 
 <style is:global>
@@ -36,7 +43,7 @@ const { currentPath, href, title } = Astro.props;
 </style>
 
 <div class="nav-item">
-  <a href={href} aria-current={currentPath === href ? "page" : ""}>
+  <a href={href} aria-current={checkIsCurrent(currentPath, href)}>
     <slot />
     {title}
   </a>

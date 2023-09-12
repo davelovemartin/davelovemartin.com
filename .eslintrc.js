@@ -18,7 +18,7 @@ module.exports = {
             sourceType: "module",      
           },
           rules: {
-            "jsx-a11y/no-redundant-roles": "warn"
+            // "jsx-a11y/no-redundant-roles": "warn"
           }
         },
       ],

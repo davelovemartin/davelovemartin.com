@@ -23,10 +23,10 @@ const { title, description, lastEdited, stage, type } = Astro.props;
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <ViewTransitions />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <title>{title || "davelovemartin"}</title>
-    <ViewTransitions />
     <meta
       name="description"
       content={description || "Exploring Innovation in Web Tech"}
@@ -69,18 +69,31 @@ const { title, description, lastEdited, stage, type } = Astro.props;
           </p>
         )}
         {lastEdited && (
-          <PageMeta lastEdited={lastEdited} drawing={stage ?? type} />
+          <PageMeta
+            name={title && slugify(title)}
+            lastEdited={lastEdited}
+            drawing={stage ?? type}
+          />
         )}
         <slot />
       </main>
       <Footer />
     </Cover>
     <style is:global>
+      @keyframes grow {
+        from {
+          transform: scaleX(0);
+        }
+        to {
+          transform: scaleX(1);
+        }
+      }
       :root {
         /* colour palette */
         --color-foreground: #2c363f;
         --color-foreground-lite: #1e374d;
         --color-background: #fef9ef;
+        --color-background-heavy: #ffdead;
         --color-highlight: #ffad33;
         --color-highlighter: rgba(255, 173, 51, 0.666);
         --color-highlighter-p3: color(display-p3 0.935 0.62 0.023 / 0.8);

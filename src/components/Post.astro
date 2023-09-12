@@ -1,16 +1,9 @@
 ---
 import PageMeta from "@components/PageMeta.astro";
+import Tag from "@components/Tag.astro";
 import slugify from "slugify";
 
-interface Props {
-  slug: string;
-  title: string;
-  description: string;
-  lastEdited: string;
-  drawing: "note" | "essay" | "reflection" | "experiment";
-}
-
-const { slug, title, description, lastEdited, drawing } = Astro.props;
+const { tag, slug, title, description, lastEdited, drawing } = Astro.props;
 ---
 
 <style is:global>
@@ -24,14 +17,19 @@ const { slug, title, description, lastEdited, drawing } = Astro.props;
     <a
       class="font-l"
       href={slug}
-      transition:name={slugify(title)}
+      transition:name={title && slugify(title)}
       transition:animate="initial"
     >
       {title}
     </a>
+    {tag && <Tag>{tag}</Tag>}
   </p>
-  <p transition:name={slugify(description)} transition:animate="initial">
+  <p
+  transition:name={slugify(description)}
+  transition:animate="initial"
+  >
     {description}
   </p>
-  <PageMeta lastEdited={lastEdited} drawing={drawing} />
+  <PageMeta name={title && slugify(title)}
+  lastEdited={lastEdited} drawing={drawing} />
 </li>

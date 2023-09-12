@@ -1,16 +1,16 @@
 ---
 import { getCollection } from "astro:content";
 interface Props {
-  theme: string;
+  tag: string;
   title: string;
 }
 
-const { theme, title } = Astro.props;
+const { tag, title } = Astro.props;
 
 const posts = await getCollection("thoughts");
 const filteredPosts = posts.filter(
   (post) =>
-    !post.data.draft && post.data.theme === theme && post.data.title !== title
+    !post.data.draft && post.data.tag === tag && post.data.title !== title
 );
 ---
 

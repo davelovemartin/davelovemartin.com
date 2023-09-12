@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import Layout from "@layouts/Layout.astro";
 import Post from "@components/Post.astro";
 import Posts from "@components/Posts.astro";
@@ -14,7 +15,7 @@ const nonDraftPosts = sortPosts(posts).filter((post) => !post.data.draft);
   <p>Explorations in code and web technology. Learning by doing.</p>
 
   <Posts>
-    {nonDraftPosts.map((post) => (
+    {nonDraftPosts.map((post: CollectionEntry<"experiments">) => (
       <Post
         slug={`/experiments/${post.slug}.html`}
         title={post.data.title}

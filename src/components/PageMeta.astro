@@ -5,11 +5,12 @@ import Tree from "@drawings/Tree.astro";
 import Experiments from "@drawings/Experiments.astro";
 
 interface Props {
+  name?: string;
   lastEdited: string;
   drawing: "note" | "essay" | "reflection" | "experiment" | undefined;
 }
 
-const { lastEdited, drawing } = Astro.props;
+const { name, lastEdited, drawing } = Astro.props;
 ---
 
 <style is:global>
@@ -26,7 +27,7 @@ const { lastEdited, drawing } = Astro.props;
 
 <div
   class="page-meta"
-  transition:name={`page-meta-${drawing}-${lastEdited}`}
+  transition:name={`page-meta-${drawing}-${lastEdited}-${name}`}
   transition:animate="initial"
 >
   {drawing === "note" && <Acorn />}

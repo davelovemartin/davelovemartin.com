@@ -7,7 +7,7 @@ const thoughtsCollection = defineCollection({
     description: z.string(),
     stage: z.enum(["note", "essay", "reflection"]),
     lastEdited: z.string(),
-    theme: z.enum(["self-management", "innovation", "writing"]),
+    tag: z.enum(["self-management", "innovation", "writing"]),
     draft: z.boolean().optional(),
   }),
 });

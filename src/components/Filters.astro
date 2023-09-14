@@ -28,7 +28,7 @@ import Tree from "@drawings/Tree.astro";
   #filters div span {
     display: inline-flex;
     align-items: center;
-    gap: .0625rem;
+    gap: 0.0625rem;
     flex-wrap: nowrap;
   }
 
@@ -39,11 +39,7 @@ import Tree from "@drawings/Tree.astro";
   }
 </style>
 <hr />
-<div
-  transition:name="tag-filter-name"
-  transition:persist
-  id="filters"
->
+<div transition:name="tag-filter-name" transition:persist id="filters">
   <div id="stage">
     <span id="note-label">Notes (<Acorn />)</span>
     <span id="essay-label">Essays (<Sapling />)</span>
@@ -56,30 +52,37 @@ import Tree from "@drawings/Tree.astro";
   const stageFilterContainer = document.getElementById("stage");
   const tagFilterContainer = document.createElement("div");
   tagFilterContainer.setAttribute("id", "tag");
-  
+
   const toggleFilter = (type, title) => {
-    const posts = type === "tag" ? document.querySelectorAll(`[data-tag='${title}']`) : document.querySelectorAll(`[data-stage='${title}']`) 
-    posts.forEach(post =>  post.getAttribute('hidden') ? post.removeAttribute('hidden') : post.setAttribute('hidden', "true"))
-  }
-  
-  const filterHeading = document.createElement('h2');
+    const posts =
+      type === "tag"
+        ? document.querySelectorAll(`[data-tag='${title}']`)
+        : document.querySelectorAll(`[data-stage='${title}']`);
+    posts.forEach((post) =>
+      post.getAttribute("hidden")
+        ? post.removeAttribute("hidden")
+        : post.setAttribute("hidden", "true")
+    );
+  };
+
+  const filterHeading = document.createElement("h2");
   filterHeading.innerText = "Filter by:";
   filterHeading.className = "font-l";
-  
+
   filterContainer?.prepend(filterHeading);
   filterContainer.append(tagFilterContainer);
-  
+
   const stageNames = ["note", "essay", "reflection"];
   stageNames.map((stageName, i) => {
-    const label = document.createElement('label');
-    label.setAttribute("for", `${stageName}Checkbox`)
-    const checkbox = document.createElement('input');
+    const label = document.createElement("label");
+    label.setAttribute("for", `${stageName}Checkbox`);
+    const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.name = `${stageName}Checkbox`;
     checkbox.checked = true;
-    checkbox.addEventListener('change', () => {
+    checkbox.addEventListener("change", () => {
       toggleFilter("stage", stageName);
-      checkbox.checked ? !checkbox.checked : checkbox.checked
+      checkbox.checked ? !checkbox.checked : checkbox.checked;
     });
     const stageFilterSpan = document.getElementById(`${stageName}-label`);
     stageFilterContainer.appendChild(label);
@@ -87,24 +90,23 @@ import Tree from "@drawings/Tree.astro";
     label.appendChild(stageFilterSpan);
   });
 
-  const tagNames = ['innovation', 'self-management'];
+  const tagNames = ["innovation", "self-management"];
   tagNames.map((tagName) => {
-    const label = document.createElement('label');
+    const label = document.createElement("label");
     label.innerHTML = `<span>${tagName}</span>`;
-    label.setAttribute("for", `${tagName}Checkbox`)
-    const checkbox = document.createElement('input');
+    label.setAttribute("for", `${tagName}Checkbox`);
+    const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.name = `${tagName}Checkbox`;
     checkbox.checked = true;
-    checkbox.addEventListener('change', () => {
+    checkbox.addEventListener("change", () => {
       toggleFilter("tag", tagName);
-      checkbox.checked ? !checkbox.checked : checkbox.checked
+      checkbox.checked ? !checkbox.checked : checkbox.checked;
     });
     tagFilterContainer?.append(label);
     label.prepend(checkbox);
   });
 
-  filterContainer.setAttribute('aria-role', 'group');
-  filterContainer.setAttribute('aria-label', 'filter controls');
-
+  filterContainer.setAttribute("aria-role", "group");
+  filterContainer.setAttribute("aria-label", "filter controls");
 </script>

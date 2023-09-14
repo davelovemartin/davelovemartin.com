@@ -6,7 +6,7 @@ import Posts from "@components/Posts.astro";
 import Post from "@components/Post.astro";
 import Layout from "@layouts/Layout.astro";
 import { sortPosts } from "@utilities/sortPosts";
-import TagFilterNav from "@components/TagFilterNav.astro";
+import TagFilterNav from "@components/Filters.astro";
 
 const posts = await getCollection("thoughts");
 const nonDraftPosts = sortPosts(posts).filter((post) => !post.data.draft);

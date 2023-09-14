@@ -1,0 +1,110 @@
+---
+import Acorn from "@drawings/Acorn.astro";
+import Sapling from "@drawings/Sapling.astro";
+import Tree from "@drawings/Tree.astro";
+---
+
+<style is:global>
+  #filters h2 {
+    display: inline;
+    margin-inline-end: var(--s-1);
+  }
+  #filters label {
+    margin-inline-end: var(--s1);
+  }
+  #filters input {
+    margin-inline-end: var(--s-1);
+    accent-color: var(--color-incidental);
+    width: var(--s-2);
+    height: var(--s-2);
+  }
+  #filters div {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-block-end: var(--s1);
+  }
+  #filters div span {
+    display: inline-flex;
+    align-items: center;
+    gap: .0625rem;
+    flex-wrap: nowrap;
+  }
+
+  #filters div svg {
+    width: 48px;
+    height: 48px;
+    display: inline;
+  }
+</style>
+<hr />
+<div
+  transition:name="tag-filter-name"
+  transition:persist
+  id="filters"
+>
+  <div id="stage">
+    <span id="note-label">Notes (<Acorn />)</span>
+    <span id="essay-label">Essays (<Sapling />)</span>
+    <span id="reflection-label">Reflections (<Tree />)</span>
+  </div>
+</div>
+
+<script is:inline>
+  const filterContainer = document.getElementById("filters");
+  const stageFilterContainer = document.getElementById("stage");
+  const tagFilterContainer = document.createElement("div");
+  tagFilterContainer.setAttribute("id", "tag");
+  
+  const toggleFilter = (type, title) => {
+    const posts = type === "tag" ? document.querySelectorAll(`[data-tag='${title}']`) : document.querySelectorAll(`[data-stage='${title}']`) 
+    posts.forEach(post =>  post.getAttribute('hidden') ? post.removeAttribute('hidden') : post.setAttribute('hidden', "true"))
+  }
+  
+  const filterHeading = document.createElement('h2');
+  filterHeading.innerText = "Filter by:";
+  filterHeading.className = "font-l";
+  
+  filterContainer?.prepend(filterHeading);
+  filterContainer.append(tagFilterContainer);
+  
+  const stageNames = ["note", "essay", "reflection"];
+  stageNames.map((stageName, i) => {
+    const label = document.createElement('label');
+    label.setAttribute("for", `${stageName}Checkbox`)
+    const checkbox = document.createElement('input');
+    checkbox.type = "checkbox";
+    checkbox.name = `${stageName}Checkbox`;
+    checkbox.checked = true;
+    checkbox.addEventListener('change', () => {
+      toggleFilter("stage", stageName);
+      checkbox.checked ? !checkbox.checked : checkbox.checked
+    });
+    const stageFilterSpan = document.getElementById(`${stageName}-label`);
+    stageFilterContainer.appendChild(label);
+    label.appendChild(checkbox);
+    label.appendChild(stageFilterSpan);
+  });
+
+  const tagNames = ['innovation', 'self-management'];
+  tagNames.map((tagName) => {
+    const label = document.createElement('label');
+    label.innerHTML = `<span>${tagName}</span>`;
+    label.setAttribute("for", `${tagName}Checkbox`)
+    const checkbox = document.createElement('input');
+    checkbox.type = "checkbox";
+    checkbox.name = `${tagName}Checkbox`;
+    checkbox.checked = true;
+    checkbox.addEventListener('change', () => {
+      toggleFilter("tag", tagName);
+      checkbox.checked ? !checkbox.checked : checkbox.checked
+    });
+    tagFilterContainer?.append(label);
+    label.prepend(checkbox);
+  });
+
+  filterContainer.setAttribute('aria-role', 'group');
+  filterContainer.setAttribute('aria-label', 'filter controls');
+
+</script>

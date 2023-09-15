@@ -48,63 +48,41 @@ import Tree from "@drawings/Tree.astro";
 </div>
 
 <script is:inline>
-  const filterContainer = document.getElementById("filters");
-  const stageFilterContainer = document.getElementById("stage");
-  const tagFilterContainer = document.createElement("div");
-  tagFilterContainer.setAttribute("id", "tag");
-
-  const toggleFilter = (type, title) => {
-    const posts =
-      type === "tag"
-        ? document.querySelectorAll(`[data-tag='${title}']`)
-        : document.querySelectorAll(`[data-stage='${title}']`);
-    posts.forEach((post) =>
-      post.getAttribute("hidden")
-        ? post.removeAttribute("hidden")
-        : post.setAttribute("hidden", "true")
+  
+  const toggleFilter = (stageName) => {
+    const posts = document.querySelectorAll(`[data-stage='${stageName}']`);
+    posts.forEach((post) => 
+    post.getAttribute("hidden")
+    ? post.removeAttribute("hidden")
+    : post.setAttribute("hidden", "true")
     );
   };
-
+  
+  const filterContainer = document.getElementById("filters");
   const filterHeading = document.createElement("h2");
   filterHeading.innerText = "Filter by:";
   filterHeading.className = "font-l";
+  filterContainer.prepend(filterHeading);
 
-  filterContainer?.prepend(filterHeading);
-  filterContainer.append(tagFilterContainer);
+  const stageFilterContainer = document.getElementById("stage");
 
   const stageNames = ["note", "essay", "reflection"];
-  stageNames.map((stageName, i) => {
+  stageNames.map((stageName) => {
     const label = document.createElement("label");
     label.setAttribute("for", `${stageName}Checkbox`);
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.name = `${stageName}Checkbox`;
-    checkbox.checked = true;
+    checkbox.checked = stageName === "note" ? false : true;
+    toggleFilter("note");
     checkbox.addEventListener("change", () => {
-      toggleFilter("stage", stageName);
+      toggleFilter(stageName);
       checkbox.checked ? !checkbox.checked : checkbox.checked;
     });
     const stageFilterSpan = document.getElementById(`${stageName}-label`);
     stageFilterContainer.appendChild(label);
     label.appendChild(checkbox);
     label.appendChild(stageFilterSpan);
-  });
-
-  const tagNames = ["innovation", "self-management"];
-  tagNames.map((tagName) => {
-    const label = document.createElement("label");
-    label.innerHTML = `<span>${tagName}</span>`;
-    label.setAttribute("for", `${tagName}Checkbox`);
-    const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.name = `${tagName}Checkbox`;
-    checkbox.checked = true;
-    checkbox.addEventListener("change", () => {
-      toggleFilter("tag", tagName);
-      checkbox.checked ? !checkbox.checked : checkbox.checked;
-    });
-    tagFilterContainer?.append(label);
-    label.prepend(checkbox);
   });
 
   filterContainer.setAttribute("aria-role", "group");

@@ -7,9 +7,9 @@ interface Props {
 
 const { currentPath, href, title } = Astro.props;
 const strip = (href) => {
-  if (href.indexOf('?') === -1) return href
-  return href.split('?')[0]
-}
+  if (href.indexOf("?") === -1) return href;
+  return href.split("?")[0];
+};
 ---
 
 <style is:global>

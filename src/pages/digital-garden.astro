@@ -53,45 +53,50 @@ const nonDraftPosts = sortPosts(posts).filter((post) => !post.data.draft);
     const posts = document.querySelectorAll("[data-post]");
     const stages = ["note", "essay", "reflection"];
 
-    const filterPosts = () => posts.forEach(post => {
-      if ((post.getAttribute("data-tag") === url.searchParams.get("tags") || url.searchParams.get("tags") === "all") && url.searchParams.get(post.getAttribute("data-stage") + "s") === "true") {
-        post.removeAttribute('hidden');
-      } else {
-        post.setAttribute('hidden', 'true');
-      }
-    });
+    const filterPosts = () =>
+      posts.forEach((post) => {
+        if (
+          (post.getAttribute("data-tag") === url.searchParams.get("tags") ||
+            url.searchParams.get("tags") === "all") &&
+          url.searchParams.get(post.getAttribute("data-stage") + "s") === "true"
+        ) {
+          post.removeAttribute("hidden");
+        } else {
+          post.setAttribute("hidden", "true");
+        }
+      });
 
     const handleButton = (tag) => {
       const thisButton = document.getElementById(`button-${tag}`);
       const allButtons = document.querySelectorAll('[id^="button-"]');
-      allButtons.forEach(button => button.removeAttribute('disabled'));
-      thisButton.setAttribute('disabled', true)
+      allButtons.forEach((button) => button.removeAttribute("disabled"));
+      thisButton.setAttribute("disabled", true);
       url.searchParams.set("tags", tag);
-      history.pushState({}, '', url.toString());
+      history.pushState({}, "", url.toString());
       filterPosts();
-    }
+    };
 
     const filterContainer = document.getElementById("filters");
     const buttonGroup = document.createElement("div");
     filterContainer.appendChild(buttonGroup);
-    const stageFilterContainer = document.getElementById("stage");  
+    const stageFilterContainer = document.getElementById("stage");
     const tags = ["all", "innovation", "self-management"];
-    tags.map(tag => {
+    tags.map((tag) => {
       const button = document.createElement("button");
       button.innerText = tag;
       buttonGroup.appendChild(button);
-      button.id = `button-${tag}`
+      button.id = `button-${tag}`;
 
-      button.addEventListener('click', () => handleButton(tag));
-      button.addEventListener('keydown', event => {
+      button.addEventListener("click", () => handleButton(tag));
+      button.addEventListener("keydown", (event) => {
         if (event.keyCode === 13) handleButton(tag);
-      })
-      button.addEventListener('keyup', event => {
+      });
+      button.addEventListener("keyup", (event) => {
         if (event.keyCode === 32) handleButton(tag);
-      })
+      });
       if (tag === "all") button.disabled = true;
-    })
-    
+    });
+
     stages.map((stage) => {
       const label = document.createElement("label");
       label.setAttribute("for", `${stage}Checkbox`);
@@ -99,14 +104,14 @@ const nonDraftPosts = sortPosts(posts).filter((post) => !post.data.draft);
       checkbox.type = "checkbox";
       checkbox.name = `${stage}Checkbox`;
       checkbox.checked = stage === "note" ? false : true;
-      
+
       checkbox.addEventListener("change", () => {
         if (checkbox.checked) {
           url.searchParams.set(stage + "s", "true");
-          history.pushState({}, '', url.toString());
+          history.pushState({}, "", url.toString());
         } else {
           url.searchParams.set(stage + "s", "false");
-          history.pushState({}, '', url.toString());
+          history.pushState({}, "", url.toString());
         }
         filterPosts();
       });
@@ -115,11 +120,10 @@ const nonDraftPosts = sortPosts(posts).filter((post) => !post.data.draft);
       label.appendChild(checkbox);
       label.appendChild(stageFilterSpan);
     });
-  
+
     filterContainer.setAttribute("aria-role", "group");
     filterContainer.setAttribute("aria-label", "filter controls");
-  
+
     filterPosts();
   </script>
-  
 </Layout>

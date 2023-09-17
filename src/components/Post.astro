@@ -12,7 +12,7 @@ const { tag, slug, title, description, lastEdited, drawing } = Astro.props;
   }
 </style>
 
-<li class="post" data-stage={drawing}>
+<li class="post" data-stage={drawing} data-tag={tag} data-post>
   <p>
     <a
       class="font-l"

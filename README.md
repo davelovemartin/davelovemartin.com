@@ -4,7 +4,7 @@ My personal website
 
 ## Getting started
 
-`yarn dev`
+`npm run dev`
 
 Using [Astro](https://docs.astro.build/en/getting-started/) and [React](https://beta.reactjs.org/learn).
 

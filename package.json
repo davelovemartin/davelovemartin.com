@@ -9,15 +9,15 @@
     "preview": "astro preview",
     "lint": "eslint --ext .js,.astro src",
     "format": "prettier --write \"src/**/*.+(js|json|astro)\"",
-    "validate": "yarn lint && yarn format",
+    "validate": "npm run lint && npm run format",
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@astrojs/mdx": "^1.0.0",
-    "@astrojs/react": "^3.0.0",
+    "@astrojs/mdx": "^2.0.1",
+    "@astrojs/react": "^3.0.7",
     "@typescript-eslint/eslint-plugin": "^5.53.0",
     "@typescript-eslint/parser": "^5.53.0",
-    "astro": "^3.0.8",
+    "astro": "^4.0.4",
     "eslint": "^8.20.0",
     "eslint-plugin-astro": "^0.15.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
@@ -29,10 +29,11 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@astrojs/netlify": "^3.0.1",
+    "@astrojs/netlify": "^3.1.1",
     "@astrojs/prism": "^3.0.0",
     "@fontsource/comic-mono": "^4.5.3",
     "gsap": "^3.11.1",
     "slugify": "^1.6.6"
-  }
+  },
+  "packageManager": "yarn@4.0.2"
 }

@@ -11,6 +11,7 @@ import SvgPathExample from "@experiments/SvgPathExample.astro";
 import BouncingBallCSSKeyframes from "@experiments/BouncingBallCSSKeyframes.jsx";
 import BouncingBallGsap from "@experiments/BouncingBallGsap.jsx";
 import Graphic from "@components/Graphic.astro";
+import GraphicBackground from "@components/GraphicBackground.jsx";
 
 When I started to learn to code websites, there were a few different options for creating icons. You could use a sprite sheet, or use a special icon font...
 
@@ -30,13 +31,13 @@ However, I thought it would be great to get under the hood and explore how to cr
 
 In HTML, there is a SVG element which you can use to render a SVG document fragment. The viewBox attribute defines the coordinates of your viewport. The window into your SVG world.
 
-The first two numbers in the viewBox denote the top left co-ordinates of the viewport and the last two numbers represent the bottom right co-ordinates.
+The first two numbers in the viewBox denote the top left co-ordinates of the viewport and the last two numbers represent the width and length of the viewport.
 
-<Prism lang="svg" code={`<svg viewBox="0 0 48 48" />`} />
+<Prism lang="svg" code={`<svg viewBox="0 0 100 100" />`} />
 
-<Graphic>
+<GraphicBackground>
   <SvgExample />
-</Graphic>
+</GraphicBackground>
 
 You can add shape elements as children of an SVG. They are ‘circle’, ‘ellipse’, ‘line’, ‘polygon’, ‘polyline’, ‘rect’ and ‘path’.
 
@@ -48,14 +49,14 @@ Here, I use the move command (**M**), along with the line command (**L**) and th
 
 <Prism
   lang="svg"
-  code={`<svg viewBox="0 0 48 48">
-  <path d="M 2 24 L 32 46 L 46 32 L 24 2 Z" fill="none" stroke="#2c363f"></path>
+  code={`<svg viewBox="0 0 100 100">
+  <path d="M 0 40 L 50 0 L 100 60 L 30 70 Z" fill="none" stroke="#2c363f"></path>
 </svg>`}
 />
 
-<Graphic>
+<GraphicBackground>
   <SvgPathExample />
-</Graphic>
+</GraphicBackground>
 
 The command code can either be uppercase or lowercase:
 

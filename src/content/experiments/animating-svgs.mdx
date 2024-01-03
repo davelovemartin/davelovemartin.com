@@ -13,25 +13,22 @@ import BouncingBallGsap from "@experiments/BouncingBallGsap.jsx";
 import Graphic from "@components/Graphic.astro";
 import GraphicBackground from "@components/GraphicBackground.jsx";
 
-When I started to learn to code websites, there were a few different options for creating icons. You could use a sprite sheet, or use a special icon font...
+When I started to learn to code websites, there were a few different options for creating icons. You could use a sprite sheet, or use a special icon font but I always liked SVGs.
 
-...but I always liked the idea of SVGs.
-
-After all they are scalable, so they can be created with a small footprint but can be blown up to fill any large screen without loss of definition. And as a subset of XML, they can be written inline in HTML and targetted with CSS.
+After all they are scalable, so they can be created with a small footprint. But they can also be blown up to fill any large screen without loss of definition. And as a subset of XML, they can be written inline in HTML and targeted with CSS.
 
 Whilst the other techniques have fallen out of fashion, SVGs are here to stay.
 
-You can also import SVGs as JSX, in React (although [you may not want to do that](https://kurtextrem.de/posts/svg-in-js)).
-
 You can create SVGs in your favourite Vector Graphic editing software, and export the code created and plonk it into your code. You can use the excellent [SVGOMG](https://jakearchibald.github.io/svgomg/) tool, to optimise the code as your favourite Vector Graphic software may add some extra bloat.
 
-However, I thought it would be great to get under the hood and explore how to create SVGs from scratch.
+You can also import SVGs as JSX, in React (although [you may not want to do that](https://kurtextrem.de/posts/svg-in-js)).
 
+I thought it would be interesting to get under the hood and explore how to create SVGs from scratch myself rather than solely using software.
 ## The SVG element
 
-In HTML, there is a SVG element which you can use to render a SVG document fragment. The viewBox attribute defines the coordinates of your viewport. The window into your SVG world.
+In HTML, there is a SVG element which you can use to render a SVG document fragment. The SVG element has a viewBox attribute which defines the coordinates of your viewport. The window into your SVG world.
 
-The first two numbers in the viewBox denote the top left co-ordinates of the viewport and the last two numbers represent the width and length of the viewport.
+The first two numbers in the viewBox denote the top and left co-ordinates of the viewport and the last two numbers represent the width and length of the viewport.viewport.
 
 <Prism lang="svg" code={`<svg viewBox="0 0 100 100" />`} />
 
@@ -39,13 +36,18 @@ The first two numbers in the viewBox denote the top left co-ordinates of the vie
   <SvgExample />
 </GraphicBackground>
 
-You can add shape elements as children of an SVG. They are ‘circle’, ‘ellipse’, ‘line’, ‘polygon’, ‘polyline’, ‘rect’ and ‘path’.
+Everything drawn in a SVG is written using co-ordinates that are relative to its viewBox which scales to the dimensions of its width and height.
+## Shape elements
 
-You can probably take a reasonable guess at what these shapes are. The most flexible one is the path element.
+You can add shape elements as children of an SVG. They are `circle`, `ellipse`, `line`, `polygon`, `polyline`, `rect` and `path`.
 
-The path element is defined along with a path data property, **d**. The path data is a series of commands that tell the browser how the path should be drawn — in a similar way to how you might program a robot turtle.
+I’m sure you can take a reasonable guess at what these shapes are. The most flexible and interesting one is the `path` element.
 
-Here, I use the move command (**M**), along with the line command (**L**) and the closepath command (**Z**) to draw a polygon.
+The `path` element is defined along with a path data property, **d**. The path data is a “series of commands” that tell the browser how the path should be drawn — in a similar way to how you might program a robot turtle.
+
+Each command starts with a letter and, in most cases, followed by some co-ordinates.
+
+Here, I use the ”move” command (**M**), along with the ”line” command (**L**) and the ”close-path” command (**Z**) to draw a polygon.
 
 <Prism
   lang="svg"
@@ -59,15 +61,70 @@ Here, I use the move command (**M**), along with the line command (**L**) and th
 </GraphicBackground>
 
 The command code can either be uppercase or lowercase:
-
 - uppercase commands are absolute — their parameters are relative to the origin point,
 - lowercase commands are relative to the previous command's endpoint.
 
-**This is a work in progress — more to come soon**
+Our commands instruct a cursor (our turtle) to determine where to start and stop drawing and what sort of lines to draw.
+### Arcs and Bézier Curves
 
-## Animation methods
+To draw curves, SVG gives us a few more commands:
+- **`A`** arcs,
+- **`C`** cubic bézier curves, and
+- **`Q`** quadratic bézier curves.
 
-### Animating with CSS only
+The arc command lets us draw a section of an ellipse. If we write the command as a function, it takes the following parameters: `a(radius x, radius y, x-axis rotation, large-arc-flag, sweep-flag, x, y)`.
+
+Given the co-ordinates, there are four ways an arc can be drawn, so the flags determine which of these to use.
+
+*graphic showing the arc flags*
+
+Bézier curves are a line from one point to another controlled by control points, quadratic bézier curves have one control point and cubic bézier curves have two. A control point curves the line towards it, as if the control point was pulling it in its direction.
+
+*graphic showing two bézier curves*
+
+A **`T`** command will draw a quadratic bézier curve using the reflection of the previous curve’s control point and a **`S`** command will draw a cubic bézier curve using the reflection of the previous curve’s control point.
+
+*graphic showing a four bézier curves written with the T and S commands*
+
+### Animating shapes
+
+> *explain the animate and animateMotion elements* 
+
+Many animations can also be created using CSS by targeting SVG element properties. However CSS can’t target all SVG properties. The `d` property is a good example of a SVG element property that can’t be targeted with CSS.
+
+## Transform attribute
+
+Once we have our shapes, we can transform them. SVGs give us the following transformations:
+- translate (move),
+- rotate,
+- skew,
+- scaleX and scaleY.
+
+(There’s also something called matrix which allows you do all of the above).
+
+When we transform a shape, we create a copy of the co-ordinate system of the viewport and transform the whole lot.
+
+To see this in action, let’s apply some of the transformations to this shape:
+
+*graphic showing a shape*
+
+*graphic showing a shape, translated*
+
+*graphic showing a shape, rotated*
+
+*graphic showing a shape, skewed*
+
+*graphic showing a shape, scaled*
+
+### Animating transforms
+
+> *explain the animateTransform elements*
+
+## Keyframes and Tweens
+
+When animation used to be done by hand, master animators drew certain key frames and delegated drawing the frames in between to juniors. We use these terms in animation to describe Keyframes where we declare the position of a frame and Tweens where we describe how we get to the next Keyframe.
+
+CSS allows us to use Keyframes for animatable properties (which are essentially anything with a numerical or colour value) by declaring the `animation` property, or its sub-properties and a `@keyframe` at-rule.
 
 This example uses CSS Keyframes to animate a ball:
 

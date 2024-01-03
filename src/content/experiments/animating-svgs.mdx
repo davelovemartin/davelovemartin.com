@@ -7,6 +7,7 @@ type: experiment
 
 import { Prism } from "@astrojs/prism";
 import SvgExample from "@experiments/SvgExample.astro";
+import SvgArc from "@experiments/SvgArc.astro";
 import SvgPathExample from "@experiments/SvgPathExample.astro";
 import BouncingBallCSSKeyframes from "@experiments/BouncingBallCSSKeyframes.jsx";
 import BouncingBallGsap from "@experiments/BouncingBallGsap.jsx";
@@ -76,7 +77,27 @@ The arc command lets us draw a section of an ellipse. If we write the command as
 
 Given the co-ordinates, there are four ways an arc can be drawn, so the flags determine which of these to use.
 
-*graphic showing the arc flags*
+<Prism lang="svg" code={`<svg
+  fill="none"
+  stroke-width="2"
+>
+  <path stroke="#00487d"
+    d="M 40 40 A 25 25 0 1 0 60 60"
+  ></path>
+  <path stroke="red"
+    d="M 40 40 A 25 25 0 1 1 60 60"
+  ></path>
+  <path stroke="green"
+    d="M 40 40 A 25 25 0 0 1 60 60"
+  ></path>
+  <path stroke="blue"
+    d="M 40 40 A 25 25 0 0 0 60 60"
+  ></path>
+</svg>`} />
+
+<GraphicBackground>
+  <SvgArc />
+</GraphicBackground>
 
 Bézier curves are a line from one point to another controlled by control points, quadratic bézier curves have one control point and cubic bézier curves have two. A control point curves the line towards it, as if the control point was pulling it in its direction.
 

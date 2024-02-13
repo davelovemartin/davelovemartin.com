@@ -94,7 +94,8 @@ const GraphicBackground = ({children}) => {
     }
 
     return (
-        <svg className={style.graphicBackground} viewBox="0 0 120 120">
+        <div  className={style.graphicBackground}>
+        <svg viewBox="0 0 120 120">
             {X_AXIS}
             {Y_AXIS}
             <line 
@@ -117,6 +118,7 @@ const GraphicBackground = ({children}) => {
             {children}
             </g>
         </svg>
+        </div>
     )
 }
 

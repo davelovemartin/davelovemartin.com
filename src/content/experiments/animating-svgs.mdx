@@ -9,6 +9,9 @@ import { Prism } from "@astrojs/prism";
 import SvgExample from "@experiments/SvgExample.astro";
 import SvgArc from "@experiments/SvgArc.astro";
 import SvgPathExample from "@experiments/SvgPathExample.astro";
+import BezierCurveExample from "@experiments/BezierCurveExample.astro"
+import BezierCurveExampleTwo from "@experiments/BezierCurveExampleTwo.astro"
+import CubicCurveExample from "@experiments/CubicCurveExample.astro"
 import BouncingBallCSSKeyframes from "@experiments/BouncingBallCSSKeyframes.jsx";
 import BouncingBallGsap from "@experiments/BouncingBallGsap.jsx";
 import Graphic from "@components/Graphic.astro";
@@ -99,17 +102,61 @@ Given the co-ordinates, there are four ways an arc can be drawn, so the flags de
   <SvgArc />
 </GraphicBackground>
 
-Bézier curves are a line from one point to another controlled by control points, quadratic bézier curves have one control point and cubic bézier curves have two. A control point curves the line towards it, as if the control point was pulling it in its direction.
+Bézier curves are a line from one point to another controlled by control points, quadratic bézier curves have one control point. A control point curves the line towards it, as if the control point was pulling it in its direction.
 
-*graphic showing two bézier curves*
+The Q command takes four arguments: the X and Y co-ordinates of the control point, and the X and Y co-ordinates of the end point.
 
-A **`T`** command will draw a quadratic bézier curve using the reflection of the previous curve’s control point and a **`S`** command will draw a cubic bézier curve using the reflection of the previous curve’s control point.
+<Prism lang="svg" code={`<svg
+  fill="none"
+  stroke-width="2"
+>
+  <path stroke="#00487d"
+    d="M 10 10 L 10 30 Q 10 90 70 90 L 90 90"
+  ></path>
+</svg>`} />
 
-*graphic showing a four bézier curves written with the T and S commands*
+<GraphicBackground>
+  <BezierCurveExample />
+</GraphicBackground>
+
+A **`T`** command will draw a quadratic bézier curve using the reflection of the previous curve’s control point.
+
+<Prism lang="svg" code={`<svg
+  fill="none"
+  stroke-width="2"
+>
+  <path stroke="#00487d"
+      d="M 10 10 Q 10 50 50 50 T 90 90"
+  ></path>
+</svg>`} />
+
+<GraphicBackground>
+  <BezierCurveExampleTwo />
+</GraphicBackground>
+
+ Cubic bézier curves have two control points and they can written with the **`C`** command and reflected with the **`S`** command:
+
+<Prism lang="svg" code={`<svg
+  fill="none"
+  stroke-width="2"
+>
+  <path stroke="#00487d"
+      d="M 50 10 C 10 60 10 70 50 70 S 100 0 50 10"
+  ></path>
+</svg>`} />
+
+<GraphicBackground>
+  <CubicCurveExample />
+</GraphicBackground>
+
 
 ### Animating shapes
 
-> *explain the animate and animateMotion elements* 
+SVG contains a few elements that control animations: `<animate />`, `<animateMotion />` and `<animateTransform />`.
+
+Adding an animate element as a child to a shape, allows you to animate properties of its parent.
+
+
 
 Many animations can also be created using CSS by targeting SVG element properties. However CSS can’t target all SVG properties. The `d` property is a good example of a SVG element property that can’t be targeted with CSS.
 

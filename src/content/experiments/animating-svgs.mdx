@@ -1,7 +1,7 @@
 ---
 title: Animating SVGs
 description: How SVGs work and how to animate them
-lastEdited: 06.08.2023
+lastEdited: 13.02.2024
 type: experiment
 ---
 
@@ -9,9 +9,10 @@ import { Prism } from "@astrojs/prism";
 import SvgExample from "@experiments/SvgExample.astro";
 import SvgArc from "@experiments/SvgArc.astro";
 import SvgPathExample from "@experiments/SvgPathExample.astro";
-import BezierCurveExample from "@experiments/BezierCurveExample.astro"
-import BezierCurveExampleTwo from "@experiments/BezierCurveExampleTwo.astro"
-import CubicCurveExample from "@experiments/CubicCurveExample.astro"
+import AnimateExample from "@experiments/AnimateExample.astro";
+import BezierCurveExample from "@experiments/BezierCurveExample.astro";
+import BezierCurveExampleTwo from "@experiments/BezierCurveExampleTwo.astro";
+import CubicCurveExample from "@experiments/CubicCurveExample.astro";
 import BouncingBallCSSKeyframes from "@experiments/BouncingBallCSSKeyframes.jsx";
 import BouncingBallGsap from "@experiments/BouncingBallGsap.jsx";
 import Graphic from "@components/Graphic.astro";
@@ -28,6 +29,7 @@ You can create SVGs in your favourite Vector Graphic editing software, and expor
 You can also import SVGs as JSX, in React (although [you may not want to do that](https://kurtextrem.de/posts/svg-in-js)).
 
 I thought it would be interesting to get under the hood and explore how to create SVGs from scratch myself rather than solely using software.
+
 ## The SVG element
 
 In HTML, there is a SVG element which you can use to render a SVG document fragment. The SVG element has a viewBox attribute which defines the coordinates of your viewport. The window into your SVG world.
@@ -41,6 +43,7 @@ The first two numbers in the viewBox denote the top and left co-ordinates of the
 </GraphicBackground>
 
 Everything drawn in a SVG is written using co-ordinates that are relative to its viewBox which scales to the dimensions of its width and height.
+
 ## Shape elements
 
 You can add shape elements as children of an SVG. They are `circle`, `ellipse`, `line`, `polygon`, `polyline`, `rect` and `path`.
@@ -65,13 +68,16 @@ Here, I use the ”move” command (**M**), along with the ”line” command (*
 </GraphicBackground>
 
 The command code can either be uppercase or lowercase:
+
 - uppercase commands are absolute — their parameters are relative to the origin point,
 - lowercase commands are relative to the previous command's endpoint.
 
 Our commands instruct a cursor (our turtle) to determine where to start and stop drawing and what sort of lines to draw.
+
 ### Arcs and Bézier Curves
 
 To draw curves, SVG gives us a few more commands:
+
 - **`A`** arcs,
 - **`C`** cubic bézier curves, and
 - **`Q`** quadratic bézier curves.
@@ -80,7 +86,9 @@ The arc command lets us draw a section of an ellipse. If we write the command as
 
 Given the co-ordinates, there are four ways an arc can be drawn, so the flags determine which of these to use.
 
-<Prism lang="svg" code={`<svg
+<Prism
+  lang="svg"
+  code={`<svg
   fill="none"
   stroke-width="2"
 >
@@ -96,7 +104,8 @@ Given the co-ordinates, there are four ways an arc can be drawn, so the flags de
   <path stroke="blue"
     d="M 40 40 A 25 25 0 0 0 60 60"
   ></path>
-</svg>`} />
+</svg>`}
+/>
 
 <GraphicBackground>
   <SvgArc />
@@ -106,14 +115,17 @@ Bézier curves are a line from one point to another controlled by control points
 
 The Q command takes four arguments: the X and Y co-ordinates of the control point, and the X and Y co-ordinates of the end point.
 
-<Prism lang="svg" code={`<svg
+<Prism
+  lang="svg"
+  code={`<svg
   fill="none"
   stroke-width="2"
 >
   <path stroke="#00487d"
     d="M 10 10 L 10 30 Q 10 90 70 90 L 90 90"
   ></path>
-</svg>`} />
+</svg>`}
+/>
 
 <GraphicBackground>
   <BezierCurveExample />
@@ -121,48 +133,70 @@ The Q command takes four arguments: the X and Y co-ordinates of the control poin
 
 A **`T`** command will draw a quadratic bézier curve using the reflection of the previous curve’s control point.
 
-<Prism lang="svg" code={`<svg
+<Prism
+  lang="svg"
+  code={`<svg
   fill="none"
   stroke-width="2"
 >
   <path stroke="#00487d"
       d="M 10 10 Q 10 50 50 50 T 90 90"
   ></path>
-</svg>`} />
+</svg>`}
+/>
 
 <GraphicBackground>
   <BezierCurveExampleTwo />
 </GraphicBackground>
 
- Cubic bézier curves have two control points and they can written with the **`C`** command and reflected with the **`S`** command:
+Cubic bézier curves have two control points and they can written with the **`C`** command and reflected with the **`S`** command:
 
-<Prism lang="svg" code={`<svg
+<Prism
+  lang="svg"
+  code={`<svg
   fill="none"
   stroke-width="2"
 >
   <path stroke="#00487d"
       d="M 50 10 C 10 60 10 70 50 70 S 100 0 50 10"
   ></path>
-</svg>`} />
+</svg>`}
+/>
 
 <GraphicBackground>
   <CubicCurveExample />
 </GraphicBackground>
 
-
 ### Animating shapes
 
-SVG contains a few elements that control animations: `<animate />`, `<animateMotion />` and `<animateTransform />`.
+SVG contains a few elements that control animations such as `<animate />`, `<animateMotion />` and `<animateTransform />`.
 
-Adding an animate element as a child to a shape, allows you to animate properties of its parent.
+Adding an animate element as a child to a shape, allows you to animate properties of its parent. Using the `attributeName` specifies the name of the attribute to animate.
 
+<Prism
+  lang="svg"
+  code={`<svg>
+  <circle cx="50" cy="50" r="5" fill="yellow">
+    <animate
+      attributeName="r"
+      from="1"
+      to="50"
+      dur="12s"
+      repeatCount="indefinite"></animate>
+  </circle>
+</svg>`}
+/>
 
+<GraphicBackground>
+  <AnimateExample />
+</GraphicBackground>
 
 Many animations can also be created using CSS by targeting SVG element properties. However CSS can’t target all SVG properties. The `d` property is a good example of a SVG element property that can’t be targeted with CSS.
 
 ## Transform attribute
 
 Once we have our shapes, we can transform them. SVGs give us the following transformations:
+
 - translate (move),
 - rotate,
 - skew,
@@ -174,19 +208,19 @@ When we transform a shape, we create a copy of the co-ordinate system of the vie
 
 To see this in action, let’s apply some of the transformations to this shape:
 
-*graphic showing a shape*
+_to do: graphic showing a shape_
 
-*graphic showing a shape, translated*
+_to do: graphic showing a shape, translated_
 
-*graphic showing a shape, rotated*
+_to do: graphic showing a shape, rotated_
 
-*graphic showing a shape, skewed*
+_to do: graphic showing a shape, skewed_
 
-*graphic showing a shape, scaled*
+_to do: graphic showing a shape, scaled_
 
 ### Animating transforms
 
-> *explain the animateTransform elements*
+> to do: _explain the animateTransform elements_
 
 ## Keyframes and Tweens
 

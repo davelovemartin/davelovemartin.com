@@ -1,2 +1,3 @@
 src/pages/thoughts.astro
 src/pages/index.astro
+src/components/GraphicBackground.module.css

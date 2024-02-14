@@ -2,5 +2,12 @@
     font-family: -apple-system, BlinkMacSystemFont, "avenir next", avenir, "helvetica neue", helvetica, ubuntu, roboto, noto, "segoe ui", arial,sans-serif;
     font-size: 0.125rem;
     font-weight: 400;
+    width: 100%;
 }
+
+    @media (min-width: 541px) {
+        .graphicBackground {
+          width: 62%;
+        }
+      }
 

@@ -100,6 +100,7 @@ const { title, description, lastEdited, stage, type } = Astro.props;
         --color-highlight-shadow: #e68a00;
         --color-error: #c1292e;
         --color-incidental: #0075c9; /* typography */
+        --color-incidental-heavy: #003964;
         --measure: 60ch;
         --outline-offset: 0.125rem;
         --border-radius: 0.125rem; /* modular scale */
@@ -349,17 +350,25 @@ const { title, description, lastEdited, stage, type } = Astro.props;
         outline: var(--outline-offset) solid var(--color-incidental);
       }
       blockquote {
-        border-left: solid 0.25rem var(--color-highlight);
-        padding-left: var(--s3);
+        padding-left: var(--s1);
       }
       blockquote p {
-        font-variation-settings: "wdth" 112, "wght" 600;
+        font-variation-settings: "wdth" 100, "wght" 420;
+        color: var(--color-incidental-heavy);
         margin-block: 0;
       }
       blockquote:before {
         content: "\201C";
-        font-size: 4.235rem;
-        line-height: 3rem;
+        display: block;
+        position: relative;
+        bottom: -1rem;
+        left: -1rem;
+        font-size: 8rem;
+        font-family: serif;
+        font-style: bold;
+        opacity: 20%;
+        color: var(--color-incidental-heavy);
+        line-height: var(--s1);
       }
       .visually-hidden {
         clip: rect(0 0 0 0);
@@ -369,6 +378,10 @@ const { title, description, lastEdited, stage, type } = Astro.props;
         position: absolute;
         white-space: nowrap;
         width: 1px;
+      }
+      .image-with-border {
+        border: 1px solid #1e374d;
+        box-shadow: var(--shadow1);
       }
     </style>
   </body>

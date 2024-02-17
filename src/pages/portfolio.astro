@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { Picture } from "astro:assets";
+import PortfolioImage from "@components/PortfolioImage.astro";
 import cotb from "@images/cotb.png";
 import cxpartners from "@images/cxpartners.png";
 import bcc from "@images/bcc.jpg";
@@ -18,12 +18,9 @@ import glossaryComponents from "@images/glossary-components.png";
   <section>
     <h2>Call of the Brave</h2>
 
-    <Picture
+    <PortfolioImage
       src={cotb}
       alt="A mock up of the landing page for Call of the Brave. The logo is upfront and center with a prominent call-to-action"
-      class="portfolio"
-      widths={[240, 540, 720, cotb.width]}
-      sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${cotb.width}px`}
     />
     <p
       >I built the platform for Call of the Brave iteratively. It started life
@@ -48,12 +45,9 @@ import glossaryComponents from "@images/glossary-components.png";
   </section>
   <section>
     <h2>cxpartners microsite</h2>
-    <Picture
+    <PortfolioImage
       src={cxpartners}
       alt="A mockup of the cxpartners remote labs web pages"
-      class="portfolio"
-      widths={[240, 540, 720, cxpartners.width]}
-      sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${cxpartners.width}px`}
     />
     <p
       >At the start of the pandemic in 2020, I was given a brief to create a
@@ -70,13 +64,7 @@ import glossaryComponents from "@images/glossary-components.png";
   </section>
   <section>
     <h2>Bristol Central Counselling</h2>
-    <Picture
-      src={bcc}
-      alt="Screenshot of Jo's site"
-      class="image-with-border portfolio"
-      widths={[240, 540, 720, bcc.width]}
-      sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${bcc.width}px`}
-    />
+    <PortfolioImage src={bcc} alt="Screenshot of Jo's site" hasBorder />
     <p
       >Jo reached out to me after she had set up a Wordpress.com website for her
       new Counselling practice as she felt it "didn't look quite right".
@@ -97,11 +85,10 @@ import glossaryComponents from "@images/glossary-components.png";
   </section>
   <section>
     <h2>Recent work — invite</h2>
-    <Picture
+    <PortfolioImage
       src={invite}
       alt="Helium baloons adrift in the sky as a background to a 40th birthday invitation"
-      widths={[240, 540, 720, invite.width]}
-      sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${invite.width}px`}
+      hasBorder
     />
     <p
       >I still keep my hand in whenever possible. Last year, I designed an
@@ -110,32 +97,26 @@ import glossaryComponents from "@images/glossary-components.png";
   </section>
   <section>
     <h2>Recent work — JavaScript Glossary</h2>
-    <Picture
+    <PortfolioImage
       src={glossaryLarge}
       alt="a Figma design of a glossary website"
-      class="image-with-border portfolio"
-      widths={[240, 540, 720, glossaryLarge.width]}
-      sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${glossaryLarge.width}px`}
+      hasBorder
     />
     <p
       >This was a side-project I started to learn how to use Figma. I created
       components, variants and page layouts for a microsite for looking up
       definitions of JavaScript terms.
     </p>
-    <Picture
+    <PortfolioImage
       src={glossaryComponents}
       alt="Figma components for a glossary website"
-      class="image-with-border portfolio"
-      widths={[240, 540, 720, glossaryComponents.width]}
-      sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${glossaryComponents.width}px`}
+      hasBorder
     />
     <p>Mobile version of design.</p>
-    <Picture
+    <PortfolioImage
       src={glossarySmall}
       alt="a Figma design of a glossary website"
-      class="image-with-border portfolio"
-      widths={[240, 540, 720, glossarySmall.width]}
-      sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${glossarySmall.width}px`}
+      hasBorder
     />
   </section>
 </Layout>

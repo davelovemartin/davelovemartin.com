@@ -1,0 +1,24 @@
+---
+import { Image } from "astro:assets";
+
+const { alt, src, hasBorder } = Astro.props;
+---
+
+<style>
+  /* .portfolio {
+    width: auto;
+  } */
+
+  .image-with-border {
+    border: 1px solid #1e374d;
+    box-shadow: var(--shadow1);
+  }
+</style>
+
+<Image
+  alt={alt}
+  src={src}
+  class={`portfolio ${hasBorder && "image-with-border"}`}
+  widths={[240, 360, 480, 560, 720, src.width]}
+  sizes={`(max-width: 300px) 240px, (max-width: 400px) 360px,(max-width: 520px) 480px, (max-width: 720px) 560px, (max-width: 1600px) 720px, ${src.width}px`}
+/>

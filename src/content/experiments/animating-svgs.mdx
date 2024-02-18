@@ -1,7 +1,7 @@
 ---
 title: Animating SVGs
 description: How SVGs work and how to animate them
-lastEdited: 13.02.2024
+lastEdited: 18.02.2024
 type: experiment
 ---
 
@@ -9,7 +9,10 @@ import { Prism } from "@astrojs/prism";
 import SvgExample from "@experiments/SvgExample.astro";
 import SvgArc from "@experiments/SvgArc.astro";
 import SvgPathExample from "@experiments/SvgPathExample.astro";
+import TransformExample from "@experiments/TransformExample.astro";
 import AnimateExample from "@experiments/AnimateExample.astro";
+import AnimateTransformExample from "@experiments/AnimateTransformExample.astro";
+
 import BezierCurveExample from "@experiments/BezierCurveExample.astro";
 import BezierCurveExampleTwo from "@experiments/BezierCurveExampleTwo.astro";
 import CubicCurveExample from "@experiments/CubicCurveExample.astro";
@@ -169,7 +172,51 @@ Cubic bézier curves have two control points and they can written with the **`C`
   <CubicCurveExample />
 </GraphicBackground>
 
-### Animating shapes
+## Transform attribute
+
+Once we have our shapes, we can transform them. SVGs give us the following transformations:
+
+- `translate(x, y)` — moves the object by x and y,
+- `rotate(n, x, y)` — specifies a rotation by n degrees about a given point (x, y),
+- `skewX(n)` or `skewY(n)` — specifies a skew transformation along the x or y axis by n degrees,
+- `scale(x, y)` — specifies a scale operation by x and y.
+
+(There’s also something called `matrix` which allows you do all of the above).
+
+When we transform a shape, we create a copy of the co-ordinate system of the viewport and transform the whole lot.
+
+Let's see this in action:
+
+<GraphicBackground>
+  <TransformExample />
+</GraphicBackground>
+
+<Prism
+  lang="svg"
+  code={`<path
+    stroke="#00487d"
+    fill="#ffad33"
+    fill-opacity="0.5"
+    d="M 30 30 L 70 30 L 70 70 L 30 70 Z"></path>
+  <path
+    stroke="red"
+    transform="rotate(45 50 50)"
+    d="M 30 30 L 70 30 L 70 70 L 30 70 Z"></path>
+  <path
+    stroke="green"
+    transform="translate(-20 -20)"
+    d="M 30 30 L 70 30 L 70 70 L 30 70 Z"></path>
+  <path
+    stroke="blue"
+    transform="skewX(25)"
+    d="M 30 30 L 70 30 L 70 70 L 30 70 Z"></path>
+  <path
+    stroke="yellow"
+    transform="scale(1.5 1.5)"
+    d="M 30 30 L 70 30 L 70 70 L 30 70 Z"></path>`}
+/>
+
+## Animating shapes
 
 SVG contains a few elements that control animations such as `<animate />`, `<animateMotion />` and `<animateTransform />`.
 
@@ -193,36 +240,32 @@ Adding an animate element as a child to a shape, allows you to animate propertie
   <AnimateExample />
 </GraphicBackground>
 
-Many animations can also be created using CSS by targeting SVG element properties. However CSS can’t target all SVG properties. The `d` property is a good example of a SVG element property that can’t be targeted with CSS.
+## Animating transforms
 
-## Transform attribute
+The `animateTransform` element can animate transformations on a target element.
 
-Once we have our shapes, we can transform them. SVGs give us the following transformations:
+<Prism
+  lang="svg"
+  code={`<path
+    stroke="#00487d"
+    fill="var(--color-highlight)"
+    stroke-width="2"
+    fill-opacity="0.25"
+    d="M30 60 L50 20 70 60 Z"
+  >
+    <animateTransform
+      attributeName="transform"
+      type="rotate"
+      from="0 50 50"
+      to="360 50 50"
+      dur="8s"
+      repeatCount="indefinite"></animateTransform>
+  </path>`}
+/>
 
-- translate (move),
-- rotate,
-- skew,
-- scaleX and scaleY.
-
-(There’s also something called matrix which allows you do all of the above).
-
-When we transform a shape, we create a copy of the co-ordinate system of the viewport and transform the whole lot.
-
-To see this in action, let’s apply some of the transformations to this shape:
-
-_to do: graphic showing a shape_
-
-_to do: graphic showing a shape, translated_
-
-_to do: graphic showing a shape, rotated_
-
-_to do: graphic showing a shape, skewed_
-
-_to do: graphic showing a shape, scaled_
-
-### Animating transforms
-
-> to do: _explain the animateTransform elements_
+<GraphicBackground>
+  <AnimateTransformExample />
+</GraphicBackground>
 
 ## Keyframes and Tweens
 
@@ -259,6 +302,8 @@ here's the css I used:
   fill: var(--color-highlight);
 }`}
 />
+
+Many animations can also be created using CSS by targeting SVG element properties. However CSS can’t target all SVG properties. The `d` property is a good example of a SVG element property that can’t be targeted with CSS.
 
 ### Animating with a javascript library
 

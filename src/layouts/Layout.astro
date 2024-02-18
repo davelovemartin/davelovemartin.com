@@ -127,9 +127,15 @@ const { title, description, lastEdited, stage, type } = Astro.props;
         font-size: 20px;
         scroll-behavior: smooth;
       }
+      pre[class*="language-"] {
+        font-size: 18px;
+      }
       @media only screen and (min-width: 512px) {
         html {
           font-size: 28px;
+        }
+        pre[class*="language-"] {
+          font-size: 24px;
         }
       }
       *,

@@ -3,7 +3,8 @@
     font-size: 0.125rem;
     font-weight: 400;
     width: 100%;
-}
+    margin-block-start: var(--s1);
+  }
 
     @media (min-width: 541px) {
         .graphicBackground {

@@ -2,8 +2,8 @@ import React from "react";
 import style from "./BouncingBallCSSKeyframes.module.css";
 
 const BouncingBallOne = () => (
-  <svg width="192px" height="192px" viewBox="0 0 200 200">
-    <circle className={style.ball} cx="40" cy="20" r="20"></circle>
+  <svg>
+    <circle className={style.ball} cx="38" cy="10" r="10"></circle>
   </svg>
 );
 

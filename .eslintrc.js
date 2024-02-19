@@ -7,6 +7,7 @@ module.exports = {
       parserOptions: {
         project: "./tsconfig.json",
         extraFileExtensions: [".astro"], // This is a required setting in `@typescript-eslint/parser` v5.
+        sourceType: "module",
       },
       overrides: [
         {
@@ -15,11 +16,11 @@ module.exports = {
           parserOptions: {
             parser: "@typescript-eslint/parser",
             ecmaVersion: "latest",
-            sourceType: "module",      
+            sourceType: "module",
           },
           rules: {
             // "jsx-a11y/no-redundant-roles": "warn"
-          }
+          },
         },
       ],
     },

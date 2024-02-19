@@ -17,9 +17,8 @@ import BezierCurveExample from "@experiments/BezierCurveExample.astro";
 import BezierCurveExampleTwo from "@experiments/BezierCurveExampleTwo.astro";
 import CubicCurveExample from "@experiments/CubicCurveExample.astro";
 import BouncingBallCSSKeyframes from "@experiments/BouncingBallCSSKeyframes.jsx";
-import BouncingBallGsap from "@experiments/BouncingBallGsap.jsx";
-import Graphic from "@components/Graphic.astro";
-import GraphicBackground from "@components/GraphicBackground.jsx";
+import { BouncingBallGsap } from "@experiments/BouncingBallGsap.jsx";
+import { GraphicBackground } from "@components/GraphicBackground.jsx";
 
 When I started to learn to code websites, there were a few different options for creating icons. You could use a sprite sheet, or use a special icon font but I always liked SVGs.
 
@@ -275,9 +274,9 @@ CSS allows us to use Keyframes for animatable properties (which are essentially 
 
 This example uses CSS Keyframes to animate a ball:
 
-<Graphic>
+<GraphicBackground>
   <BouncingBallCSSKeyframes />
-</Graphic>
+</GraphicBackground>
 
 here's the css I used:
 
@@ -288,7 +287,7 @@ here's the css I used:
     transform: translateY(0);
   }
   to {
-    transform: translateY(160px);
+    transform: translateY(80px);
   }
 }
 .ball {
@@ -305,10 +304,8 @@ here's the css I used:
 
 Many animations can also be created using CSS by targeting SVG element properties. However CSS can’t target all SVG properties. The `d` property is a good example of a SVG element property that can’t be targeted with CSS.
 
-### Animating with a javascript library
+## Animating with a javascript library
 
 Here, I'm using <a href="https://greensock.com/gsap/">GSAP</a> to scale the circle's X and Y dimensions to simulate how balls deform when colliding with the floor:
 
-<Graphic>
-  <BouncingBallGsap client:visible />
-</Graphic>
+<BouncingBallGsap client:visible />

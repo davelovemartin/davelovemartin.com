@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ["plugin:astro/recommended", "plugin:jsx-a11y/recommended"],
+  extends: ["plugin:astro/recommended"],
   overrides: [
     {
       files: ["*.astro"],
@@ -18,9 +18,7 @@ module.exports = {
             ecmaVersion: "latest",
             sourceType: "module",
           },
-          rules: {
-            // "jsx-a11y/no-redundant-roles": "warn"
-          },
+          rules: {},
         },
       ],
     },

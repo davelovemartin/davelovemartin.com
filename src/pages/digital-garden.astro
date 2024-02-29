@@ -63,101 +63,103 @@ const nonDraftPosts = sortPosts(posts).filter((post) => !post.data.draft);
     ))}
   </Posts>
   <script>
-    const url = new URL(window.location.href);
-    const posts = document.querySelectorAll("[data-post]");
+    document.addEventListener("astro:page-load", () => {
+      const url = new URL(window.location.href);
+      const posts = document.querySelectorAll("[data-post]");
 
-    unhideInteractiveElements();
-    addEventListenersToButtons();
-    addEventListenersToCheckBox();
-    filterPosts();
+      unhideInteractiveElements();
+      addEventListenersToButtons();
+      addEventListenersToCheckBox();
+      filterPosts();
 
-    function unhideInteractiveElements() {
-      document
-        .getElementById("tag-filter-button-group")
-        ?.removeAttribute("hidden");
-      document.getElementById("notes-toggle")?.removeAttribute("hidden");
-    }
+      function unhideInteractiveElements() {
+        document
+          .getElementById("tag-filter-button-group")
+          ?.removeAttribute("hidden");
+        document.getElementById("notes-toggle")?.removeAttribute("hidden");
+      }
 
-    function addEventListenersToButtons() {
-      document
-        .querySelectorAll('[id^="tag-button-"]')
-        .forEach(function (currentValue) {
-          addButtonListener(currentValue);
+      function addEventListenersToButtons() {
+        document
+          .querySelectorAll('[id^="tag-button-"]')
+          .forEach(function (currentValue) {
+            addButtonListener(currentValue);
+          });
+      }
+
+      function addButtonListener(tagFilterButton) {
+        const tag = tagFilterButton.innerHTML.toString().trim();
+        tagFilterButton.addEventListener("click", () => handleButton(tag));
+        tagFilterButton.addEventListener("keydown", (event) => {
+          if (event.keyCode === 13) handleButton(tag);
         });
-    }
+        tagFilterButton.addEventListener("keyup", (event) => {
+          if (event.keyCode === 32) handleButton(tag);
+        });
+      }
 
-    function addButtonListener(tagFilterButton) {
-      const tag = tagFilterButton.innerHTML.toString().trim();
-      tagFilterButton.addEventListener("click", () => handleButton(tag));
-      tagFilterButton.addEventListener("keydown", (event) => {
-        if (event.keyCode === 13) handleButton(tag);
-      });
-      tagFilterButton.addEventListener("keyup", (event) => {
-        if (event.keyCode === 32) handleButton(tag);
-      });
-    }
+      function handleButton(tag) {
+        enableButtons();
+        disableTagButton(tag);
+        setURLSearchParam("tags", tag);
+        filterPosts();
+      }
 
-    function handleButton(tag) {
-      enableButtons();
-      disableTagButton(tag);
-      setURLSearchParam("tags", tag);
-      filterPosts();
-    }
+      function enableButtons() {
+        document
+          .querySelectorAll('[id^="tag-button-"]')
+          .forEach((button) => button.removeAttribute("disabled"));
+      }
 
-    function enableButtons() {
-      document
-        .querySelectorAll('[id^="tag-button-"]')
-        .forEach((button) => button.removeAttribute("disabled"));
-    }
+      function disableTagButton(tag) {
+        document
+          .getElementById(`tag-button-${tag}`)
+          ?.setAttribute("disabled", "true");
+      }
 
-    function disableTagButton(tag) {
-      document
-        .getElementById(`tag-button-${tag}`)
-        ?.setAttribute("disabled", "true");
-    }
+      function setURLSearchParam(param, tag) {
+        url.searchParams.set(param, tag);
+        history.pushState({}, "", url.toString());
+      }
 
-    function setURLSearchParam(param, tag) {
-      url.searchParams.set(param, tag);
-      history.pushState({}, "", url.toString());
-    }
+      function addEventListenersToCheckBox() {
+        const toggleNotesCheckbox = document.getElementById("toggle");
+        toggleNotesCheckbox?.addEventListener("change", () =>
+          handleChange(toggleNotesCheckbox)
+        );
+      }
 
-    function addEventListenersToCheckBox() {
-      const toggleNotesCheckbox = document.getElementById("toggle");
-      toggleNotesCheckbox?.addEventListener("change", () =>
-        handleChange(toggleNotesCheckbox)
-      );
-    }
+      function handleChange(toggleNotesCheckbox) {
+        setURLSearchParam("notes", toggleNotesCheckbox.checked.toString());
+        filterPosts();
+      }
 
-    function handleChange(toggleNotesCheckbox) {
-      setURLSearchParam("notes", toggleNotesCheckbox.checked.toString());
-      filterPosts();
-    }
+      function filterPosts() {
+        posts.forEach((post) => {
+          isPostFiltered(post)
+            ? post.removeAttribute("hidden")
+            : post.setAttribute("hidden", "true");
+        });
+      }
 
-    function filterPosts() {
-      posts.forEach((post) => {
-        isPostFiltered(post)
-          ? post.removeAttribute("hidden")
-          : post.setAttribute("hidden", "true");
-      });
-    }
+      function isPostFiltered(post) {
+        return isPostFilteredByTag(post) && isPostFilteredByNotes(post);
+      }
 
-    function isPostFiltered(post) {
-      return isPostFilteredByTag(post) && isPostFilteredByNotes(post);
-    }
+      function isPostFilteredByTag(post) {
+        return (
+          post.getAttribute("data-tag") === url.searchParams.get("tags") ||
+          url.searchParams.get("tags") === "all"
+        );
+      }
 
-    function isPostFilteredByTag(post) {
-      return (
-        post.getAttribute("data-tag") === url.searchParams.get("tags") ||
-        url.searchParams.get("tags") === "all"
-      );
-    }
-
-    function isPostFilteredByNotes(post) {
-      return (
-        (url.searchParams.get("notes") === "true" &&
-          post.getAttribute("data-stage") + "s" === "notes") ||
-        post.getAttribute("data-stage") + "s" !== "notes"
-      );
-    }
+      function isPostFilteredByNotes(post) {
+        return (
+          (url.searchParams.get("notes") === "true" &&
+            post.getAttribute("data-stage") + "s" === "notes") ||
+          post.getAttribute("data-stage") + "s" !== "notes"
+        );
+      }
+    });
   </script>
 </Layout>

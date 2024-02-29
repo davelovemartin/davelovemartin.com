@@ -6,7 +6,13 @@ import Posts from "@components/Posts.astro";
 import Post from "@components/Post.astro";
 import Layout from "@layouts/Layout.astro";
 import { sortPosts } from "@utilities/sortPosts";
-import Filters from "@components/Filters.astro";
+import StageKey from "@components/StageKey.astro";
+
+import { tags } from "../content/config";
+import TagFilterButtonGroup from "@components/TagFilterButtonGroup.astro";
+import TagFilterButton from "@components/TagFilterButton.astro";
+import NotesToggle from "@components/NotesToggle.astro";
+import Stack from "@components/Stack.astro";
 
 const posts = await getCollection("thoughts");
 const nonDraftPosts = sortPosts(posts).filter((post) => !post.data.draft);
@@ -29,13 +35,21 @@ const nonDraftPosts = sortPosts(posts).filter((post) => !post.data.draft);
     </a>, this is not a chronological blog but an evergreen place where ideas
     can be edited and refined.
   </p>
+
   <p>
     It is better to work in the open and be comfortable with iterative progress,
     than wait for the big reveal...
   </p>
 
-  <Filters />
+  <Stack>
+    <TagFilterButtonGroup>
+      <TagFilterButton title="all" isDisabled={true} />
+      {tags.map((tag) => <TagFilterButton title={tag} isDisabled={false} />)}
+    </TagFilterButtonGroup>
 
+    <NotesToggle name="toggle" />
+    <StageKey />
+  </Stack>
   <Posts>
     {nonDraftPosts.map((post: CollectionEntry<"thoughts">) => (
       <Post
@@ -48,82 +62,102 @@ const nonDraftPosts = sortPosts(posts).filter((post) => !post.data.draft);
       />
     ))}
   </Posts>
-  <script is:inline>
+  <script>
     const url = new URL(window.location.href);
     const posts = document.querySelectorAll("[data-post]");
-    const stages = ["note", "essay", "reflection"];
 
-    const filterPosts = () =>
-      posts.forEach((post) => {
-        if (
-          (post.getAttribute("data-tag") === url.searchParams.get("tags") ||
-            url.searchParams.get("tags") === "all") &&
-          url.searchParams.get(post.getAttribute("data-stage") + "s") === "true"
-        ) {
-          post.removeAttribute("hidden");
-        } else {
-          post.setAttribute("hidden", "true");
-        }
-      });
+    unhideInteractiveElements();
+    addEventListenersToButtons();
+    addEventListenersToCheckBox();
+    filterPosts();
 
-    const handleButton = (tag) => {
-      const thisButton = document.getElementById(`button-${tag}`);
-      const allButtons = document.querySelectorAll('[id^="button-"]');
-      allButtons.forEach((button) => button.removeAttribute("disabled"));
-      thisButton.setAttribute("disabled", true);
-      url.searchParams.set("tags", tag);
-      history.pushState({}, "", url.toString());
-      filterPosts();
-    };
+    function unhideInteractiveElements() {
+      document
+        .getElementById("tag-filter-button-group")
+        ?.removeAttribute("hidden");
+      document.getElementById("notes-toggle")?.removeAttribute("hidden");
+    }
 
-    const filterContainer = document.getElementById("filters");
-    const buttonGroup = document.createElement("div");
-    filterContainer.appendChild(buttonGroup);
-    const stageFilterContainer = document.getElementById("stage");
-    const tags = ["all", "innovation", "self-management"];
-    tags.map((tag) => {
-      const button = document.createElement("button");
-      button.innerText = tag;
-      buttonGroup.appendChild(button);
-      button.id = `button-${tag}`;
+    function addEventListenersToButtons() {
+      document
+        .querySelectorAll('[id^="tag-button-"]')
+        .forEach(function (currentValue) {
+          addButtonListener(currentValue);
+        });
+    }
 
-      button.addEventListener("click", () => handleButton(tag));
-      button.addEventListener("keydown", (event) => {
+    function addButtonListener(tagFilterButton) {
+      const tag = tagFilterButton.innerHTML.toString().trim();
+      tagFilterButton.addEventListener("click", () => handleButton(tag));
+      tagFilterButton.addEventListener("keydown", (event) => {
         if (event.keyCode === 13) handleButton(tag);
       });
-      button.addEventListener("keyup", (event) => {
+      tagFilterButton.addEventListener("keyup", (event) => {
         if (event.keyCode === 32) handleButton(tag);
       });
-      if (tag === "all") button.disabled = true;
-    });
+    }
 
-    stages.map((stage) => {
-      const label = document.createElement("label");
-      label.setAttribute("for", `${stage}Checkbox`);
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.name = `${stage}Checkbox`;
-      checkbox.checked = stage === "note" ? false : true;
+    function handleButton(tag) {
+      enableButtons();
+      disableTagButton(tag);
+      setURLSearchParam("tags", tag);
+      filterPosts();
+    }
 
-      checkbox.addEventListener("change", () => {
-        if (checkbox.checked) {
-          url.searchParams.set(stage + "s", "true");
-          history.pushState({}, "", url.toString());
-        } else {
-          url.searchParams.set(stage + "s", "false");
-          history.pushState({}, "", url.toString());
-        }
-        filterPosts();
+    function enableButtons() {
+      document
+        .querySelectorAll('[id^="tag-button-"]')
+        .forEach((button) => button.removeAttribute("disabled"));
+    }
+
+    function disableTagButton(tag) {
+      document
+        .getElementById(`tag-button-${tag}`)
+        ?.setAttribute("disabled", "true");
+    }
+
+    function setURLSearchParam(param, tag) {
+      url.searchParams.set(param, tag);
+      history.pushState({}, "", url.toString());
+    }
+
+    function addEventListenersToCheckBox() {
+      const toggleNotesCheckbox = document.getElementById("toggle");
+      toggleNotesCheckbox?.addEventListener("change", () =>
+        handleChange(toggleNotesCheckbox)
+      );
+    }
+
+    function handleChange(toggleNotesCheckbox) {
+      setURLSearchParam("notes", toggleNotesCheckbox.checked.toString());
+      filterPosts();
+    }
+
+    function filterPosts() {
+      posts.forEach((post) => {
+        isPostFiltered(post)
+          ? post.removeAttribute("hidden")
+          : post.setAttribute("hidden", "true");
       });
-      const stageFilterSpan = document.getElementById(`${stage}-label`);
-      stageFilterContainer.appendChild(label);
-      label.appendChild(checkbox);
-      label.appendChild(stageFilterSpan);
-    });
+    }
 
-    filterContainer.setAttribute("aria-role", "group");
-    filterContainer.setAttribute("aria-label", "filter controls");
+    function isPostFiltered(post) {
+      return isPostFilteredByTag(post) && isPostFilteredByNotes(post);
+    }
 
-    filterPosts();
+    function isPostFilteredByTag(post) {
+      return (
+        post.getAttribute("data-tag") === url.searchParams.get("tags") ||
+        url.searchParams.get("tags") === "all"
+      );
+    }
+
+    function isPostFilteredByNotes(post) {
+      return (
+        (url.searchParams.get("notes") === "true" &&
+          post.getAttribute("data-stage") + "s" === "notes") ||
+        post.getAttribute("data-stage") + "s" !== "notes"
+      );
+    }
   </script>
 </Layout>

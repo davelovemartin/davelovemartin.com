@@ -1,0 +1,39 @@
+---
+import Acorn from "@drawings/Acorn.astro";
+import Sapling from "@drawings/Sapling.astro";
+import Tree from "@drawings/Tree.astro";
+---
+
+<style is:global>
+  #stageKey {
+    font-size: var(--s-1);
+  }
+  #stageKey div {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-block-end: var(--s-1);
+  }
+  #stageKey div span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.0625rem;
+    flex-wrap: nowrap;
+  }
+
+  #stageKey div svg {
+    width: 48px;
+    height: 48px;
+    display: inline;
+  }
+</style>
+
+<div id="stageKey" transition:name="tag-name" transition:persist>
+  <div
+    >Key:
+    <span id="note-label"><Acorn />Notes</span>
+    <span id="essay-label"><Sapling />Essays</span>
+    <span id="reflection-label"><Tree />Reflections</span>
+  </div>
+</div>

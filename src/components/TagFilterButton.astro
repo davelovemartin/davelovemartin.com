@@ -1,0 +1,45 @@
+---
+import type { Tag } from "src/content/config";
+
+interface Props {
+  title: Tag | "all";
+  isDisabled: boolean;
+}
+const { title, isDisabled } = Astro.props;
+---
+
+<style>
+  .tagFilterButton {
+    all: unset;
+    background-color: var(--color-background-heavy);
+    border: 1px var(--color-foreground) solid;
+    font-size: var(--s-1);
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.25rem;
+    word-break: keep-all;
+    transition: all ease-in;
+    box-shadow: inset -1px -1px 1px var(--color-foreground);
+  }
+
+  .tagFilterButton:hover {
+    background-color: var(--color-highlight);
+  }
+
+  .tagFilterButton:focus {
+    outline: 2px solid var(--color-incidental);
+  }
+
+  .tagFilterButton:active {
+    box-shadow: none;
+  }
+
+  .tagFilterButton:disabled {
+    background-color: #ccc;
+    box-shadow: none;
+    border: none;
+  }
+</style>
+
+<button id={`tag-button-${title}`} class="tagFilterButton" disabled={isDisabled}
+  >{title}
+</button>

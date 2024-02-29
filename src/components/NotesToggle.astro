@@ -1,0 +1,27 @@
+---
+interface Props {
+  name: string;
+}
+
+const { name } = Astro.props;
+---
+
+<style>
+  #notes-toggle div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  #notes-toggle div span input {
+    width: var(--s1);
+    height: var(--s1);
+    line-height: 1.5;
+  }
+</style>
+
+<div id="notes-toggle" hidden>
+  <div>
+    <label for="toggle">Show notes:</label>
+    <span><input id="toggle" name="toggle" type="checkbox" /></span>
+  </div>
+</div>

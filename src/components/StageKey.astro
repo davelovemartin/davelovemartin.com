@@ -5,10 +5,8 @@ import Tree from "@drawings/Tree.astro";
 ---
 
 <style is:global>
-  #stageKey {
-    font-size: var(--s-1);
-  }
   #stageKey div {
+    font-size: var(--s-1);
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -30,8 +28,8 @@ import Tree from "@drawings/Tree.astro";
 </style>
 
 <div id="stageKey" transition:name="tag-name" transition:persist>
-  <div
-    >Key:
+  Key:
+  <div>
     <span id="note-label"><Acorn />Notes</span>
     <span id="essay-label"><Sapling />Essays</span>
     <span id="reflection-label"><Tree />Reflections</span>

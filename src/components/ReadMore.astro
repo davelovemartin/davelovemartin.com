@@ -10,17 +10,24 @@ const { tag, title } = Astro.props;
 const posts = await getCollection("thoughts");
 const filteredPosts = posts.filter(
   (post) =>
-    !post.data.draft && post.data.tag === tag && post.data.title !== title
+    !post.data.draft &&
+    post.data.tag === tag &&
+    post.data.title !== title &&
+    post.data.stage !== "note"
 );
 ---
 
 <hr />
-<h2>Read more&hellip;</h2>
-<ul>
-  {filteredPosts.map((post) => (
-    <li>
-      <a href={post.slug}>{post.data.title}</a>{" "}
-      <span>({post.data.description})</span>
-    </li>
-  ))}
-</ul>
+{filteredPosts.length > 0 && (
+  <>
+    <h2>Read more&hellip;</h2>
+    <ul>
+      {filteredPosts.map((post) => (
+        <li>
+          <a href={post.slug}>{post.data.title}</a>{" "}
+          <span>({post.data.description})</span>
+        </li>
+      ))}
+    </ul>
+  </>
+)}

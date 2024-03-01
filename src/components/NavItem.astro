@@ -16,7 +16,7 @@ const strip = (href) => {
   .nav-item {
     padding-top: var(--s0);
   }
-  .nav-item a {
+  .nav-item {
     display: inline-flex;
     justify-content: space-between;
     color: var(--color-incidental);
@@ -40,8 +40,8 @@ const strip = (href) => {
 </style>
 
 <div class="nav-item">
+  <slot />
   <a href={href} aria-current={currentPath === strip(href) ? "page" : ""}>
-    <slot />
     {title}
   </a>
 </div>

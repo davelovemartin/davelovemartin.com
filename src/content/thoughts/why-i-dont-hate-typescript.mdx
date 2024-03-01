@@ -1,0 +1,92 @@
+---
+title: Why I don't hate TypeScript (anymore)
+description: The two reasons that TypeScript is winning me over
+stage: essay
+lastEdited: 01.03.2024
+tag: code
+---
+
+import { Prism } from "@astrojs/prism";
+
+When I first started learning TypeScript, my immediate reaction was “this is going to slow me down”. Declaring types everywhere seemed like a recipe for verbose, convoluted and hard to read code.
+
+Until I started working in engineering teams, my speciality was creating prototypes for usability testing. The emphasis with rapid-prototyping is on the rapid, it's a quick way to test your working assumptions. I had no time for type checking (or unit tests for that matter). I had to make sure that we build the right thing, before we build the thing right.
+
+Well, now I think I'm coming round to not hating TypeScript for two reasons. Namely, Type Inference and Autocomplete
+
+## Type Inference
+
+My initial assumption that TypeScript demands explicit type declarations everywhere turned out to be wrong. What I didn't realise is that by strategically placing type definitions, the language can infer types throughout your code.
+
+For example, in this React component the `userValidator` object defines the expected structure of user data and then we benefit from type information without manual declarations in `User`. We've significantly reduced the need for explicit type annotations, improving code readability and maintainability.
+
+I'm using zod here because it has a really nice way to validate at runtime that something is the shape you expect.
+
+Zod also offers powerful inference features (`infer`) that allow you to pass a validator type and receive a type-safe output.
+
+<Prism
+  lang="tsx"
+  code={`
+import { useQuery } from "react";
+import z from 'zod';
+
+const userValidator = z.object({
+\tid: z.string().min(5).max(10),
+\temail: z.string().email().optional,
+\tusername: z.string(),
+});
+
+type UserType = z.infer<typeof userValidator>;
+
+const useUserData = (userId:string) => {
+\treturn useQuery(["user-query"], async () => {
+\t\tconst res = await fetch(\`api/user/\${userId}\`).json
+\t\treturn userValidator.parse(res)
+\t})
+}
+
+export const User: React.FC<{ userId: string}> = ({ userId }) => {
+\tconst { data } = useUserData(userId);
+
+\tif (!data) return <div>loading...</div>
+
+\t// we don't need to declare types here
+\t// because this is being inferred from
+\t// where we parse using the userValidator
+
+\treturn <div>{data.username}</div>
+}
+
+`}
+/>
+
+## Autocomplete
+
+Type inference empowers your IDE's autocomplete functionality. As you code, the IDE suggests valid options based on context and type information.
+
+Selecting a suggestion automatically inserts the code snippet while adhering to type requirements.
+
+Additionally, autocomplete can trigger informative popups displaying function details, variable types, and documentation, further enhancing the development experience.
+
+## Beyond the Initial Benefits
+
+While type inference and autocomplete are significant advantages, TypeScript offers additional benefits:
+
+- **Refactoring:** TypeScript facilitates code refactoring by highlighting potential issues stemming from type changes. This helps ensure the consistency and integrity of your codebase during modifications.
+- **JavaScript Compatibility:** Ultimately, TypeScript transpiles to JavaScript, ensuring seamless integration with existing web development workflows.
+
+## So, Should You Use TypeScript?
+
+The decision ultimately depends on project specifics. For quick prototypes, TypeScript might not be necessary.
+
+However, for more complex prototypes and production code requiring multiple iterations or involving multiple developers, TypeScript's type safety and enhanced development experience can be invaluable. Its features promote better code structure, reduce errors, and improve overall project maintainability.
+
+Do I love TypeScript? No, but it’s growing on me :)
+
+```
+
+```
+
+```
+
+```

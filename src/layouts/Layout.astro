@@ -278,10 +278,6 @@ const { title, description, lastEdited, stage, type } = Astro.props;
       h1 {
         margin-block: var(--s0);
       }
-      h1 + p,
-      h1 + div {
-        margin-block: 0;
-      }
 
       h1,
       h2,
@@ -326,7 +322,12 @@ const { title, description, lastEdited, stage, type } = Astro.props;
       }
       ul,
       ol {
-        padding-left: 3rem;
+        padding-left: 1.5rem;
+      }
+      p + ul,
+      h2 + ul,
+      h3 + ul {
+        margin-top: -1.5rem;
       }
       small {
         line-height: 2.25;

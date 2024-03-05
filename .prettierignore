@@ -1,3 +1,4 @@
-src/pages/thoughts.astro
+src/pages/digital-garden.astro
 src/pages/index.astro
 src/components/GraphicBackground.module.css
+src/components/Post.astro

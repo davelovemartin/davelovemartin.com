@@ -33,6 +33,8 @@
     "@astrojs/prism": "^3.0.0",
     "@fontsource/comic-mono": "^4.5.3",
     "@gsap/react": "^2.1.0",
+    "axios": "^1.6.7",
+    "dotenv": "^16.4.5",
     "gsap": "^3.12.5",
     "slugify": "^1.6.6"
   }

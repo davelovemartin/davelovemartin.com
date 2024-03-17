@@ -1,0 +1,225 @@
+---
+title: Clean, pure and simple
+description: Functional react with hooks
+stage: note
+lastEdited: 05.03.2024
+tag: code
+---
+
+import { Prism } from "@astrojs/prism";
+import Weather from "@components/Weather.tsx";
+
+In the world of programming, we wield immense creative power. We have a multitude of tools and techniques at our disposal, and the freedom to choose the style and approach that best tackles a problem.
+
+This flexibility, however, comes with responsibility — ensuring our code is understandable by others, including our future selves.
+
+## Clean
+
+Clean code is the cornerstone of this responsibility. Written with clarity and purpose in mind, clean code is code that not only functions correctly but also communicates its intent effectively.
+
+Clear code becomes self-documenting, reducing reliance on comments and making it easier to decipher its logic and functionality.
+
+### Why is clean code so important?
+
+- Maintainability — As projects evolve and new features are added, clean code is easier to modify and adapt.
+- Collaboration — When working on team projects, members can quickly grasp the code's purpose and functionality, leading to smoother development and fewer errors.
+- Readability — Clean code is readable, allowing programmers of all experience levels to understand its inner workings and learn from it.
+
+Clean code isn't about following rigid rules, but striking a balance between efficiency and clarity. By prioritizing readability and maintainability, we empower ourselves and others not just to solve problems, but to solve them elegantly.
+
+### How to write clean code
+
+Use meaningful names that reveal the intention of the function or variable you are naming. Don’t abbreviate or try to be cute.
+
+Use small components that just do one thing. This makes your code easier to test, maintain and scale, gives good separation of concerns and performance benefits.
+
+Limit blocks and indentation wherever possible.
+
+In JavaScript, use modern syntax like the spread operator — to create new objects and arrays without modifying original data - and use conditional rendering and ternary operators.
+
+Keep your code DRY...
+
+A core tenet of clean code is the DRY principle. Don't repeat yourself. This means avoiding the duplication of logic or functionality throughout your codebase.
+
+By factoring out repetitive code into functions or helper methods, you improve maintainability. If a change needs to be made, you only need to modify it in one place, ensuring consistency and reducing the risk of errors.
+
+DRY code promotes efficiency and makes your codebase more streamlined.
+
+## Pure
+
+The concept of clean code aligns with the principles of functional programming.
+
+Functional programming emphasizes immutability, meaning data doesn't change after creation, and pure functions, where the output solely depends on the input. This approach fosters code that is inherently clean, predictable, and easier to reason about.
+
+Functional programming uses pure functions as its primary units of composition.
+
+Pure functions have two key characteristics:
+
+- they're deterministic — from the same inputs, we should always expect the same outputs. We can have good code coverage and fewer bugs.
+- no side effects — they don’t modify external state and solely rely on their inputs to produce their outputs. This isolation means that they are modular and composable.
+
+The benefits of pure functions are:
+
+- composability — code can be re-used and combined to create more complex logic,
+- predictabililty — we can reliably expect the same output from a set of inputs.
+- testability — we can test this predictability.
+
+Functional programming is declarative as opposed to imperative, meaning that we specify the desired outcome or state without dictating the specific steps to achieve it.
+
+Take a restaurant as an example, the customer says "table for two" and the restaurant takes care of the rest. That's being declarative.
+
+We can write this as `requestTable(guestList)`. We shouldn’t care how that function works, just that it gets you your table and seats everyone in the guest list.
+
+Handling `requestTable` may kick off to several more declarative functions:
+
+- `notifyServers(tableNumber)`,
+- `receiveFoodOrder(items)`,
+- `openTab(guest)` and so on...
+
+We do need to handle the details. But we use libraries or write helpers and utilities that abstract away this imperative code.
+
+Name your functions well and your code should read like a novel.
+
+## Simple React with Hooks
+
+Writing React with Functional Programming has been possible since the introduction of Hooks.
+
+Hooks are a great way to abstract logic and keep your code clean and DRY.
+
+Hooks can only be used in functional components. So that hooks are called in the same order each time a component renders, they must not be called from inside a conditional statement, loop or nested functions. Declare them at the top of your component.
+
+React comes with some really useful hooks out of the box:
+
+- `useState`,
+- `useRef`,
+- `useEffect`, and
+- `useContext`.
+
+### useState
+
+Great for managing state. No need to reach for a library. Declare by deconstructing an array with two values (the convention is using `something` and `setSomething`) and the useState hook function which you can pass an initial value:
+
+<Prism
+  lang="jsx"
+  code={`const [location, setLocation] = useState('Bristol');`}
+/>
+
+If you declare the initial state as a function, it will only compute the first time it's initialised (not on each re-render).
+
+Be explicit about what's stored in each useState hook (you can declare as many as you need) rather than storing state in an object. You can store state in an object but when you update the state, you'll need to remember to spread the rest of the object as it doesn't automatically merge.
+
+When you set state, you can pass the next state directly, but when you need to calculate it from the previous state, pass in the previous state in a function.
+
+<Prism lang="jsx" code={`setCount(previousState => previousState + 1)`} />
+
+If we don’t pass in the previous state, we are only passing in the value of state when the function renders.
+
+### useRef
+
+`useRef` can also persits state between renders of a component but a ref won't cause your component to re-render when its value updates.
+
+It returns an object: `{ current: x }` where `x` is the value you want to persist.
+
+It's mostly used to reference DOM nodes:
+
+<Prism lang="tsx" code={`const inputRef = useRef<HTMLInputElement>(null);
+
+inputRef.current?.focus();
+
+<input
+  ref={inputRef}
+  value={name}
+  onChange={(e) => setLocation(e.target.value)}
+/>
+`} />
+
+### useEffect
+
+`useEffect`'s intention is to utilise side-effects to connect with external systems. So, fetching data is a good example:
+
+<Prism
+  lang="jsx"
+  code={`useEffect(() => {
+    fetchWeather()
+      .then((data) => data.json())
+      .then((json) => {
+        setWeather(json);
+      })
+      .catch((error) => setErrorMessage(error.message || defaultErrorMessage));
+  }, [location]);
+`}
+/>
+
+As you can see, the `useEffect` hook takes two arguments, the effect logic and its dependencies (an array of state values). The effect will run when each time the dependencies change.
+
+If you pass in nothing to the dependency array, it will run the effect when component renders, although if you can calculate something during render, [you don’t need an effect](https://react.dev/learn/you-might-not-need-an-effect).
+
+Adding a return function to the `useEffect` allows you to create clean up functionality. For example, if you create an event listener in the `useEffect` set-up, you can remove them in the return statement.
+
+### useContext
+
+Props are values passed down to a component from a parent. By using the `useContext` hook we can pass down values to all descendants of a component, not just its children but their children too. This avoids so called prop drilling which can get quite onerous.
+
+In this weather widget, we can a `createContext` function to pass down our weather report to the elements that display the weather data:
+
+<Prism
+  lang="tsx"
+  code={`import React, {
+  createContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import WeatherDisplay from "./WeatherDisplay";
+
+export const WeatherContext = createContext(null);
+
+const Weather = () => {
+\tconst [weather, setWeather] = useState<WeatherData>();
+\tconst [errorMessage, setErrorMessage] = useState("");
+\tconst [inputValue, setInputValue] = useState("");
+\tconst [location, setLocation] = useState("Bristol");
+
+\tconst inputRef = useRef(null);
+
+\tuseEffect(() => {
+\t\tfetchWeather()
+\t\t\t.then((data) => data.json())
+\t\t\t.then((json) => setWeather(json))
+\t\t\t.catch((error) => setErrorMessage(error.message || defaultErrorMessage));
+\t\tfocus(inputRef);
+\t}, [location]);
+
+\tfunction focus(inputRef: React.RefObject<HTMLInputElement>) {
+\t\tinputRef.current?.focus();
+\t}
+
+\treturn (
+\t\t<div className={style.weather}>
+\t\t\t{weather && (
+\t\t\t\t<WeatherContext.Provider value={weather}>
+\t\t\t\t\t<WeatherDisplay />
+\t\t\t\t</WeatherContext.Provider>
+\t\t\t)}
+\t\t\t<LocationInput
+\t\t\t\tinputRef={inputRef}
+\t\t\t\tonChange={(e) => setInputValue(e.target.value)}
+\t\t\t/>
+\t\t\t<LocationButton
+\t\t\t\tonClick={() => setLocation(inputValue)}
+\t\t\t\ttitle="check weather"
+\t\t\t/>
+\t\t\t{errorMessage && <p>{errorMessage}</p>}
+\t\t</div>
+\t);
+};
+
+export default Weather;
+`}
+/>
+
+<Weather client:load />
+
+<a href="https://www.weatherapi.com/" title="Free Weather API">
+  WeatherAPI.com
+</a>

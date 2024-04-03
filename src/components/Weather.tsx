@@ -62,7 +62,7 @@ const Weather = () => {
   async function fetchWeather(location: string) {
     try {
       const weatherResponse = await fetch(
-        `http://localhost:8888/.netlify/functions/getWeather?location=${location}`
+        `https://www.davelovemartin.com/.netlify/functions/getWeather?location=${location}`
       );
       const json = (await weatherResponse.json()) as WeatherData;
       setWeather(json);

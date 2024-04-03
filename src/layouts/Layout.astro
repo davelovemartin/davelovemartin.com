@@ -91,7 +91,7 @@ const { title, description, lastEdited, stage, type } = Astro.props;
       :root {
         /* colour palette */
         --color-foreground: #2c363f;
-        --color-foreground-lite: #1e374d;
+        --color-foreground-lite: #2c5172;
         --color-background: #fef9ef;
         --color-background-heavy: #ffdead;
         --color-highlight: #ffad33;
@@ -207,11 +207,6 @@ const { title, description, lastEdited, stage, type } = Astro.props;
       figcaption,
       figure,
       form,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6,
       hgroup,
       hr,
       p,
@@ -239,15 +234,17 @@ const { title, description, lastEdited, stage, type } = Astro.props;
       h2,
       .font-xl {
         line-height: 1;
-        font-variation-settings: "wdth" 100, "wght" 600;
+        font-variation-settings: "wdth" 100, "wght" 800;
         font-size: var(--s1);
         letter-spacing: -0.025em;
+        margin-block-start: var(--s1);
       }
       h3,
       .font-l {
-        font-variation-settings: "wdth" 100, "wght" 500;
+        font-variation-settings: "wdth" 100, "wght" 800;
         font-size: var(--s0);
         letter-spacing: -0.025em;
+        margin-block-start: var(--s1);
       }
       strong {
         font-variation-settings: "wdth" 100, "wght" 600;
@@ -324,9 +321,7 @@ const { title, description, lastEdited, stage, type } = Astro.props;
       ol {
         padding-left: 1.5rem;
       }
-      p + ul,
-      h2 + ul,
-      h3 + ul {
+      p + ul {
         margin-top: -1.5rem;
       }
       small {

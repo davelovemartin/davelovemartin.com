@@ -1,10 +1,19 @@
-import React, { useContext } from "react";
-import { WeatherContext } from "./Weather";
+import React from "react";
+import WeatherConditions from "./WeatherConditions.tsx";
+import WeatherTemperature from "./WeatherTemperature.tsx";
+import WeatherLocation from "./WeatherLocation.tsx";
+import WeatherIcon from "./WeatherIcon.tsx";
+import type { WeatherData } from "./Weather.tsx";
 
-const WeatherDisplay: React.FC = () => {
-  const weather = useContext(WeatherContext);
-  if (!weather) return;
-  return <p>{weather.current.condition.text ?? ""}</p>;
+export const WeatherDisplay: React.FC<{ weather: WeatherData }> = ({
+  weather,
+}) => {
+  return (
+    <>
+      <WeatherIcon weather={weather} />
+      <WeatherLocation weather={weather} />
+      <WeatherConditions weather={weather} />
+      <WeatherTemperature weather={weather} />
+    </>
+  );
 };
-
-export default WeatherDisplay;

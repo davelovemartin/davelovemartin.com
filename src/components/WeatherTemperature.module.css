@@ -1,0 +1,8 @@
+.weatherTemperature {
+  font-size: var(--s2);
+  line-height: 1;
+  color: var(--color-foreground);
+}
+.weatherTemperature span {
+  color: var(--color-foreground-lite);
+}

@@ -4,6 +4,7 @@
     "strictNullChecks": true,
     "baseUrl": ".",
     "jsx": "react",
+    "allowSyntheticDefaultImports": true,
     "paths": {
       "@components/*": ["src/components/*"],
       "@layouts/*": ["src/layouts/*"],

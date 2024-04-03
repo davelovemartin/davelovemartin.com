@@ -1,0 +1,7 @@
+.weatherLocation {
+  font-size: var(--s1);
+  margin-block-start: 0;
+}
+.weatherLocation div:nth-of-type(2) {
+  font-size: var(--s-1);
+}

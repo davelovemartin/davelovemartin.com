@@ -1,6 +1,6 @@
-import React, { createContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { z } from "zod";
-import WeatherDisplay from "./WeatherDisplay";
+import { WeatherDisplay } from "./WeatherDisplay.tsx";
 import style from "./Weather.module.css";
 
 const WeatherData = z.object({
@@ -15,23 +15,28 @@ const WeatherData = z.object({
     tz_id: z.string(),
   }),
   current: z.object({
+    temp_c: z.number(),
     condition: z.object({
       text: z.string(),
     }),
   }),
 });
 
-type WeatherData = z.infer<typeof WeatherData>;
-
-type WeatherContextType = {
-  weather: WeatherData;
-};
+export type WeatherData = z.infer<typeof WeatherData> | undefined;
 
 const LocationInput: React.FC<{
   inputRef: React.Ref<HTMLInputElement>;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }> = ({ inputRef, onChange }) => (
-  <input ref={inputRef} type="text" name="location" onChange={onChange}></input>
+  <label>
+    Location:
+    <input
+      ref={inputRef}
+      type="text"
+      name="location"
+      onChange={onChange}
+    ></input>
+  </label>
 );
 
 const LocationButton: React.FC<{
@@ -40,8 +45,6 @@ const LocationButton: React.FC<{
 }> = ({ onClick, title }) => <button onClick={onClick}>{title}</button>;
 
 const defaultErrorMessage = "An error occurred while fetching weather";
-
-export const WeatherContext = createContext<WeatherContextType | null>(null);
 
 const Weather = () => {
   const [weather, setWeather] = useState<WeatherData>();
@@ -52,21 +55,21 @@ const Weather = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    fetchWeather()
-      .then((data) => data.json())
-      .then((json) => setWeather(json))
-      .catch((error) => setErrorMessage(error.message || defaultErrorMessage));
     focus(inputRef);
+    fetchWeather(location);
   }, [location]);
 
-  async function fetchWeather() {
-    const weatherResponse = await fetch(
-      `http://localhost:8888/.netlify/functions/getWeather?location=${location}`
-    );
-    if (!weatherResponse.ok) {
-      throw new Error(`API call failed with status ${weatherResponse.status}`);
+  async function fetchWeather(location: string) {
+    try {
+      const weatherResponse = await fetch(
+        `http://localhost:8888/.netlify/functions/getWeather?location=${location}`
+      );
+      const json = (await weatherResponse.json()) as WeatherData;
+      setWeather(json);
+    } catch (error) {
+      console.log(error);
+      setErrorMessage(error.message || defaultErrorMessage);
     }
-    return weatherResponse;
   }
 
   function focus(inputRef: React.RefObject<HTMLInputElement>) {
@@ -75,20 +78,26 @@ const Weather = () => {
 
   return (
     <div className={style.weather}>
-      {weather && (
-        <WeatherContext.Provider value={weather}>
-          <WeatherDisplay />
-        </WeatherContext.Provider>
-      )}
-      <LocationInput
-        inputRef={inputRef}
-        onChange={(e) => setInputValue(e.target.value)}
-      />
-      <LocationButton
-        onClick={() => setLocation(inputValue)}
-        title="check weather"
-      />
+      <WeatherDisplay weather={weather} />
+      <div className={style.form}>
+        <LocationInput
+          inputRef={inputRef}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setInputValue(e.target.value)
+          }
+        />
+        <LocationButton
+          onClick={() => setLocation(inputValue)}
+          title="check weather"
+        />
+      </div>
       {errorMessage && <p>{errorMessage}</p>}
+      <small>
+        powered by:{" "}
+        <a href="https://www.weatherapi.com/" title="Free Weather API">
+          WeatherAPI.com
+        </a>
+      </small>
     </div>
   );
 };

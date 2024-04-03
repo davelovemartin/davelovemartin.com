@@ -7,17 +7,12 @@ tag: code
 ---
 
 import { Prism } from "@astrojs/prism";
-import Weather from "@components/Weather.tsx";
+import WeatherWidget from "@components/WeatherWidget.astro";
 
-In the world of programming, we wield immense creative power. We have a multitude of tools and techniques at our disposal, and the freedom to choose the style and approach that best tackles a problem.
+If you've ever looked back at old code and thought, what the hell was I doing? There is a way to write code so that it reads like a book.
 
-This flexibility, however, comes with responsibility — ensuring our code is understandable by others, including our future selves.
-
-## Clean
-
-Clean code is the cornerstone of this responsibility. Written with clarity and purpose in mind, clean code is code that not only functions correctly but also communicates its intent effectively.
-
-Clear code becomes self-documenting, reducing reliance on comments and making it easier to decipher its logic and functionality.
+## Clean code
+Clean code is a style of programming written with clarity and purpose in mind. The idea is that the code becomes self-documenting, reducing reliance on comments and making it easier to understand what it does.
 
 ### Why is clean code so important?
 
@@ -35,9 +30,9 @@ Use small components that just do one thing. This makes your code easier to test
 
 Limit blocks and indentation wherever possible.
 
-In JavaScript, use modern syntax like the spread operator — to create new objects and arrays without modifying original data - and use conditional rendering and ternary operators.
+In JavaScript, use modern syntax, like the spread operator — to create new objects and arrays without modifying original data. Use conditional rendering and ternary operators.
 
-Keep your code DRY...
+### Keep your code DRY...
 
 A core tenet of clean code is the DRY principle. Don't repeat yourself. This means avoiding the duplication of logic or functionality throughout your codebase.
 
@@ -62,7 +57,7 @@ The benefits of pure functions are:
 
 - composability — code can be re-used and combined to create more complex logic,
 - predictabililty — we can reliably expect the same output from a set of inputs.
-- testability — we can test this predictability.
+- testability — we can put this predictability to the test and be confident the function works as intended.
 
 Functional programming is declarative as opposed to imperative, meaning that we specify the desired outcome or state without dictating the specific steps to achieve it.
 
@@ -110,19 +105,25 @@ Be explicit about what's stored in each useState hook (you can declare as many a
 
 When you set state, you can pass the next state directly, but when you need to calculate it from the previous state, pass in the previous state in a function.
 
-<Prism lang="jsx" code={`setCount(previousState => previousState + 1)`} />
+<Prism
+  lang="jsx"
+  code={`
+function incrementCount() {
+  setCount(previousState => previousState + 1)
+}
+  `}
+/>
 
 If we don’t pass in the previous state, we are only passing in the value of state when the function renders.
 
 ### useRef
-
-`useRef` can also persits state between renders of a component but a ref won't cause your component to re-render when its value updates.
+`useRef` can also persists values between renders of a component but a ref won't cause your component to re-render when its value updates.
 
 It returns an object: `{ current: x }` where `x` is the value you want to persist.
 
 It's mostly used to reference DOM nodes:
 
-<Prism lang="tsx" code={`const inputRef = useRef<HTMLInputElement>(null);
+<Prism lang="tsx" code={`const inputRef = useRef(null);
 
 inputRef.current?.focus();
 
@@ -163,19 +164,23 @@ Props are values passed down to a component from a parent. By using the `useCont
 In this weather widget, we can a `createContext` function to pass down our weather report to the elements that display the weather data:
 
 <Prism
-  lang="tsx"
+  lang="jsx"
   code={`import React, {
   createContext,
   useEffect,
   useRef,
   useState,
 } from "react";
-import WeatherDisplay from "./WeatherDisplay";
+import { WeatherDisplay } from "./WeatherDisplay";
+import { LocationInput } from "./LocationInput";
+import { LocationButton } from "./LocationButton";
+
+import { weatherResponse } from "./weatherResponse";
 
 export const WeatherContext = createContext(null);
 
 const Weather = () => {
-\tconst [weather, setWeather] = useState<WeatherData>();
+\tconst [weather, setWeather] = useState();
 \tconst [errorMessage, setErrorMessage] = useState("");
 \tconst [inputValue, setInputValue] = useState("");
 \tconst [location, setLocation] = useState("Bristol");
@@ -183,24 +188,29 @@ const Weather = () => {
 \tconst inputRef = useRef(null);
 
 \tuseEffect(() => {
-\t\tfetchWeather()
-\t\t\t.then((data) => data.json())
-\t\t\t.then((json) => setWeather(json))
-\t\t\t.catch((error) => setErrorMessage(error.message || defaultErrorMessage));
+\t\tfetchWeather(location)
 \t\tfocus(inputRef);
 \t}, [location]);
 
-\tfunction focus(inputRef: React.RefObject<HTMLInputElement>) {
+\tasync function fetchWeather(location) {
+\t\ttry {
+\t\t\tconst json = await weatherResponse(location);
+\t\t\tsetWeather(json);
+\t\t} catch (error) {
+\t\t\tconsole.log(error);
+\t\t\tsetErrorMessage(error.message || defaultErrorMessage);
+\t\t}
+\t}
+
+\tfunction focus(inputRef) {
 \t\tinputRef.current?.focus();
 \t}
 
 \treturn (
 \t\t<div className={style.weather}>
-\t\t\t{weather && (
-\t\t\t\t<WeatherContext.Provider value={weather}>
-\t\t\t\t\t<WeatherDisplay />
-\t\t\t\t</WeatherContext.Provider>
-\t\t\t)}
+\t\t\t<WeatherContext.Provider value={weather}>
+\t\t\t\t<WeatherDisplay />
+\t\t\t</WeatherContext.Provider>
 \t\t\t<LocationInput
 \t\t\t\tinputRef={inputRef}
 \t\t\t\tonChange={(e) => setInputValue(e.target.value)}
@@ -218,8 +228,28 @@ export default Weather;
 `}
 />
 
-<Weather client:load />
+Here we provide the weather to all descendants of the `WeatherDisplay` component. So, we might have an element that is part of the weather display. All we have to do is import the context and assign it to a variable.
 
-<a href="https://www.weatherapi.com/" title="Free Weather API">
-  WeatherAPI.com
-</a>
+As we avoid passing down the prop down multiple levels of components, we minimise the amount of code that needs to be written.
+
+<Prism
+  lang="jsx"
+  code={`import React from "react";
+import { WeatherContext } from "./Weather";
+
+const WeatherTemperature = () => {
+\tconst weather = useContext(WeatherContext);
+\treturn (
+\t\t<div className={style.weatherTemperature}>
+\t\t\t{weather?.current?.temp_c}
+\t\t\t<span>°C</span>
+\t\t</div>
+\t);
+};
+
+export default WeatherTemperature;
+  `} />
+
+By following these practices and leveraging Hooks, you can write clean, maintainable, and elegant React code that makes your applications a joy to work with.
+
+<WeatherWidget />
